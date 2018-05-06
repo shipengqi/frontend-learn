@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mVue demo</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="message">
+    <p>{{ message }}</p>
+    <button v-on:click="sayHello">sayHello</button>
+</div>
+
+<script src="./js/observer.js"></script>
+<script src="./js/watcher.js"></script>
+<script src="./js/compile.js"></script>
+<script src="./js/mVue.js"></script>
+<script>
+  var vm = new mVue({
+    el: '#app',
+    data: {
+      message: 'Hello mVue!'
+    },
+    methods: {
+      sayHello: function() {
+        this.message = 'Hello!';
+      }
+    }
+  });
+</script>
+</body>
+</html>
