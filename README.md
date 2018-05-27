@@ -345,7 +345,7 @@ mVue.prototype = {
 </html>
 ```
 
-<img src="/img/result.gif" width="80%" height="">
+<img src="/img/result.gif" height="">
 
 ## 总结
 - Observer利用`Obeject.defineProperty()`来监听属性变动，监控data的属性值，如有变动可拿到最新值并通知订阅者。
