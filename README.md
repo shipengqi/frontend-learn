@@ -222,6 +222,23 @@ compileText: function(node, exp) {
       self.updateText(node, value);
     });
 },
+compileModel: function (node, vm, exp, dir) {
+    var self = this;
+    var val = this.vm[exp];
+    this.modelUpdater(node, val);
+    new Watcher(this.vm, exp, function (value) {
+      self.modelUpdater(node, value);
+    });
+
+    node.addEventListener('input', function(e) {
+      var newValue = e.target.value;
+      if (val === newValue) {
+        return;
+      }
+      self.vm[exp] = newValue;
+      val = newValue;
+    });
+},
 isElementNode: function (node) {
     return node.nodeType === 1;
 },
@@ -231,6 +248,7 @@ isTextNode: function(node) {
 ```
 ### watcher
 订阅者Watcher在初始化的时候需要将自己添加进订阅器Dep中
+
 ```javascript
 function Watcher(vm, exp, cb) {
   this.cb = cb;
@@ -245,7 +263,7 @@ Watcher.prototype = {
     this.run();
   },
   run: function() {
-    var value = this.get();// 取到最新值
+    var value = this.get();// 获取最新值
     var oldVal = this.value;
     if (value !== oldVal) {
       this.value = value;
@@ -253,12 +271,90 @@ Watcher.prototype = {
     }
   },
   get: function() {
-    Dep.target = this;  // 缓存自己
-    var value = this.vm.data[this.exp]; // 强制触发getter，添加自己到属性订阅器中
-    Dep.target = null;  // 释放自己
+    Dep.target = this;  // 缓存当前Watcher对象
+    var value = this.vm.data[this.exp]; // 触发getter，添加自己到属性订阅器中
+    Dep.target = null;  // 释放Watcher对象
     return value;
   }
 };
 ```
+
+## mVue
+```javascript
+function mVue (options) {
+  var self = this;
+  this.data = options.data;
+  this.methods = options.methods;
+  Object.keys(this.data).forEach(function(key) {
+    self.proxyKeys(key);
+  });
+
+  observe(this.data);
+  new Compile(options.el, this);
+}
+
+mVue.prototype = {
+  proxyKeys: function (key) {
+    var self = this;
+    Object.defineProperty(this, key, {
+      enumerable: false,
+      configurable: true,
+      get: function getter () {
+        return self.data[key];
+      },
+      set: function setter (newVal) {
+        self.data[key] = newVal;
+      }
+    });
+  }
+};
+```
+## 效果
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mVue demo</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="message">
+    <p>{{ message }}</p>
+    <button v-on:click="sayHello">sayHello</button>
+</div>
+
+<script src="./js/observer.js"></script>
+<script src="./js/watcher.js"></script>
+<script src="./js/compile.js"></script>
+<script src="./js/mVue.js"></script>
+<script>
+  var vm = new mVue({
+    el: '#app',
+    data: {
+      message: 'Hello mVue!'
+    },
+    methods: {
+      sayHello: function() {
+        this.message = 'Hello!';
+      }
+    }
+  });
+</script>
+</body>
+</html>
+```
+
+<img src="/img/result.gif" width="80%" height="">
+
+## 总结
+- Observer利用`Obeject.defineProperty()`来监听属性变动，监控data的属性值，如有变动可拿到最新值并通知订阅者。
+- Dep对象作为一个收集订阅者的容器，实现了订阅发布模式（一对多），当状态发生改变时就会通知所有订阅者对象。
+- Compile来做解析和绑定工作：
+  - 解析模板指令(v-model)，并替换模板数据(双大括号)，初始化视图。
+  - 将模板指令对应的节点绑定对应的更新函数，初始化相应的订阅器。
+  - 操作DocumentFragment节点，要比直接操作 DOM 快得多，所以为提高性能和效率，可以先建一个fragment片段，将需要解析的dom节点存入fragment片段里再进行处理。
+  - 注意解析v-model指令，只是给可输入节点通过 `addEventListener` 监听 `input`事件，并在回调函数修改data对象对应属性的值。
+- mVue 通过`proxyKeys`方法代理data对象的所有属性。
 
 

@@ -68,6 +68,7 @@ Compile.prototype = {
   },
   compileText: function(node, exp) {
     var self = this;
+    exp = exp ? exp.trim() : "";
     var initText = this.vm[exp];
     this.updateText(node, initText);
     new Watcher(this.vm, exp, function (value) {
