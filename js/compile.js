@@ -18,14 +18,14 @@ Compile.prototype = {
       this.compileElement(this.fragment);
       this.el.appendChild(this.fragment);
     } else {
-      console.log('Dom元素不存在');
+      console.log('Cannot find the element.');
     }
   },
   nodeToFragment: function (el) {
     var fragment = document.createDocumentFragment();
     var child = el.firstChild;
+    // 将Dom节点拷贝到fragment中
     while (child) {
-      // 将Dom元素移入fragment中
       fragment.appendChild(child);
       child = el.firstChild
     }
@@ -37,13 +37,13 @@ Compile.prototype = {
     [].slice.call(childNodes).forEach(function(node) {
       var reg = /\{\{(.*)\}\}/;
       var text = node.textContent;
-
+      // 按元素节点方式编译
       if (self.isElementNode(node)) {
         self.compile(node);
-      } else if (self.isTextNode(node) && reg.test(text)) {
+      } else if (self.isTextNode(node) && reg.test(text)) { // 判断是否是符合这种形式{{}}的指令
         self.compileText(node, reg.exec(text)[1]);
       }
-
+      // 遍历编译子节点
       if (node.childNodes && node.childNodes.length) {
         self.compileElement(node);
       }
