@@ -1,36 +1,36 @@
 # mVue
 
-Vue学习并使用了一段时间，对vue如何实现双向绑定有了初步的理解，这里参考[vue源码](https://github.com/vuejs/vue)，尝试一步步实现一个简单的MVVM。
+`Vue`学习并使用了一段时间，对`Vue`如何实现双向绑定有了初步的理解，这里参考[`Vue`源码](https://github.com/vuejs/vue)，尝试一步步实现一个简单的`MVVM`。
 
 ## 单向数据绑定
-现在主流的MVC框架都实现了单向数据绑定，单向数据绑定就是先把模板写好，把模板和数据整合并形成HTML代码，
-然后把这段HTML代码插入到文档。但是HTML代码一旦生成以后，就无法再变了，如果数据改变，就必须替换掉HTML代码。
+现在主流的`MVC`框架都实现了单向数据绑定，单向数据绑定就是先把模板写好，把模板和数据整合并形成HTML代码，
+然后把这段`HTML`代码插入到文档。但是HTML代码一旦生成以后，就无法再变了，如果数据改变，就必须替换掉HTML代码。
 
 ## 实现双向绑定的方法
-双向绑定，其实就是在单向绑定的基础上给`input`、`textarea`等可输入元素添加了change(input)事件，实现动态修改model和 view。
+双向绑定，其实就是在单向绑定的基础上给`input`、`textarea`等可输入元素添加了`change(input)`事件，实现动态修改`model`和`view`。
 
 ### 发布订阅模式 （backbone.js）
-使用自定义的data属性在HTML代码中指明绑定。所有绑定起来的JavaScript对象以及DOM元素都将**订阅**一个发布者对象。
-如果JavaScript对象或者一个HTML输入字段被侦测到发生了变化，将代理事件到发布者-订阅者模式，反过来将变化广播并传播到所有绑定的对象和元素。
+使用自定义的`data`属性在`HTML`代码中指明绑定。所有绑定起来的`JavaScript`对象以及`DOM`元素都将**订阅**一个发布者对象。
+如果`JavaScript`对象或者一个`HTML`输入字段被侦测到发生了变化，将代理事件到发布者-订阅者模式，反过来将变化广播并传播到所有绑定的对象和元素。
 
 ### 脏值检查（angular.js）
-Angular的实现方式，当发生了某种事件（例如输入），Angular会检查新的数据结构和之前的数据结构是否发生了变动，来决定是否更新视图。
-最简单的方式就是通过 setInterval() 定时轮询检测数据变动，Angular只有在下面的事件触发时才会进入脏值检测：
+Angular的实现方式，当发生了某种事件（例如输入），`Angular`会检查新的数据结构和之前的数据结构是否发生了变动，来决定是否更新视图。
+最简单的方式就是通过`setInterval()`定时轮询检测数据变动，`Angular`只有在下面的事件触发时才会进入脏值检测：
 
-- DOM事件，譬如用户输入文本，点击按钮等。( ng-click )
-- XHR响应事件 ( $http )
-- 浏览器Location变更事件 ( $location )
-- Timer事件( $timeout , $interval )
-- 执行 $digest() 或 $apply()
+- `DOM`事件，譬如用户输入文本，点击按钮等。(`ng-click`)
+- `XHR`响应事件 (`$http`)
+- 浏览器`Location`变更事件 (`$location`)
+- `Timer`事件(`$timeout`, `$interval`)
+- 执行`$digest()`或`$apply()`
 
 ### 数据劫持（vue.js）
-vue.js 则是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+`Vue.js`则是采用数据劫持结合发布者-订阅者模式的方式，通过`Object.defineProperty()`来劫持各个属性的`setter`，`getter`，在数据变动时发布消息给订阅者，触发相应的监听回调。
 
 ## 实现思路
 
 ### Object.defineProperty
 
-了解了原理，Vue最核心的方法便是通过`Object.defineProperty()`实现对属性的劫持，监听数据变动。先了解一下`Object.defineProperty`。
+了解了原理，`Vue`最核心的方法便是通过`Object.defineProperty()`实现对属性的劫持，监听数据变动。先了解一下`Object.defineProperty`。
 `Object.defineProperty`方法允许通过属性描述对象，定义或修改一个属性，然后返回修改后的对象，用法：
 ```javascript
 Object.defineProperty(object, propertyName, attributesObject)
@@ -49,21 +49,21 @@ obj.name = 'xiaogang';
 obj.name // 'xiaoming'
 ```
 `Object.defineProperty`方法有三个参数：
-- object：定义或修改属性的对象(Object)
-- propertyName：属性名（String）
-- attributesObject：属性描述对象(Object)
-  - value：属性的值，默认是`undefined`
-  - writable：(Boolean) 属性值是否可写，默认为true
-  - enumerable：(Boolean) 属性是否可遍历，默认为true。如果设为false，会使得某些操作（比如for...in循环、Object.keys()）跳过该属性。
-  - configurable：(Boolean) 是否可配置，默认为true。如果设为false，将阻止某些操作，比如无法删除该属性，也不得改变该属性的属性描述对象（value属性除外）。
-  也就是说，configurable属性控制了属性描述对象的可写性。
-  - get：是一个函数，表示该属性的取值函数（getter），默认为undefined。
-  - set：是一个函数，表示该属性的存值函数（setter），默认为undefined。
+- `object`：定义或修改属性的对象(`Object`)
+- `propertyName`：属性名（`String`）
+- `attributesObject`：属性描述对象(`Object`)
+  - `value`：属性的值，默认是`undefined`
+  - `writable`：(`Boolean`) 属性值是否可写，默认为`true`
+  - `enumerable`：(`Boolean`) 属性是否可遍历，默认为`true`。如果设为`false`，会使得某些操作（比如`for...in`循环、`Object.keys()`）跳过该属性。
+  - `configurable`：(`Boolean`) 是否可配置，默认为`true`。如果设为`false`，将阻止某些操作，比如无法删除该属性，也不得改变该属性的属性描述对象（`value`属性除外）。
+  也就是说，`configurable`属性控制了属性描述对象的可写性。
+  - `get`：是一个函数，表示该属性的取值函数（`getter`），默认为`undefined`。
+  - `set`：是一个函数，表示该属性的存值函数（`setter`），默认为`undefined`。
 
 > **注意，一旦定义了取值函数`get`（或存值函数`set`），就不能将`writable`属性设为`true`，或者同时定义`value`属性，否则会报错。**
 
 ### Observer
-上面说到利用`Obeject.defineProperty()`来监听属性变动，接下来需要实现一个数据监听器Observer，监控data的属性值，如有变动可拿到最新值并通知订阅者。
+上面说到利用`Obeject.defineProperty()`来监听属性变动，接下来需要实现一个数据监听器`Observer`，监控`data`的属性值，如有变动可拿到最新值并通知订阅者。
 ```javascript
 
 function Observer(data) {
@@ -120,8 +120,8 @@ function observe(value) {
 }
 ```
 
-上面的代码中，定义了一个observer类，参数是data属性，递归遍历data的属性，并利用`Obeject.defineProperty()`劫持属性。
-在getter和setter函数中，有一个Dep对象，Dep对象作为一个收集订阅者的容器，实现了订阅发布模式（一对多），当状态发生改变时就会通知所有订阅者对象。实现如下：
+上面的代码中，定义了一个`observer`类，参数是`data`属性，递归遍历`data`的属性，并利用`Obeject.defineProperty()`劫持属性。
+在`getter`和`setter`函数中，有一个`Dep`对象，`Dep`对象作为一个收集订阅者的容器，实现了订阅发布模式（一对多），当状态发生改变时就会通知所有订阅者对象。实现如下：
 ```javascript
 function Dep () {
   this.subs = [];
@@ -139,12 +139,12 @@ Dep.prototype = {
 Dep.target = null;
 ```
 ### Compile
-接下来需要实现一个解析器Compile来做解析和绑定工作：
-- 解析模板指令(v-model)，并替换模板数据(双大括号)，初始化视图
+接下来需要实现一个解析器`Compile`来做解析和绑定工作：
+- 解析模板指令(`v-model`)，并替换模板数据(`双大括号`)，初始化视图
 - 将模板指令对应的节点绑定对应的更新函数，初始化相应的订阅器
 
-解析模板，需要获取到dom元素，然后对含有DOM元素上含有指令的节点进行处理，因此需要对DOM操作比较频繁，操作DocumentFragment节点，要比直接操作 DOM 快得多，
-所以为提高性能和效率，可以先建一个fragment片段，将需要解析的dom节点存入fragment片段里再进行处理：
+解析模板，需要获取到`dom`元素，然后对含有`DOM`元素上含有指令的节点进行处理，因此需要对`DOM`操作比较频繁，操作`DocumentFragment`节点，要比直接操作`DOM`快得多，
+所以为提高性能和效率，可以先建一个`fragment`片段，将需要解析的`dom`节点存入`fragment`片段里再进行处理：
 
 ```javascript
 function Compile(el, vm) {
@@ -246,7 +246,7 @@ isTextNode: function(node) {
 }
 ```
 ### watcher
-订阅者Watcher在初始化的时候需要将自己添加进订阅器Dep中
+订阅者`Watcher`在初始化的时候需要将自己添加进订阅器`Dep`中
 
 ```javascript
 function Watcher(vm, exp, cb) {
@@ -347,14 +347,14 @@ mVue.prototype = {
 <img src="img/result.gif" height="">
 
 ## 总结
-- Observer利用`Obeject.defineProperty()`来监听属性变动，监控data的属性值，如有变动可拿到最新值并通知订阅者。
-- Dep对象作为一个收集订阅者的容器，实现了订阅发布模式（一对多），当状态发生改变时就会通知所有订阅者对象。
-- Compile来做解析和绑定工作：
-  - 解析模板指令(v-model)，并替换模板数据(双大括号)，初始化视图。
+- `Observer`利用`Obeject.defineProperty()`来监听属性变动，监控`data`的属性值，如有变动可拿到最新值并通知订阅者。
+- `Dep`对象作为一个收集订阅者的容器，实现了订阅发布模式（一对多），当状态发生改变时就会通知所有订阅者对象。
+- `Compile`来做解析和绑定工作：
+  - 解析模板指令(`v-model`)，并替换模板数据(`双大括号`)，初始化视图。
   - 将模板指令对应的节点绑定对应的更新函数，初始化相应的订阅器。
-  - 操作DocumentFragment节点，要比直接操作 DOM 快得多，所以为提高性能和效率，可以先建一个fragment片段，将需要解析的dom节点存入fragment片段里再进行处理。
-  - 注意解析v-model指令，只是给可输入节点通过 `addEventListener` 监听 `input`事件，并在回调函数修改data对象对应属性的值。
-- mVue 通过`proxyKeys`方法代理data对象的所有属性。
+  - 操作`DocumentFragment`节点，要比直接操作`DOM`快得多，所以为提高性能和效率，可以先建一个`fragment`片段，将需要解析的`dom`节点存入`fragment`片段里再进行处理。
+  - 注意解析`v-model`指令，只是给可输入节点通过 `addEventListener` 监听 `input`事件，并在回调函数修改data对象对应属性的值。
+- `mVue`通过`proxyKeys`方法代理`data`对象的所有属性。
 
 ## [深入Vue](deep/)
 
