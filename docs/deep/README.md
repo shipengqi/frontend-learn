@@ -39,5 +39,5 @@ function Vue (options) {
 在经历过这三个阶段以后，组件中就会存在渲染`VNode`所需的`render`函数了。
 
 ## 响应式
-
+`Vue`是一个`MVVM`框架，`Vue`的响应式是基于`Object.defineProperty`的。
 
