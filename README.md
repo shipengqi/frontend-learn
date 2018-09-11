@@ -4,6 +4,7 @@ A simple implementation for MVVM of Vue.js, and deep into Vue.js.
 ## 目录
 - [mVue 实现](docs/)
 - [深入 Vue.js](docs/deep/)
+- [VuePress 部署](docs/vuepress.md)
 
 
 ## 开始
