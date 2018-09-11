@@ -29,6 +29,8 @@ Vue.config.isReservedAttr = isReservedAttr
 Vue.config.getTagNamespace = getTagNamespace
 Vue.config.isUnknownElement = isUnknownElement
 
+// 在 initGlobalAPI 方法中给 Vue.options 添加了 directives components 和 filters 属性，但都是空对象。
+// 在这里给 directives components 添加平台相关的指令和组件
 // install platform runtime directives & components
 extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
