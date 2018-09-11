@@ -5,8 +5,8 @@ import { initGlobalAPI } from './global-api/index'
 import { isServerRendering } from 'core/util/env'
 import { FunctionalRenderContext } from 'core/vdom/create-functional-component'
 
-//为 Vue 添加全局的API，也就是静态的方法和属性
-//调用 initGlobalAPI 方法，参数是 Vue 构造函数
+// 为 Vue 添加全局的API，也就是静态的方法和属性
+// 调用 initGlobalAPI 方法，参数是 Vue 构造函数
 initGlobalAPI(Vue)
 
 // 在 Vue.prototype 上添加 $isServer, 代理了 isServerRendering 方法

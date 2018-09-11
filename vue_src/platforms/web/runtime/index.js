@@ -1,5 +1,10 @@
 /* @flow */
-//Vue 针对 web 平台的包装
+// Vue 针对 web 平台的包装
+// 设置平台化的 Vue.config。
+// 在 Vue.options 上混合了两个指令(directives)，分别是 model 和 show。
+// 在 Vue.options 上混合了两个组件(components)，分别是 Transition 和 TransitionGroup。
+// 在 Vue.prototype 上添加了两个方法：__patch__ 和 $mount。
+
 import Vue from 'core/index'
 import config from 'core/config'
 import { extend, noop } from 'shared/util'
@@ -30,11 +35,13 @@ Vue.config.getTagNamespace = getTagNamespace
 Vue.config.isUnknownElement = isUnknownElement
 
 // 在 initGlobalAPI 方法中给 Vue.options 添加了 directives components 和 filters 属性，但都是空对象。
-// 在这里给 directives components 添加平台相关的指令和组件
+// 在这里给 directives components 添加 web 平台运行时的特定组件和指令。
 // install platform runtime directives & components
 extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
 
+//添加 __patch__ 方法，如果在浏览器环境运行的话，这个方法的值为 patch 函数，否则是一个空函数 noop。
+// 在 Vue.prototype 上添加 $mount 方法
 // install platform patch function
 Vue.prototype.__patch__ = inBrowser ? patch : noop
 
@@ -47,6 +54,7 @@ Vue.prototype.$mount = function (
   return mountComponent(this, el, hydrating)
 }
 
+// vue-devtools 的全局钩子，包裹在 setTimeout 中
 // devtools global hook
 /* istanbul ignore next */
 if (inBrowser) {

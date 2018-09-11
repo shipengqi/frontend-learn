@@ -4,7 +4,7 @@
 - [Vue 运行机制](#运行机制)
 - [编译](#编译)
 - [响应式](#响应式)
-- [Virtual DOM](#Virtual DOM)
+- [虚拟DOM](#虚拟DOM)
 
 ## 运行机制 ##
 ### 初始化
@@ -43,5 +43,5 @@ function Vue (options) {
 ## 响应式 ##
 `Vue`是一个`MVVM`框架，`Vue`的响应式是基于`Object.defineProperty`的。
 
-## Virtual DOM ##
+## 虚拟DOM ##
 

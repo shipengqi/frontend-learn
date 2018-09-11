@@ -19,6 +19,14 @@ export function initMixin (Vue: Class<Component>) {
     // a uid
     vm._uid = uid++
 
+    // 在非生产环境下，config.performance 和 mark 都为真，执行下面的代码，
+    // config.performance 来自于 core/config.js 文件，Vue.config 同样引用了这个对象
+    // Vue.config.performance 设置为 true，可开启性能追踪，追踪下面四个场景：
+    // 1、组件初始化(component init)
+    // 2、编译(compile)，将模板(template)编译成渲染函数
+    // 3、渲染(render)，其实就是渲染函数的性能，或者说渲染函数执行且生成虚拟DOM(vnode)的性能
+    // 4、打补丁(patch)，将虚拟DOM渲染为真实DOM的性能
+    // 实现的方式就是在初始化的代码的开头和结尾分别使用 mark 函数打上两个标记，然后通过 measure 函数对这两个标记点进行性能计算。
     let startTag, endTag
     /* istanbul ignore if */
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
@@ -27,8 +35,10 @@ export function initMixin (Vue: Class<Component>) {
       mark(startTag)
     }
 
+    // _isVue 设置为 true。用来标识对象是一个 Vue 实例，避免该对象被响应系统观测
     // a flag to avoid this being observed
     vm._isVue = true
+    // _isComponent 是一个内部选项，在 Vue 创建组件的时候才会有
     // merge options
     if (options && options._isComponent) {
       // optimize internal component instantiation
@@ -36,6 +46,7 @@ export function initMixin (Vue: Class<Component>) {
       // internal component options needs special treatment.
       initInternalComponent(vm, options)
     } else {
+      // 在 Vue 实例上添加 $options 属性，这个属性用于当前 Vue 的初始化
       vm.$options = mergeOptions(
         resolveConstructorOptions(vm.constructor),
         options || {},
@@ -48,6 +59,8 @@ export function initMixin (Vue: Class<Component>) {
     } else {
       vm._renderProxy = vm
     }
+
+    // 这一系列 init* 方法，都使用到了上面在实例上添加的 $options 属性
     // expose real self
     vm._self = vm
     initLifecycle(vm)
