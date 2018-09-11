@@ -10,7 +10,7 @@ import { bindObjectProps } from './bind-object-props'
 import { renderStatic, markOnce } from './render-static'
 import { bindObjectListeners } from './bind-object-listeners'
 import { resolveScopedSlots } from './resolve-slots'
-
+// 这个函数的作用就是在 Vue.prototype 上添加一系列方法
 export function installRenderHelpers (target: any) {
   target._o = markOnce
   target._n = toNumber

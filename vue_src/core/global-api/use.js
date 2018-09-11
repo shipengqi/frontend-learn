@@ -2,6 +2,7 @@
 
 import { toArray } from '../util/index'
 
+// 在 Vue 构造函数上添加 use 方法，use 方法是用来安装 Vue 插件的。
 export function initUse (Vue: GlobalAPI) {
   Vue.use = function (plugin: Function | Object) {
     const installedPlugins = (this._installedPlugins || (this._installedPlugins = []))

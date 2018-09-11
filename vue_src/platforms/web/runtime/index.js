@@ -1,5 +1,5 @@
 /* @flow */
-
+//Vue 针对 web 平台的包装
 import Vue from 'core/index'
 import config from 'core/config'
 import { extend, noop } from 'shared/util'
@@ -19,6 +19,9 @@ import { patch } from './patch'
 import platformDirectives from './directives/index'
 import platformComponents from './components/index'
 
+// Vue.config 在 initGlobalAPI 方法中添加的
+// 从 core/config.js 文件导出的 config 对象，大部分属性都是初始化了一个初始值
+// config 对象与平台有关的配置，在这里被覆盖了
 // install platform specific utils
 Vue.config.mustUseProp = mustUseProp
 Vue.config.isReservedTag = isReservedTag

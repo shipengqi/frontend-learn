@@ -327,9 +327,14 @@ export function stateMixin (Vue: Class<Component>) {
       warn(`$props is readonly.`, this)
     }
   }
+  // 使用 Object.defineProperty 在 Vue.prototype 上定义了 $data 和 $props
+  // dataDef 和 propsDef 定义了 $data 和 $propsd的 getter
+  // setter 定义 $data 和 $props 这两个属性是只读的
   Object.defineProperty(Vue.prototype, '$data', dataDef)
   Object.defineProperty(Vue.prototype, '$props', propsDef)
 
+
+  // 定义 $set、$delete 以及 $watch，这些都属于 Vue 的实例属性
   Vue.prototype.$set = set
   Vue.prototype.$delete = del
 

@@ -3,6 +3,7 @@
 import { ASSET_TYPES } from 'shared/constants'
 import { isPlainObject, validateComponentName } from '../util/index'
 
+// 添加三个静态方法  component（全局注册组件） directive（全局注册指令） filter（全局注册过滤器）
 export function initAssetRegisters (Vue: GlobalAPI) {
   /**
    * Create asset registration methods.
