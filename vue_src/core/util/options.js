@@ -39,14 +39,18 @@ const strats = config.optionMergeStrategies
 // 添加 el、propsData 的合并策略
 // 这两个策略先判断了是否有 vm 参数，没有就打印警告，提示el、propsData只能使用 new 创建实例时使用
 // 比如在子组件中使用了 el 选项，就会得到警告
+// 也就是说，没有 vm 参数时，就是子组件
 if (process.env.NODE_ENV !== 'production') {
   strats.el = strats.propsData = function(parent, child, vm, key) {
+    // 的为什么通过 vm 来判断是否是子组件
+    // 在 mergeField 函数中，查看 vm 的来源
     if (!vm) {
       warn(
         `option "${key}" can only be used during instance ` +
         'creation with the `new` keyword.'
       )
     }
+    // el、propsData 的合并策略函数本质上还是 defaultStrat，只不过多了一个子组件的判断
     return defaultStrat(parent, child)
   }
 }
@@ -74,12 +78,18 @@ function mergeData(to: Object, from: ? Object): Object {
 /**
  * Data
  */
+// 合并 data 选项，或者子组件的 data 函数选项
+// mergeDataOrFn 函数的返回值，根据下面的代码，能看出来，返回值有四种情况：
+// 1. 父类的 data 选项
+// 2. 子类的 data 选项，一个函数
+// 3. mergedDataFn 函数
+// 4. mergedInstanceDataFn 函数
 export function mergeDataOrFn(
   parentVal: any,
   childVal: any,
   vm ? : Component
 ): ? Function {
-  if (!vm) {
+  if (!vm) { // Vue.extend 中，也就是 data 函数
     // in a Vue.extend merge, both should be functions
     if (!childVal) {
       return parentVal
@@ -116,25 +126,26 @@ export function mergeDataOrFn(
   }
 }
 
+// 选项 data 的合并策略
 strats.data = function(
   parentVal: any,
   childVal: any,
   vm ? : Component
 ): ? Function {
-  if (!vm) {
-    if (childVal && typeof childVal !== 'function') {
+  if (!vm) { // 不多解释，这里处理的是子组件的 data 选项
+    if (childVal && typeof childVal !== 'function') { // childVal 应该是一个函数，我们知道子组件的 data 必须是一个返回对象的函数
       process.env.NODE_ENV !== 'production' && warn(
         'The "data" option should be a function ' +
         'that returns a per-instance value in component ' +
         'definitions.',
         vm
       )
-
+      // 直接返回 parentVal
       return parentVal
     }
     return mergeDataOrFn(parentVal, childVal)
   }
-
+  
   return mergeDataOrFn(parentVal, childVal, vm)
 }
 
@@ -244,6 +255,8 @@ strats.provide = mergeDataOrFn
 /**
  * Default strategy.
  */
+// 这是一个默认的合并策略函数
+// 如果子选项是 undefined， 就返回父选项，否则返回子选项
 const defaultStrat = function(parentVal: any, childVal: any): any {
   return childVal === undefined ?
     parentVal :
@@ -465,6 +478,10 @@ export function mergeOptions(
     // strats 就是在文件头部引用的 config.optionMergeStrategies
     // 选项覆盖策略是处理如何将父选项值和子选项值合并到最终值的函数。这个对象下包含很多函数，这些函数就可以认为是合并特定选项的策略。
     const strat = strats[key] || defaultStrat
+
+    // vm 是 mergeOptions 的第三个参数，也就是当前 Vue 实例，但是如果是在 Vue.extend 中调用 mergeOptions 函数时
+    // 是没有传入第三个参数的，可以查看 core/global-api/extend.js
+    // 子组件的实现方式就是通过实例化子类完成的，子类是通过 Vue.extend 创造出来的
     options[key] = strat(parent[key], child[key], vm, key)
   }
   return options
