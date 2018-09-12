@@ -1,6 +1,8 @@
 # idea
 .idea
 
+# vs code
+.vscode
 # logs
 *.log
 
