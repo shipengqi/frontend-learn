@@ -147,6 +147,7 @@ export function lifecycleMixin(Vue: Class < Component > ) {
   }
 }
 
+// 真正的挂载方法
 export function mountComponent(
   vm: Component,
   el: ? Element,

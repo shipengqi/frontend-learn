@@ -104,6 +104,8 @@ export function initMixin(Vue: Class < Component > ) {
     }
 
     if (vm.$options.el) {
+
+      // 将组件挂载到给定元素
       vm.$mount(vm.$options.el)
     }
   }
