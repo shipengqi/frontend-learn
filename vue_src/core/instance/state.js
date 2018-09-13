@@ -2,8 +2,13 @@
 
 import config from '../config'
 import Watcher from '../observer/watcher'
-import { pushTarget, popTarget } from '../observer/dep'
-import { isUpdatingChildComponent } from './lifecycle'
+import {
+  pushTarget,
+  popTarget
+} from '../observer/dep'
+import {
+  isUpdatingChildComponent
+} from './lifecycle'
 
 import {
   set,
@@ -35,17 +40,17 @@ const sharedPropertyDefinition = {
   set: noop
 }
 
-export function proxy (target: Object, sourceKey: string, key: string) {
-  sharedPropertyDefinition.get = function proxyGetter () {
+export function proxy(target: Object, sourceKey: string, key: string) {
+  sharedPropertyDefinition.get = function proxyGetter() {
     return this[sourceKey][key]
   }
-  sharedPropertyDefinition.set = function proxySetter (val) {
+  sharedPropertyDefinition.set = function proxySetter(val) {
     this[sourceKey][key] = val
   }
   Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 
-export function initState (vm: Component) {
+export function initState(vm: Component) {
   vm._watchers = []
   const opts = vm.$options
   if (opts.props) initProps(vm, opts.props)
@@ -53,7 +58,7 @@ export function initState (vm: Component) {
   if (opts.data) {
     initData(vm)
   } else {
-    observe(vm._data = {}, true /* asRootData */)
+    observe(vm._data = {}, true /* asRootData */ )
   }
   if (opts.computed) initComputed(vm, opts.computed)
   if (opts.watch && opts.watch !== nativeWatch) {
@@ -61,25 +66,25 @@ export function initState (vm: Component) {
   }
 }
 
-function initProps (vm: Component, propsOptions: Object) {
+function initProps(vm: Component, propsOptions: Object) {
   const propsData = vm.$options.propsData || {}
   const props = vm._props = {}
-  // cache prop keys so that future props updates can iterate using Array
-  // instead of dynamic object key enumeration.
+    // cache prop keys so that future props updates can iterate using Array
+    // instead of dynamic object key enumeration.
   const keys = vm.$options._propKeys = []
   const isRoot = !vm.$parent
-  // root instance props should be converted
+    // root instance props should be converted
   if (!isRoot) {
     toggleObserving(false)
   }
   for (const key in propsOptions) {
     keys.push(key)
     const value = validateProp(key, propsOptions, propsData, vm)
-    /* istanbul ignore else */
+      /* istanbul ignore else */
     if (process.env.NODE_ENV !== 'production') {
       const hyphenatedKey = hyphenate(key)
       if (isReservedAttribute(hyphenatedKey) ||
-          config.isReservedAttr(hyphenatedKey)) {
+        config.isReservedAttr(hyphenatedKey)) {
         warn(
           `"${hyphenatedKey}" is a reserved attribute and cannot be used as component prop.`,
           vm
@@ -109,12 +114,14 @@ function initProps (vm: Component, propsOptions: Object) {
   toggleObserving(true)
 }
 
-function initData (vm: Component) {
+function initData(vm: Component) {
+
+  // 前面知道 vm.$options.data 被处理成了一个函数。
   let data = vm.$options.data
-  data = vm._data = typeof data === 'function'
-    ? getData(data, vm)
-    : data || {}
-  if (!isPlainObject(data)) {
+  data = vm._data = typeof data === 'function' ? // 防止 beforeCreate 生命周期钩子函数中修改了 vm.$options.data 的值
+    getData(data, vm) :
+    data || {}
+  if (!isPlainObject(data)) { // data 函数返回的必须是一个对象
     data = {}
     process.env.NODE_ENV !== 'production' && warn(
       'data functions should return an object:\n' +
@@ -130,7 +137,9 @@ function initData (vm: Component) {
   while (i--) {
     const key = keys[i]
     if (process.env.NODE_ENV !== 'production') {
-      if (methods && hasOwn(methods, key)) {
+      if (methods && hasOwn(methods, key)) { //methods 对象中的函数名称不能和 data 对象中某个数据字段的 key 相同
+
+        // 这是因为 data 和 methods 都可以通过是来对象代理访问
         warn(
           `Method "${key}" has already been defined as a data property.`,
           vm
@@ -143,18 +152,23 @@ function initData (vm: Component) {
         `Use prop default value instead.`,
         vm
       )
-    } else if (!isReserved(key)) {
+    } else if (!isReserved(key)) { //判断是否是保留字 Vue 是不会代理那些键名以 $ 或 _ 开头的字段的
+      // 代理
       proxy(vm, `_data`, key)
     }
   }
+
   // observe data
-  observe(data, true /* asRootData */)
+  // 将 data 转换成响应式数据的核心入口
+  observe(data, true /* asRootData */ )
 }
 
-export function getData (data: Function, vm: Component): any {
+export function getData(data: Function, vm: Component): any {
   // #7573 disable dep collection when invoking data getters
   pushTarget()
   try {
+
+    // 执行函数，得到真正的 data 数据
     return data.call(vm, vm)
   } catch (e) {
     handleError(e, vm, `data()`)
@@ -164,12 +178,14 @@ export function getData (data: Function, vm: Component): any {
   }
 }
 
-const computedWatcherOptions = { computed: true }
+const computedWatcherOptions = {
+  computed: true
+}
 
-function initComputed (vm: Component, computed: Object) {
+function initComputed(vm: Component, computed: Object) {
   // $flow-disable-line
   const watchers = vm._computedWatchers = Object.create(null)
-  // computed properties are just getters during SSR
+    // computed properties are just getters during SSR
   const isSSR = isServerRendering()
 
   for (const key in computed) {
@@ -207,30 +223,30 @@ function initComputed (vm: Component, computed: Object) {
   }
 }
 
-export function defineComputed (
+export function defineComputed(
   target: any,
   key: string,
   userDef: Object | Function
 ) {
   const shouldCache = !isServerRendering()
   if (typeof userDef === 'function') {
-    sharedPropertyDefinition.get = shouldCache
-      ? createComputedGetter(key)
-      : userDef
+    sharedPropertyDefinition.get = shouldCache ?
+      createComputedGetter(key) :
+      userDef
     sharedPropertyDefinition.set = noop
   } else {
-    sharedPropertyDefinition.get = userDef.get
-      ? shouldCache && userDef.cache !== false
-        ? createComputedGetter(key)
-        : userDef.get
-      : noop
-    sharedPropertyDefinition.set = userDef.set
-      ? userDef.set
-      : noop
+    sharedPropertyDefinition.get = userDef.get ?
+      shouldCache && userDef.cache !== false ?
+      createComputedGetter(key) :
+      userDef.get :
+      noop
+    sharedPropertyDefinition.set = userDef.set ?
+      userDef.set :
+      noop
   }
   if (process.env.NODE_ENV !== 'production' &&
-      sharedPropertyDefinition.set === noop) {
-    sharedPropertyDefinition.set = function () {
+    sharedPropertyDefinition.set === noop) {
+    sharedPropertyDefinition.set = function() {
       warn(
         `Computed property "${key}" was assigned to but it has no setter.`,
         this
@@ -240,8 +256,8 @@ export function defineComputed (
   Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 
-function createComputedGetter (key) {
-  return function computedGetter () {
+function createComputedGetter(key) {
+  return function computedGetter() {
     const watcher = this._computedWatchers && this._computedWatchers[key]
     if (watcher) {
       watcher.depend()
@@ -250,7 +266,7 @@ function createComputedGetter (key) {
   }
 }
 
-function initMethods (vm: Component, methods: Object) {
+function initMethods(vm: Component, methods: Object) {
   const props = vm.$options.props
   for (const key in methods) {
     if (process.env.NODE_ENV !== 'production') {
@@ -278,7 +294,7 @@ function initMethods (vm: Component, methods: Object) {
   }
 }
 
-function initWatch (vm: Component, watch: Object) {
+function initWatch(vm: Component, watch: Object) {
   for (const key in watch) {
     const handler = watch[key]
     if (Array.isArray(handler)) {
@@ -291,11 +307,11 @@ function initWatch (vm: Component, watch: Object) {
   }
 }
 
-function createWatcher (
+function createWatcher(
   vm: Component,
   expOrFn: string | Function,
   handler: any,
-  options?: Object
+  options ? : Object
 ) {
   if (isPlainObject(handler)) {
     options = handler
@@ -307,23 +323,27 @@ function createWatcher (
   return vm.$watch(expOrFn, handler, options)
 }
 
-export function stateMixin (Vue: Class<Component>) {
+export function stateMixin(Vue: Class < Component > ) {
   // flow somehow has problems with directly declared definition object
   // when using Object.defineProperty, so we have to procedurally build up
   // the object here.
   const dataDef = {}
-  dataDef.get = function () { return this._data }
+  dataDef.get = function() {
+    return this._data
+  }
   const propsDef = {}
-  propsDef.get = function () { return this._props }
+  propsDef.get = function() {
+    return this._props
+  }
   if (process.env.NODE_ENV !== 'production') {
-    dataDef.set = function (newData: Object) {
+    dataDef.set = function(newData: Object) {
       warn(
         'Avoid replacing instance root $data. ' +
         'Use nested data properties instead.',
         this
       )
     }
-    propsDef.set = function () {
+    propsDef.set = function() {
       warn(`$props is readonly.`, this)
     }
   }
@@ -338,10 +358,10 @@ export function stateMixin (Vue: Class<Component>) {
   Vue.prototype.$set = set
   Vue.prototype.$delete = del
 
-  Vue.prototype.$watch = function (
+  Vue.prototype.$watch = function(
     expOrFn: string | Function,
     cb: any,
-    options?: Object
+    options ? : Object
   ): Function {
     const vm: Component = this
     if (isPlainObject(cb)) {
@@ -353,7 +373,7 @@ export function stateMixin (Vue: Class<Component>) {
     if (options.immediate) {
       cb.call(vm, watcher.value)
     }
-    return function unwatchFn () {
+    return function unwatchFn() {
       watcher.teardown()
     }
   }

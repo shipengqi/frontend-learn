@@ -2,12 +2,26 @@
 
 import config from '../config'
 import Watcher from '../observer/watcher'
-import { mark, measure } from '../util/perf'
-import { createEmptyVNode } from '../vdom/vnode'
-import { updateComponentListeners } from './events'
-import { resolveSlots } from './render-helpers/resolve-slots'
-import { toggleObserving } from '../observer/index'
-import { pushTarget, popTarget } from '../observer/dep'
+import {
+  mark,
+  measure
+} from '../util/perf'
+import {
+  createEmptyVNode
+} from '../vdom/vnode'
+import {
+  updateComponentListeners
+} from './events'
+import {
+  resolveSlots
+} from './render-helpers/resolve-slots'
+import {
+  toggleObserving
+} from '../observer/index'
+import {
+  pushTarget,
+  popTarget
+} from '../observer/dep'
 
 import {
   warn,
@@ -21,10 +35,11 @@ import {
 export let activeInstance: any = null
 export let isUpdatingChildComponent: boolean = false
 
-export function initLifecycle (vm: Component) {
+export function initLifecycle(vm: Component) {
   const options = vm.$options
 
   // locate first non-abstract parent
+  // 定义 parent，它引用当前实例的父组件，也就是 vm.$options.parent，vm.$options.parent 哪里冒出来的
   let parent = options.parent
   if (parent && !options.abstract) {
     while (parent.$options.abstract && parent.$parent) {
@@ -48,25 +63,25 @@ export function initLifecycle (vm: Component) {
 }
 
 // lifecycleMixin 添加了三个方法 _update $forceUpdate $destroy
-export function lifecycleMixin (Vue: Class<Component>) {
-  Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
+export function lifecycleMixin(Vue: Class < Component > ) {
+  Vue.prototype._update = function(vnode: VNode, hydrating ? : boolean) {
     const vm: Component = this
     const prevEl = vm.$el
     const prevVnode = vm._vnode
     const prevActiveInstance = activeInstance
     activeInstance = vm
     vm._vnode = vnode
-    // Vue.prototype.__patch__ is injected in entry points
-    // based on the rendering backend used.
+      // Vue.prototype.__patch__ is injected in entry points
+      // based on the rendering backend used.
     if (!prevVnode) {
       // initial render
-      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */)
+      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */ )
     } else {
       // updates
       vm.$el = vm.__patch__(prevVnode, vnode)
     }
     activeInstance = prevActiveInstance
-    // update __vue__ reference
+      // update __vue__ reference
     if (prevEl) {
       prevEl.__vue__ = null
     }
@@ -81,21 +96,21 @@ export function lifecycleMixin (Vue: Class<Component>) {
     // updated in a parent's updated hook.
   }
 
-  Vue.prototype.$forceUpdate = function () {
+  Vue.prototype.$forceUpdate = function() {
     const vm: Component = this
     if (vm._watcher) {
       vm._watcher.update()
     }
   }
 
-  Vue.prototype.$destroy = function () {
+  Vue.prototype.$destroy = function() {
     const vm: Component = this
     if (vm._isBeingDestroyed) {
       return
     }
     callHook(vm, 'beforeDestroy')
     vm._isBeingDestroyed = true
-    // remove self from parent
+      // remove self from parent
     const parent = vm.$parent
     if (parent && !parent._isBeingDestroyed && !vm.$options.abstract) {
       remove(parent.$children, vm)
@@ -115,13 +130,13 @@ export function lifecycleMixin (Vue: Class<Component>) {
     }
     // call the last hook...
     vm._isDestroyed = true
-    // invoke destroy hooks on current rendered tree
+      // invoke destroy hooks on current rendered tree
     vm.__patch__(vm._vnode, null)
-    // fire destroyed hook
+      // fire destroyed hook
     callHook(vm, 'destroyed')
-    // turn off all instance listeners.
+      // turn off all instance listeners.
     vm.$off()
-    // remove __vue__ reference
+      // remove __vue__ reference
     if (vm.$el) {
       vm.$el.__vue__ = null
     }
@@ -132,10 +147,10 @@ export function lifecycleMixin (Vue: Class<Component>) {
   }
 }
 
-export function mountComponent (
+export function mountComponent(
   vm: Component,
-  el: ?Element,
-  hydrating?: boolean
+  el: ? Element,
+  hydrating ? : boolean
 ): Component {
   vm.$el = el
   if (!vm.$options.render) {
@@ -161,7 +176,7 @@ export function mountComponent (
   callHook(vm, 'beforeMount')
 
   let updateComponent
-  /* istanbul ignore if */
+    /* istanbul ignore if */
   if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
     updateComponent = () => {
       const name = vm._name
@@ -189,12 +204,12 @@ export function mountComponent (
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
   // component's mounted hook), which relies on vm._watcher being already defined
   new Watcher(vm, updateComponent, noop, {
-    before () {
+    before() {
       if (vm._isMounted) {
         callHook(vm, 'beforeUpdate')
       }
     }
-  }, true /* isRenderWatcher */)
+  }, true /* isRenderWatcher */ )
   hydrating = false
 
   // manually mounted instance, call mounted on self
@@ -206,12 +221,12 @@ export function mountComponent (
   return vm
 }
 
-export function updateChildComponent (
+export function updateChildComponent(
   vm: Component,
-  propsData: ?Object,
-  listeners: ?Object,
-  parentVnode: MountedComponentVNode,
-  renderChildren: ?Array<VNode>
+  propsData: ? Object,
+  listeners : ? Object,
+  parentVnode : MountedComponentVNode,
+  renderChildren: ? Array < VNode >
 ) {
   if (process.env.NODE_ENV !== 'production') {
     isUpdatingChildComponent = true
@@ -220,8 +235,8 @@ export function updateChildComponent (
   // determine whether component has slot children
   // we need to do this before overwriting $options._renderChildren
   const hasChildren = !!(
-    renderChildren ||               // has new static slots
-    vm.$options._renderChildren ||  // has old static slots
+    renderChildren || // has new static slots
+    vm.$options._renderChildren || // has old static slots
     parentVnode.data.scopedSlots || // has new scoped slots
     vm.$scopedSlots !== emptyObject // has old scoped slots
   )
@@ -251,7 +266,7 @@ export function updateChildComponent (
       props[key] = validateProp(key, propOptions, propsData, vm)
     }
     toggleObserving(true)
-    // keep a copy of raw propsData
+      // keep a copy of raw propsData
     vm.$options.propsData = propsData
   }
 
@@ -272,14 +287,14 @@ export function updateChildComponent (
   }
 }
 
-function isInInactiveTree (vm) {
+function isInInactiveTree(vm) {
   while (vm && (vm = vm.$parent)) {
     if (vm._inactive) return true
   }
   return false
 }
 
-export function activateChildComponent (vm: Component, direct?: boolean) {
+export function activateChildComponent(vm: Component, direct ? : boolean) {
   if (direct) {
     vm._directInactive = false
     if (isInInactiveTree(vm)) {
@@ -297,7 +312,7 @@ export function activateChildComponent (vm: Component, direct?: boolean) {
   }
 }
 
-export function deactivateChildComponent (vm: Component, direct?: boolean) {
+export function deactivateChildComponent(vm: Component, direct ? : boolean) {
   if (direct) {
     vm._directInactive = true
     if (isInInactiveTree(vm)) {
@@ -313,11 +328,14 @@ export function deactivateChildComponent (vm: Component, direct?: boolean) {
   }
 }
 
-export function callHook (vm: Component, hook: string) {
+export function callHook(vm: Component, hook: string) {
   // #7573 disable dep collection when invoking lifecycle hooks
+  // 以 pushTarget() 开头，以 popTarget() 结尾
   pushTarget()
+
+  // 获取要调用的生命周期钩子
   const handlers = vm.$options[hook]
-  if (handlers) {
+  if (handlers) { // 我们前面已经知道 生命周期的钩子函数是数组
     for (let i = 0, j = handlers.length; i < j; i++) {
       try {
         handlers[i].call(vm)

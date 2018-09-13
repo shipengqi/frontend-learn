@@ -67,8 +67,11 @@ function mergeData(to: Object, from: ? Object): Object {
     toVal = to[key]
     fromVal = from[key]
     if (!hasOwn(to, key)) {
+      // 如果 from 对象中的 key 不在 to 对象中，则使用 set 函数为 to 对象设置 key 及相应的值
+      // 这个 set 函数就是全局API Vue.set
       set(to, key, fromVal)
     } else if (isPlainObject(toVal) && isPlainObject(fromVal)) {
+      // 如果 from 对象中的 key 也在 to 对象中，且这两个属性的值都是纯对象则递归进行深度合并
       mergeData(toVal, fromVal)
     }
   }
@@ -80,8 +83,8 @@ function mergeData(to: Object, from: ? Object): Object {
  */
 // 合并 data 选项，或者子组件的 data 函数选项
 // mergeDataOrFn 函数的返回值，根据下面的代码，能看出来，返回值有四种情况：
-// 1. 父类的 data 选项
-// 2. 子类的 data 选项，一个函数
+// 1. Vue.extend 中，父类的 data 选项，一个函数
+// 2. Vue.extend 中，子类的 data 选项，一个函数
 // 3. mergedDataFn 函数
 // 4. mergedInstanceDataFn 函数
 export function mergeDataOrFn(
@@ -104,6 +107,9 @@ export function mergeDataOrFn(
     // it has to be a function to pass previous merges.
     return function mergedDataFn() {
       return mergeData(
+        // childVal 要么是子组件的选项（函数），要么是使用 new 操作符创建实例时的选项
+        // 如果是函数的话就通过执行该函数从而获取到一个纯对象
+        // 子组件的 data 选项函数可以接受参数，参数就是 .call(this, this) 的第二个 this
         typeof childVal === 'function' ? childVal.call(this, this) : childVal,
         typeof parentVal === 'function' ? parentVal.call(this, this) : parentVal
       )
@@ -127,6 +133,10 @@ export function mergeDataOrFn(
 }
 
 // 选项 data 的合并策略
+// strats.data 最终 会被处理成一个函数，因为，通过函数返回数据对象，
+// 保证了每个组件实例都有一个唯一的数据副本，避免了组件间数据互相影响。
+// 为什么返回一个函数，放在初始化时执行，而不在这里直接执行函数得到结果？
+// 因为 props 的初始化先于 data 选项的初始化，子组件的 data 选项会用到 props 中的数据
 strats.data = function(
   parentVal: any,
   childVal: any,
@@ -135,35 +145,41 @@ strats.data = function(
   if (!vm) { // 不多解释，这里处理的是子组件的 data 选项
     if (childVal && typeof childVal !== 'function') { // childVal 应该是一个函数，我们知道子组件的 data 必须是一个返回对象的函数
       process.env.NODE_ENV !== 'production' && warn(
-        'The "data" option should be a function ' +
-        'that returns a per-instance value in component ' +
-        'definitions.',
-        vm
-      )
-      // 直接返回 parentVal
+          'The "data" option should be a function ' +
+          'that returns a per-instance value in component ' +
+          'definitions.',
+          vm
+        )
+        // 直接返回 parentVal
       return parentVal
     }
     return mergeDataOrFn(parentVal, childVal)
   }
-  
+
   return mergeDataOrFn(parentVal, childVal, vm)
 }
 
 /**
  * Hooks and props are merged as arrays.
  */
+// 生命周期钩子选项的合并策略
+// 返回一个钩子函数的数组
 function mergeHook(
   parentVal: ? Array < Function > ,
   childVal : ? Function | ? Array < Function >
 ) : ? Array < Function > {
-  return childVal ?
-    parentVal ?
-    parentVal.concat(childVal) :
-    Array.isArray(childVal) ?
-    childVal : [childVal] : parentVal
+  return childVal ? // 判断组件选项中是否有对应的钩子函数
+    parentVal ? // 如果有 childVal 则判断是否有 parentVal
+    parentVal.concat(childVal) : // 如果有 parentVal 则使用 concat 方法将二者合并为一个数组
+    Array.isArray(childVal) ? // 如果没有 parentVal 则判断 childVal 是不是一个数组
+    childVal : [childVal] : parentVal // 如果 childVal 是一个数组则直接返回，否则将其作为数组的元素，然后返回数组，
+    // 如果没有 childVal 则直接返回 parentVal，这里思考为什么 parentVal 一定是数组
+    // 这种串联的三目运算符，我觉得可读性比较差
 }
 
+// LIFECYCLE_HOOKS 常量，由与生命周期钩子同名的字符串组成的数组
 LIFECYCLE_HOOKS.forEach(hook => {
+  // 这行代码说明了每个生命周期钩子的合并策略都是相同的
   strats[hook] = mergeHook
 })
 
@@ -174,6 +190,8 @@ LIFECYCLE_HOOKS.forEach(hook => {
  * a three-way merge between constructor options, instance
  * options and parent options.
  */
+// 资源(assets)选项的合并策略
+// 在 Vue 中 directives、filters 以及 components 被认为是资源
 function mergeAssets(
   parentVal: ? Object,
   childVal : ? Object,
@@ -182,13 +200,17 @@ function mergeAssets(
 ) : Object {
   const res = Object.create(parentVal || null)
   if (childVal) {
+    // assertObjectType 用来检测 childVal 是不是一个纯对象的
     process.env.NODE_ENV !== 'production' && assertObjectType(key, childVal, vm)
+
+    // 合并 Vue.options 中内置的组件 指令 过滤器
     return extend(res, childVal)
   } else {
     return res
   }
 }
 
+// ASSET_TYPES 常量是由与资源选项“同名”的三个字符串组成的数组，但是少了`s`
 ASSET_TYPES.forEach(function(type) {
   strats[type + 's'] = mergeAssets
 })
@@ -199,12 +221,15 @@ ASSET_TYPES.forEach(function(type) {
  * Watchers hashes should not overwrite one
  * another, so we merge them as arrays.
  */
+// 选项 watch 的合并策略
 strats.watch = function(
   parentVal: ? Object,
   childVal : ? Object,
   vm ? : Component,
   key : string
 ): ? Object {
+  // Firefox 浏览器中 Object.prototype 拥有原生的 watch 函数
+  // 所以这里判断如果通过原型访问到了原生的 watch，说明用户并没有提供 Vue 的 watch 选项，直接重置为 undefined。
   // work around Firefox's Object.prototype.watch...
   if (parentVal === nativeWatch) parentVal = undefined
   if (childVal === nativeWatch) childVal = undefined
@@ -232,6 +257,7 @@ strats.watch = function(
 /**
  * Other object hashes.
  */
+// 选项 props、methods、inject、computed 的合并策略
 strats.props =
   strats.methods =
   strats.inject =
@@ -250,6 +276,8 @@ strats.props =
     if (childVal) extend(ret, childVal)
     return ret
   }
+
+// 选项 provide 的合并策略，与 data 相同
 strats.provide = mergeDataOrFn
 
 /**

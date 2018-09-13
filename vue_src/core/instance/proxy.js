@@ -1,10 +1,15 @@
 /* not type checking this file because flow doesn't play well with Proxy */
 
 import config from 'core/config'
-import { warn, makeMap, isNative } from '../util/index'
+import {
+  warn,
+  makeMap,
+  isNative
+} from '../util/index'
 
 let initProxy
 
+// 只有在非生产环境下导出的 initProxy 才会有值
 if (process.env.NODE_ENV !== 'production') {
   const allowedGlobals = makeMap(
     'Infinity,undefined,NaN,isFinite,isNaN,' +
@@ -30,7 +35,7 @@ if (process.env.NODE_ENV !== 'production') {
   if (hasProxy) {
     const isBuiltInModifier = makeMap('stop,prevent,self,ctrl,shift,alt,meta,exact')
     config.keyCodes = new Proxy(config.keyCodes, {
-      set (target, key, value) {
+      set(target, key, value) {
         if (isBuiltInModifier(key)) {
           warn(`Avoid overwriting built-in modifier in config.keyCodes: .${key}`)
           return false
@@ -43,7 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   const hasHandler = {
-    has (target, key) {
+    has(target, key) {
       const has = key in target
       const isAllowed = allowedGlobals(key) || (typeof key === 'string' && key.charAt(0) === '_')
       if (!has && !isAllowed) {
@@ -54,7 +59,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   const getHandler = {
-    get (target, key) {
+    get(target, key) {
       if (typeof key === 'string' && !(key in target)) {
         warnNonPresent(target, key)
       }
@@ -62,13 +67,17 @@ if (process.env.NODE_ENV !== 'production') {
     }
   }
 
-  initProxy = function initProxy (vm) {
-    if (hasProxy) {
+  // 给 initProxy 赋值
+  initProxy = function initProxy(vm) {
+    if (hasProxy) { // 判断宿主环境是否支持 js 原生的 Proxy 特性
       // determine which proxy handler to use
       const options = vm.$options
-      const handlers = options.render && options.render._withStripped
-        ? getHandler
-        : hasHandler
+
+      // options.render._withStripped 这个属性只在测试代码中出现过，所以一般情况下这个条件都会为假
+      // 也就是使用 hasHandler
+      const handlers = options.render && options.render._withStripped ?
+        getHandler :
+        hasHandler
       vm._renderProxy = new Proxy(vm, handlers)
     } else {
       vm._renderProxy = vm
@@ -76,4 +85,6 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-export { initProxy }
+export {
+  initProxy
+}
