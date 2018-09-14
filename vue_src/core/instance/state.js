@@ -182,6 +182,7 @@ const computedWatcherOptions = {
   computed: true
 }
 
+// 计算属性本质上还是观察者
 function initComputed(vm: Component, computed: Object) {
   // $flow-disable-line
   const watchers = vm._computedWatchers = Object.create(null)
@@ -190,6 +191,8 @@ function initComputed(vm: Component, computed: Object) {
 
   for (const key in computed) {
     const userDef = computed[key]
+
+    // 我们知道计算属性可以是函数，也可以是包含getter 和 setter的对象
     const getter = typeof userDef === 'function' ? userDef : userDef.get
     if (process.env.NODE_ENV !== 'production' && getter == null) {
       warn(
@@ -202,7 +205,7 @@ function initComputed(vm: Component, computed: Object) {
       // create internal watcher for the computed property.
       watchers[key] = new Watcher(
         vm,
-        getter || noop,
+        getter || noop, // 计算属性观察者的求值对象是 getter 函数
         noop,
         computedWatcherOptions
       )

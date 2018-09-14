@@ -1,7 +1,12 @@
 /* @flow */
 
-import { _Set as Set, isObject } from '../util/index'
-import type { SimpleSet } from '../util/index'
+import {
+  _Set as Set,
+  isObject
+} from '../util/index'
+import type {
+  SimpleSet
+} from '../util/index'
 import VNode from '../vdom/vnode'
 
 const seenObjects = new Set()
@@ -11,12 +16,12 @@ const seenObjects = new Set()
  * getters, so that every nested property inside the object
  * is collected as a "deep" dependency.
  */
-export function traverse (val: any) {
-  _traverse(val, seenObjects)
+export function traverse(val: any) {
+  _traverse(val, seenObjects) // 深度观测就是通过递归地读取被观察属性的子属性，触发属性的 getter 来收集观察者
   seenObjects.clear()
 }
 
-function _traverse (val: any, seen: SimpleSet) {
+function _traverse(val: any, seen: SimpleSet) {
   let i, keys
   const isA = Array.isArray(val)
   if ((!isA && !isObject(val)) || Object.isFrozen(val) || val instanceof VNode) {

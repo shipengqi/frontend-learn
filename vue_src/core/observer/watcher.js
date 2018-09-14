@@ -129,7 +129,7 @@ export default class Watcher {
     } finally {
       // "touch" every property so they are all tracked as
       // dependencies for deep watching
-      if (this.deep) {
+      if (this.deep) { // 深度观测
         traverse(value)
       }
       popTarget()
