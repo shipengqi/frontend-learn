@@ -313,6 +313,7 @@ function createWatcher(
   handler: any,
   options ? : Object
 ) {
+  // 参数规范化
   if (isPlainObject(handler)) {
     options = handler
     handler = handler.handler
@@ -358,23 +359,24 @@ export function stateMixin(Vue: Class < Component > ) {
   Vue.prototype.$set = set
   Vue.prototype.$delete = del
 
+  // 三个参数与 Watcher 类的构造函数中的三个参数相匹配
   Vue.prototype.$watch = function(
     expOrFn: string | Function,
     cb: any,
     options ? : Object
   ): Function {
     const vm: Component = this
-    if (isPlainObject(cb)) {
+    if (isPlainObject(cb)) { // 如果 cb 不是函数，而是纯对象
       return createWatcher(vm, expOrFn, cb, options)
     }
     options = options || {}
-    options.user = true
+    options.user = true // 表示用户创建的观察者
     const watcher = new Watcher(vm, expOrFn, cb, options)
-    if (options.immediate) {
+    if (options.immediate) { // options.immediate 选项为真 属性或函数被侦听后立即执行回调
       cb.call(vm, watcher.value)
     }
     return function unwatchFn() {
-      watcher.teardown()
+      watcher.teardown() // 解除当前观察者对属性的观察
     }
   }
 }

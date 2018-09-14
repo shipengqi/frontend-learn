@@ -29,11 +29,13 @@ const idToTemplate = cached(id => {
 })
 
 // 先使用 mount 变量缓存 Vue.prototype.$mount 方法
+// 在重写 $mount 函数的最后一句 mount.call(this, el, hydrating) 能看出
+// 这个缓存的作用就是保留原始的 $mount 方法，并在重写方法中添加了模板编译的功能
 const mount = Vue.prototype.$mount
   // 然后重写 Vue.prototype.$mount 方法
 Vue.prototype.$mount = function(
-  el ? : string | Element,
-  hydrating ? : boolean
+  el ? : string | Element, // 可以是一个字符串也可以是一个 DOM 元素
+  hydrating ? : boolean // 用于 Virtual DOM 的补丁算法
 ): Component {
   el = el && query(el)
 
@@ -49,11 +51,12 @@ Vue.prototype.$mount = function(
 
   const options = this.$options
     // resolve template/el and convert to render function
-  if (!options.render) {
+  if (!options.render) { // 判断是否包含 render 函数
+    // 使用 template 或 el 选项构建渲染函数
     let template = options.template
-    if (template) {
+    if (template) { // 先尝试将 template 编译成渲染函数
       if (typeof template === 'string') {
-        if (template.charAt(0) === '#') {
+        if (template.charAt(0) === '#') { // 第一个字符是 #，把该字符串作为 css 选择符去选中对应的元素，并把该元素的 innerHTML 作为模板
           template = idToTemplate(template)
             /* istanbul ignore if */
           if (process.env.NODE_ENV !== 'production' && !template) {
@@ -62,17 +65,17 @@ Vue.prototype.$mount = function(
               this
             )
           }
-        }
-      } else if (template.nodeType) {
+        } // 第一个字符不是 #，就用 template 的字符串值作为模板
+      } else if (template.nodeType) { // template 的类型是元素节点
         template = template.innerHTML
-      } else {
+      } else { // template 选项无效
         if (process.env.NODE_ENV !== 'production') {
           warn('invalid template option:' + template, this)
         }
         return this
       }
-    } else if (el) {
-      template = getOuterHTML(el)
+    } else if (el) { // template 选项不存在时再检测 el 是否存在
+      template = getOuterHTML(el) // 使用 el.outerHTML 作为 template
     }
     if (template) {
       /* istanbul ignore if */
@@ -83,7 +86,7 @@ Vue.prototype.$mount = function(
       const {
         render,
         staticRenderFns
-      } = compileToFunctions(template, {
+      } = compileToFunctions(template, { // 将模板(template)字符串编译为渲染函数
         shouldDecodeNewlines,
         shouldDecodeNewlinesForHref,
         delimiters: options.delimiters,

@@ -106,6 +106,8 @@ export function initMixin(Vue: Class < Component > ) {
     if (vm.$options.el) {
 
       // 将组件挂载到给定元素
+      // 在 platforms/web/runtime/index.js 中有定义 $mount
+      // 在 src/platforms/web/entry-runtime-with-compiler.js 中也有定义 $mount
       vm.$mount(vm.$options.el)
     }
   }

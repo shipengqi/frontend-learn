@@ -7,9 +7,18 @@
 
 import Vue from 'core/index'
 import config from 'core/config'
-import { extend, noop } from 'shared/util'
-import { mountComponent } from 'core/instance/lifecycle'
-import { devtools, inBrowser, isChrome } from 'core/util/index'
+import {
+  extend,
+  noop
+} from 'shared/util'
+import {
+  mountComponent
+} from 'core/instance/lifecycle'
+import {
+  devtools,
+  inBrowser,
+  isChrome
+} from 'core/util/index'
 
 import {
   query,
@@ -20,7 +29,9 @@ import {
   isUnknownElement
 } from 'web/util/index'
 
-import { patch } from './patch'
+import {
+  patch
+} from './patch'
 import platformDirectives from './directives/index'
 import platformComponents from './components/index'
 
@@ -46,9 +57,9 @@ extend(Vue.options.components, platformComponents)
 Vue.prototype.__patch__ = inBrowser ? patch : noop
 
 // public mount method
-Vue.prototype.$mount = function (
-  el?: string | Element,
-  hydrating?: boolean
+Vue.prototype.$mount = function(
+  el ? : string | Element, // 可以是一个字符串也可以是一个 DOM 元素
+  hydrating ? : boolean // 用于 Virtual DOM 的补丁算法
 ): Component {
   el = el && inBrowser ? query(el) : undefined
   return mountComponent(this, el, hydrating)

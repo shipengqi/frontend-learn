@@ -153,9 +153,9 @@ export function mountComponent(
   el: ? Element,
   hydrating ? : boolean
 ): Component {
-  vm.$el = el
+  vm.$el = el // $el 的值是组件模板根元素的引用
   if (!vm.$options.render) {
-    vm.$options.render = createEmptyVNode
+    vm.$options.render = createEmptyVNode // vm.$options.render 不存在，设置为一个空的 vnode 对象
     if (process.env.NODE_ENV !== 'production') {
       /* istanbul ignore if */
       if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
@@ -174,10 +174,15 @@ export function mountComponent(
       }
     }
   }
+
+  // beforeMount 生命周期钩子
   callHook(vm, 'beforeMount')
 
   let updateComponent
-    /* istanbul ignore if */
+
+  /* istanbul ignore if */
+  //	vm._render 调用 vm.$options.render 函数并返回生成的虚拟节点(vnode)
+  // vm._update 把 vm._render 函数生成的虚拟节点渲染成真正的 DOM
   if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
     updateComponent = () => {
       const name = vm._name

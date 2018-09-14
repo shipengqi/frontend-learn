@@ -1,7 +1,9 @@
 /* @flow */
 
 import type Watcher from './watcher'
-import { remove } from '../util/index'
+import {
+  remove
+} from '../util/index'
 import config from '../config'
 
 let uid = 0
@@ -11,33 +13,33 @@ let uid = 0
  * directives subscribing to it.
  */
 export default class Dep {
-  static target: ?Watcher;
+  static target: ? Watcher;
   id: number;
-  subs: Array<Watcher>;
+  subs: Array < Watcher > ;
 
-  constructor () {
+  constructor() {
     this.id = uid++
-    this.subs = []
+      this.subs = []
   }
 
-  addSub (sub: Watcher) {
+  addSub(sub: Watcher) {
     this.subs.push(sub)
   }
 
-  removeSub (sub: Watcher) {
+  removeSub(sub: Watcher) {
     remove(this.subs, sub)
   }
 
-  depend () {
+  depend() {
     if (Dep.target) {
-      Dep.target.addDep(this)
+      Dep.target.addDep(this) // addDep 方法的作用是收集依赖，并且避免收集重复依赖
     }
   }
 
-  notify () {
+  notify() {
     // stabilize the subscriber list first
     const subs = this.subs.slice()
-    if (process.env.NODE_ENV !== 'production' && !config.async) {
+    if (process.env.NODE_ENV !== 'production' && !config.async) { //同步执行观察者
       // subs aren't sorted in scheduler if not running async
       // we need to sort them now to make sure they fire in correct
       // order
@@ -55,11 +57,11 @@ export default class Dep {
 Dep.target = null
 const targetStack = []
 
-export function pushTarget (_target: ?Watcher) {
+export function pushTarget(_target: ? Watcher) {
   if (Dep.target) targetStack.push(Dep.target)
   Dep.target = _target
 }
 
-export function popTarget () {
+export function popTarget() {
   Dep.target = targetStack.pop()
 }
