@@ -23,11 +23,31 @@ module.exports = {
       text: '正文',
       link: '/deep/',
     }, {
-      text: 'mVue',
-      link: '/mvue/'
+      text: 'mVue 实现',
+      link: '/impl/'
     }, {
       text: '部署',
-      link: '/vuepress.md'
-    }]
+      link: '/vpdeploy/'
+    }],
+    sidebar: {
+      '/deep/': [{
+        title: '正文（持续更新中...）',
+        children: [
+          ''
+        ]
+      }],
+      '/impl/': [{
+        title: 'mVue 实现',
+        children: [
+          ''
+        ]
+      }],
+      '/vpdeploy/': [{
+        title: '部署',
+        children: [
+          ''
+        ]
+      }]
+    }
   }
-}
+};
