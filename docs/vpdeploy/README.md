@@ -1,4 +1,4 @@
-# VuePress 部署
+# 使用 VuePress 部署
 [VuePress](https://github.com/vuejs/vuepress)由两部分组成，一部分是支持用 Vue 开发主题的极简静态网站生成器，另一个部分是为书写技术文档而优化的默认主题。它的诞生初衷是为了支持 Vue 及其子项目的文档需求。
 
 我们这里是使用技术文档默认主题。
