@@ -1,12 +1,6 @@
 # Vue 深入学习
 
-## 目录
-- [Vue 运行机制](#运行机制)
-- [编译](#编译)
-- [响应式](#响应式)
-- [虚拟DOM](#虚拟DOM)
-
-## 运行机制 ##
+## 运行机制
 ### 初始化
 我们知道通过`new Vue()`得到一个`vue`实例，既然要了解`vue`的运行机制，我们就来看看`new Vue()`到底做了些什么。
 ```javascript
@@ -25,11 +19,11 @@ function Vue (options) {
 
 初始化之后会调用`$mount`，如果这是没有`render`函数，但是存在`template`，就会进行**编译**。
 
-## 编译 ##
+## 编译
 编译可以分成`parse`、`optimize`与`generate`三个阶段，编译结束后得到`render`函数。
 
 ### parse
-`parse`会用正则等方式解析`template`模板中的指令、`class`、`style`等数据，形成`AST`
+`parse`会用正则等方式解析`template`模板中的指令、`class`、`style`等数据，形成`AST`（抽象语法树）
 
 ### optimize
 `optimize`的主要作用是标记`static`静态节点，这是`Vue`在编译过程中的一处优化，后面当`update`更新界面时，会有一个`patch`的过程，
@@ -40,8 +34,8 @@ function Vue (options) {
 
 在经历过这三个阶段以后，组件中就会存在渲染`VNode`所需的`render`函数了。
 
-## 响应式 ##
+## 响应式
 `Vue`是一个`MVVM`框架，`Vue`的响应式是基于`Object.defineProperty`的。
 
-## 虚拟DOM ##
+## 虚拟DOM
 
