@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vue 混入 | Vue深入学习</title>
+    <meta name="description" content="解析 Vue 源码，深入理解 Vue">
+    <link rel="icon" href="/mVue/logo.png">
+    
+    <link rel="preload" href="/mVue/assets/css/0.styles.8b922a6f.css" as="style"><link rel="preload" href="/mVue/assets/js/app.20660602.js" as="script"><link rel="preload" href="/mVue/assets/js/13.7ac641ae.js" as="script"><link rel="prefetch" href="/mVue/assets/js/9.e9215e20.js"><link rel="prefetch" href="/mVue/assets/js/2.cda51ec0.js"><link rel="prefetch" href="/mVue/assets/js/3.04e3dd65.js"><link rel="prefetch" href="/mVue/assets/js/4.4dabd398.js"><link rel="prefetch" href="/mVue/assets/js/5.c09ad318.js"><link rel="prefetch" href="/mVue/assets/js/6.b4cb9160.js"><link rel="prefetch" href="/mVue/assets/js/7.8fd52f3a.js"><link rel="prefetch" href="/mVue/assets/js/8.bc02a0d2.js"><link rel="prefetch" href="/mVue/assets/js/10.16404e48.js"><link rel="prefetch" href="/mVue/assets/js/11.f3fc56b9.js"><link rel="prefetch" href="/mVue/assets/js/12.cd6e01f4.js"><link rel="prefetch" href="/mVue/assets/js/14.b4c97987.js"><link rel="prefetch" href="/mVue/assets/js/15.46de7f78.js"><link rel="prefetch" href="/mVue/assets/js/16.e29619be.js"><link rel="prefetch" href="/mVue/assets/js/17.07ecb797.js"><link rel="prefetch" href="/mVue/assets/js/18.b075755e.js"><link rel="prefetch" href="/mVue/assets/js/19.e908b272.js"><link rel="prefetch" href="/mVue/assets/js/20.804c178b.js">
+    <link rel="stylesheet" href="/mVue/assets/css/0.styles.8b922a6f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/mVue/" class="home-link router-link-active"><!----> <span class="site-name">Vue深入学习</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/mVue/basic/" class="nav-link router-link-active">基础</a></div><div class="nav-item"><a href="/mVue/deep/" class="nav-link">深入</a></div><div class="nav-item"><a href="/mVue/impl/" class="nav-link">mVue 实现</a></div><div class="nav-item"><a href="/mVue/vpdeploy/" class="nav-link">VuePress</a></div> <a href="https://github.com/shipengqi/mVue" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/mVue/basic/" class="nav-link router-link-active">基础</a></div><div class="nav-item"><a href="/mVue/deep/" class="nav-link">深入</a></div><div class="nav-item"><a href="/mVue/impl/" class="nav-link">mVue 实现</a></div><div class="nav-item"><a href="/mVue/vpdeploy/" class="nav-link">VuePress</a></div> <a href="https://github.com/shipengqi/mVue" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading open"><span>基础（持续更新中...）</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/mVue/basic/" class="sidebar-link">Vue 语法</a></li><li><a href="/mVue/basic/computed.html" class="sidebar-link">Vue 计算属性</a></li><li><a href="/mVue/basic/command.html" class="sidebar-link">Vue 指令</a></li><li><a href="/mVue/basic/event.html" class="sidebar-link">Vue 事件处理</a></li><li><a href="/mVue/basic/form.html" class="sidebar-link">Vue 表单</a></li><li><a href="/mVue/basic/component.html" class="sidebar-link">Vue 组件</a></li><li><a href="/mVue/basic/component_pack.html" class="sidebar-link">Vue 如何封装组件</a></li><li><a href="/mVue/basic/custom_command.html" class="sidebar-link">Vue 自定义指令</a></li><li><a href="/mVue/basic/render.html" class="sidebar-link">Vue render 函数</a></li><li><a href="/mVue/basic/mixin.html" class="active sidebar-link">Vue 混入</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mVue/basic/mixin.html#全局混入和局部混入：" class="sidebar-link">全局混入和局部混入：</a></li></ul></li><li><a href="/mVue/basic/plugin.html" class="sidebar-link">Vue 插件</a></li><li><a href="/mVue/basic/vue_router.html" class="sidebar-link">vue-router</a></li><li><a href="/mVue/basic/vuex.html" class="sidebar-link">Vuex</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="vue-混入"><a href="#vue-混入" aria-hidden="true" class="header-anchor">#</a> Vue 混入</h1> <p>混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被混入该组件本身的选项。使用场景：</p> <ul><li>使用混入可以减少代码量，实现代码重用。</li> <li>后期需要增加方法时，使用混入会减少源代码的污染。</li></ul> <h2 id="全局混入和局部混入："><a href="#全局混入和局部混入：" aria-hidden="true" class="header-anchor">#</a> 全局混入和局部混入：</h2> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">//全局混入</span>
+Vue<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  created<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">//局部混入</span>
+<span class="token keyword">var</span> mixin <span class="token operator">=</span> <span class="token punctuation">{</span>
+  created<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  mixins<span class="token punctuation">:</span> <span class="token punctuation">[</span>mixin<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>当组件和混入对象含有同名选项时，以下面的方式混合：</p> <ul><li>数据对象在内部会进行浅合并 (一层属性深度)，在和组件的数据发生冲突时以组件数据优先。</li> <li>同名钩子函数将混合为一个数组，因此都将被调用。混入对象的钩子将在组件自身钩子之前调用。</li> <li>值为对象的选项，例如 methods, components 和 directives，将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对。</li> <li><code>Vue.extend()</code>也使用同样的策略进行合并。</li></ul> <blockquote><p><strong>一旦使用全局混入对象，将会影响到所有之后创建的 Vue 实例。</strong></p></blockquote></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/shipengqi/mVue/edit/master/docs/basic/mixin.md" target="_blank" rel="noopener noreferrer">错别字纠正</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/mVue/basic/render.html" class="prev">
+          Vue render 函数
+        </a></span> <span class="next"><a href="/mVue/basic/plugin.html">
+          Vue 插件
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/mVue/assets/js/13.7ac641ae.js" defer></script><script src="/mVue/assets/js/app.20660602.js" defer></script>
+  </body>
+</html>
