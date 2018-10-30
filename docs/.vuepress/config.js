@@ -20,18 +20,39 @@ module.exports = {
     editLinkText: '错别字纠正',
     sidebarDepth: 3,
     nav: [{
-      text: '正文',
+      text: '基础',
+      link: '/basic/',
+    },{
+      text: '深入',
       link: '/deep/',
     }, {
       text: 'mVue 实现',
       link: '/impl/'
     }, {
-      text: '部署',
+      text: 'VuePress',
       link: '/vpdeploy/'
     }],
     sidebar: {
+      '/basic/': [{
+        title: '基础（持续更新中...）',
+        children: [
+          '',
+          'computed',
+          'command',
+          'event',
+          'form',
+          'component',
+          'component_pack',
+          'custom_command',
+          'render',
+          'mixin',
+          'plugin',
+          'vue_router',
+          'vuex'
+        ]
+      }],
       '/deep/': [{
-        title: '正文（持续更新中...）',
+        title: '深入（持续更新中...）',
         children: [
           ''
         ]
