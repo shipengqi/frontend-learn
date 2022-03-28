@@ -53,7 +53,7 @@ MVVM(Model-View-View-Model)模式是由MVC衍生出来的。当View （视图层
 </html>
 ```
 效果如图：
-![databind](/images/vue/databinder.jpg)
+![databind](/static/images/vue/databinder.jpg)
 
 上面的代码在`input`标签上，有一个`v-model`，它的值对应于我们Vue 实例的`data`选项中的`name`字段，这就是数据绑定。
 Vue 实例的`data`选项，用来声明需要双向绑定的数据。当一个 Vue 实例被创建时，它向 Vue 的**响应式系统**中加入了其 data 对象中能找到的所有的属性。
@@ -74,7 +74,7 @@ app.age = 18;
 可以利用钩子函数，在不同的阶段，添加自己的业务逻辑。
 
 **[官网](https://cn.vuejs.org/v2/guide/instance.html)的生命周期图示**
-![lifecycle](/images/vue/lifecycle.png)
+![lifecycle](/static/images/vue/lifecycle.png)
 
 常用的钩子有：
 - `created`，实例创建完成后调用，此阶段完成了数据的观测等，但尚未挂载，$el 还不可用。需要初始化处理一些数据时会比较有用。
