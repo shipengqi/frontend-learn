@@ -99,30 +99,31 @@ const app = new Vue({
 ### mapState
 当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。
 `mapState`辅助函数帮助我们生成计算属性:
+
 ```javascript
-import { mapState } from 'vuex'
+import {mapState} from 'content/docs/framework/vue/basic/vuex'
 
 export default {
-  // ...
-  computed: mapState({
-    // 箭头函数可使代码更简练
-    count: state => state.count,
+    // ...
+    computed: mapState({
+        // 箭头函数可使代码更简练
+        count: state => state.count,
 
-    // 传字符串参数 'count' 等同于 `state => state.count`
-    countAlias: 'count',
+        // 传字符串参数 'count' 等同于 `state => state.count`
+        countAlias: 'count',
 
-    // 为了能够使用 `this` 获取局部状态，必须使用常规函数
-    countPlusLocalState (state) {
-      return state.count + this.localCount
-    }
-  })
+        // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+        countPlusLocalState(state) {
+            return state.count + this.localCount
+        }
+    })
 }
 
 
 //也可以给 mapState 传一个字符串数组
 computed: mapState([
-  // 映射 this.count 为 store.state.count
-  'count'
+    // 映射 this.count 为 store.state.count
+    'count'
 ])
 ```
 

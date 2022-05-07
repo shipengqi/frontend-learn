@@ -185,12 +185,13 @@ module.exports = {
 ![](../img/inspect_plugins.jpg)
 
 最后我们从输出的内容中找到 plugins 数组，其包含了如下插件（配置项已经省略，增加了定义插件的代码）：
+
 ```js
 // vue-loader是 webpack 的加载器，允许你以单文件组件的格式编写 Vue 组件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 // webpack 内置插件，用于创建在编译时可以配置的全局常量
-const { DefinePlugin } = require('webpack');
+const {DefinePlugin} = require('content/docs/framework/vue/vuecli3/webpack');
 
 // 用于强制所有模块的完整路径必需与磁盘上实际路径的确切大小写相匹配
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -205,7 +206,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssnanoPlugin = require('optimize-css-assets-webpack-plugin');
 
 // webpack 内置插件，用于根据模块的相对路径生成 hash 作为模块 id, 一般用于生产环境
-const { HashedModuleIdsPlugin } = require('webpack');
+const {HashedModuleIdsPlugin} = require('content/docs/framework/vue/vuecli3/webpack');
 
 // 用于根据模板或使用加载器生成 HTML 文件
 const HtmlWebpackPlugin = require('html-webpack-plugin');

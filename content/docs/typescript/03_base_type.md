@@ -67,6 +67,7 @@ let TypeScriptIsGreat: boolean = true;
 ```
 
 ### Symbol
+
 TypeScript 开始支持 `Symbol` 原始类型，可以通过 `Symbol` 构造函数，创建一个独一无二的标记；同时，还可以使用 `symbol` 表示类型：
 
 ```typescript
