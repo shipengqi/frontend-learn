@@ -76,3 +76,26 @@ let sym2: symbol = Symbol('42');
 ```
 
 **TypeScript 还包含 Number、String、Boolean、Symbol 等类型（注意区分大小写），别将它们和小写格式对应的 number、string、boolean、symbol 进行等价**。
+
+
+### 枚举
+
+枚举：一组有名字的常量集合。
+
+
+### 接口
+
+接口可以用来约束对象，函数，类的结构和类型，不能改变。
+
+### 函数
+
+### 类
+
+ts 类覆盖了 es6 的类，同时引入了一些其他特性
+
+- 类可以相互继承
+- 类可以实现接口，接口只能约束类的 public 属性
+- 接口可以相互继承
+- 接口可以继承类，继承类时会抽离类的 public，private，protected 属性
+
+## 泛型
