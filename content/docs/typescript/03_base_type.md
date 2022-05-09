@@ -99,3 +99,62 @@ ts 类覆盖了 es6 的类，同时引入了一些其他特性
 - 接口可以继承类，继承类时会抽离类的 public，private，protected 属性
 
 ## 泛型
+
+比如一个打印函数：
+
+```typescript
+fucntion log(str: string): string {
+    console.log(str);
+    return value;
+}
+```
+
+如果这时候想要这个函数可以接受一个字符串数组，应该怎么办？
+
+一种方式是使用函数重载：
+
+```typescript
+fucntion log(value: string): string
+fucntion log(value: string[]): string[]
+fucntion log(value: any): any {
+    console.log(value);
+    return value;
+}
+```
+
+还可以使用联合类型来实现：
+
+```typescript
+fucntion log(value: string | string[]): string | string[] {
+    console.log(value);
+    return value;
+}
+```
+
+如果希望函数可以接受任意类型的参数，可以直接使用 any 类型：
+
+```typescript
+fucntion log(value: any): any {
+    console.log(value);
+    return value;
+}
+```
+
+但是 any 类型没有类型约束，函数的参数和返回值的类型可以是不一致的，没有了约束。
+
+那么我们可以利用泛型来实现：
+
+```typescript
+function log<T>(value: T): T {
+    console.log(value);
+    return value;
+}
+```
+
+类型 T 不需要指定，相当于 any，但是又保证了参数和返回值的类型是一致的。
+
+泛型的好处：
+
+1. 函数和类可以很简单的支持多种类型，增强了扩展性
+2. 不必谢多条函数重载
+3. 灵活控制类型之间的约束
