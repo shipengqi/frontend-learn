@@ -23,16 +23,15 @@ ts 能够在特定的区块中保证变量属于某种确定的类型。可以�
 
 ## 索引类型
 
-## Array
-## 元组类型（Tuple）
-## any
-## unknown
-## void、undefined、null
-## never
-## object
-## 类型断言
+## 映射类型
 
-```typescript
-const arrayNumber: number[] = [1, 2, 3, 4];
-const greaterThan2: number = arrayNumber.find(num => num > 2); // 提示 ts(2322)
-```
+映射类型 可以从一个旧的类型生成一个新的类型
+
+映射类型 本质上就是预先定义的泛型接口，通常还会结合索引类型，获取对象的属性和属性值，从而映射成我们想要的结构。
+
+
+## 条件类型
+
+由条件表达式所决定的类型：`T extends U ? X : Y` 意思就是如果类型 T 可以被赋值给类型 U，那么得到的结果就是类型 X，否则就是类型 Y。
+
+条件类型使类型不是唯一性的，增加了灵活性。
