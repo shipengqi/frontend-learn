@@ -1,0 +1,28 @@
+{
+  "name": "ts-project-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "webpack-dev-server --mode=development --config=./build/webpack.config.js",
+    "build": "webpack --mode=production --config=./build/webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.5.14",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.3"
+  }
+}

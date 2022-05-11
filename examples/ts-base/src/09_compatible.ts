@@ -173,5 +173,7 @@ let log2 = <U>(y: U): U => {
     console.log('y')
     return y
 }
+
 // 泛型函数如果定义相同，那么也是可以兼容的
 log1 = log2
+
