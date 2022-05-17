@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode=development --config=./build/webpack.config.js",
     "build": "webpack --mode=production --config=./build/webpack.config.js",
+    "lint": "eslint src --ext .js,.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -22,6 +23,9 @@
   },
   "dependencies": {
     "@types/jquery": "^3.5.14",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
     "jquery": "^3.6.0",
     "moment": "^2.29.3"
   }

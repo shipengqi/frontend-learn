@@ -351,3 +351,67 @@ __proto__: Function -->
 ```
 
 模板输入变量和模板变量名称具有各自的名称空间。`let hero` 中的模板输入变量 `hero` 和 `#hero` 中的模板变量 `hero` 是不同的。
+
+## Observable
+
+可观察对象（Observable）对在应用的各个部分之间传递消息提供了支持。
+
+可观察对象是声明式的 —— 也就是说，虽然你定义了一个用于发布值的函数，但是**在有消费者订阅它之前，这个函数并不会实际执行**。 订阅之后，当这个函数执行完或取消订阅时，订阅者就会收到通知。
+
+可观察对象可以发送多个任意类型的值 —— 字面量、消息、事件。无论这些值是同步发送的还是异步发送的，接收这些值的 API 都是一样的。
+
+应用代码只管订阅并消费这些值就可以了，做完之后，取消订阅。无论这个流是按键流、HTTP 响应流还是定时器，对这些值进行监听和停止监听的接口都是一样的。
+
+
+创建一个 Observable 的实例，其中定义了一个订阅者（subscriber）函数。 当有消费者调用 `subscribe()` 方法时，这个函数就会执行。
+要执行所创建的可观察对象，并开始从中接收通知，你就要调用它的 `subscribe()` 方法，并传入一个观察者（observer）。 这是一个 JavaScript 对象，它定义了你收到的这些消息的处理器（handler）。 `subscribe()` 调用会返回一个 `Subscription` 对象，该对象具有一个 `unsubscribe()` 方法。 当调用该方法时，你就会停止接收通知。
+```typescript
+// Create an Observable that will start listening to geolocation updates
+// when a consumer subscribes.
+const locations = new Observable((observer) => {
+  let watchId: number;
+
+  // Simple geolocation API check provides values to publish
+  if ('geolocation' in navigator) {
+    watchId = navigator.geolocation.watchPosition((position: GeolocationPosition) => {
+      observer.next(position);
+    }, (error: GeolocationPositionError) => {
+      observer.error(error);
+    });
+  } else {
+    observer.error('Geolocation not available');
+  }
+
+  // When the consumer unsubscribes, clean up data ready for next subscription.
+  return {
+    unsubscribe() {
+      navigator.geolocation.clearWatch(watchId);
+    }
+  };
+});
+
+// Call subscribe() to start listening for updates.
+const locationsSubscription = locations.subscribe({
+  next(position) {
+    console.log('Current Position: ', position);
+  },
+  error(msg) {
+    console.log('Error Getting Location: ', msg);
+  }
+});
+
+// Stop listening for location after 10 seconds
+setTimeout(() => {
+  locationsSubscription.unsubscribe();
+}, 10000);
+```
+
+### 观察者
+
+Observer 接口：
+
+| NOTIFICATION TYPE   | Description                                                                          |
+| ------------------- | ------------------------------------------------------------------------------------ |
+| `next`              | Required 处理消息的函数，可能执行零次或多次。                                           |
+| `error`             | Optional 用来处理错误通知。错误会中断这个可观察对象实例的执行过程。                       |
+| `complete`          | Optional 用来处理执行完成（complete）通知。这些值就会继续传给下一个处理器。               |
