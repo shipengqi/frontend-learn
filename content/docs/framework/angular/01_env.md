@@ -15,4 +15,7 @@ cd my-ng-app
 ng serve --open
 # or
 ng serve -o
+
+# 模拟 HTTP server
+npm install angular-in-memory-web-api --save
 ```
