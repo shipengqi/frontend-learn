@@ -33,7 +33,7 @@ compute = (a, b) => a + b;
 
 // 对象
 let obj: object = {x: 1, y: 2}
-// obj.x = 1 // Property 'x' does not exist on type 'object'.ts(2339) 
+// obj.x = 1 // Property 'x' does not exist on type 'object'.ts(2339)
 // 上面只是指定了 obj 的类型是 object，没有具体定义包含的属性
 // 正确的的定义
 let obj2: {x: number, y: number} = {x: 1, y: 2}
@@ -77,3 +77,21 @@ let error = () => {
 let endless = () => {
     while(true) {}
 }
+
+// 因为接口 Box 里面 name 被定义为可空的值，但是实际情况是不为空的，那么我们就可以
+// 通过在 BoxA 里面使用 ! 重新强调 name 不为空值
+class BoxA implements Box {
+    name!: string
+}
+
+interface Box {
+    name?: string
+}
+
+// 这里 Error 对象定义的 stack 是可选参数，如果这样写的话编译器会提示
+// TS2532: Object is possibly 'undefined'.
+// new Error().stack.split('\n');
+
+// 假如我们确信这个字段一定存在，那么就可以添加 ! 强调这个字段一定存在
+// 就不会报错了
+new Error().stack!.split('\n');
