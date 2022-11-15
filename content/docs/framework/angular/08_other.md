@@ -77,3 +77,33 @@ export class BComponent implements OnInit {}
 独修改它的样式，而不影响别的组件。
 
 组合在一起就是只有本组件和本组件的子组件里的 div 才能被选择到, 这样既能控制范围，又能影响到子组件。
+
+
+## NgTemplateOutlet
+使 `NgTemplateOutlet` 的宿主元素变成一个内嵌视图 —— 这个内嵌视图是根据一个提前定义好的 `templateRef` 模板引用生成的。而宿主元素无论是什么元素，都不会被渲染出来。
+
+```typescript
+@Component({
+  selector: 'ng-template-outlet-example',
+  template: `
+    <ng-container *ngTemplateOutlet="one"></ng-container>
+    <hr>
+    <ng-container *ngTemplateOutlet="two; context: myContext"></ng-container>
+    <hr>
+    <ng-container *ngTemplateOutlet="three; context: myContext"></ng-container>
+    <hr>
+
+    <ng-template #one><span>Hello</span></ng-template>
+    <ng-template #two let-name><span>Hello {{name}}!</span></ng-template>
+    <ng-template #three let-person="lastName">My name is <span>LeBron {{person}}!</span></ng-template>
+`
+})
+export class NgTemplateOutletExample {
+  myContext = {$implicit: 'World', lastName: 'James'};
+}
+```
+
+一个宿主元素可以使用 `ngTemplateOutlet` 这个结构性指令，使自己变成任意的一个 `<ng-template>` 模板生成的内嵌视图。并且可以给其设置**上下文对象**。
+然后我们在这个模板中可以使用 `let-变量` 这个模板输入变量来获取上下文对象中的值，这个模板更具灵活性。
+
+在上下文对象中使用 `$implicit` 这个 key 会把对应的值设置为默认值。

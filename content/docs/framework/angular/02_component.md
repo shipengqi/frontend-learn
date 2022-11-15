@@ -109,3 +109,87 @@ Angular 给每个组件的元素动态的加上独有的属性，然后给这个
 ### `:host-context`
 
 需要满足某条件才能应用样式。它在当前组件宿主元素的祖先节点中查找 CSS 类，直到文档的根节点为止。如果找到，才会应用后面的样式到本组件内部元素。
+
+## 内容投影
+
+在组件模板中，添加 `<ng-content>` 元素，让你希望投影的内容出现在其中。
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-zippy-basic',
+  template: `
+    <h2>Single-slot content projection</h2>
+    <ng-content></ng-content>
+  `
+})
+export class ZippyBasicComponent {}
+```
+
+有了 <ng-content> 元素，该组件的用户现在可以将自己的消息投影到该组件中。比如：
+
+```html
+<app-zippy-basic>
+  <p>Is content projection cool?</p>
+</app-zippy-basic>
+```
+
+### 多插槽内容投影
+一个组件可以具有多个插槽。每个插槽可以指定一个 CSS 选择器，该选择器会决定将哪些内容放入该插槽。该模式称为多插槽内容投影。
+
+通过使用 `<ng-content>` 的 `select` 属性来实现。
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-zippy-multislot',
+  template: `
+    <h2>Multi-slot content projection</h2>
+
+    Default:
+    <ng-content></ng-content>
+
+    Question:
+    <ng-content select="[question]"></ng-content>
+  `
+})
+export class ZippyMultislotComponent {}
+```
+
+使用 `question` 属性的内容将投影到带有 `select=[question]` 属性的 `<ng-content>` 元素。
+
+```html
+<app-zippy-multislot>
+  <p question>
+    Is content projection cool?
+  </p>
+  <p>Let's learn about content projection!</p>
+</app-zippy-multislot>
+```
+
+
+### 有条件的内容投影
+
+在这种情况下，不建议使用 `<ng-content>` 元素，因为只要组件的使用者提供了内容，即使该组件从未定义 `<ng-content>` 元素或该 `<ng-content>` 元素位于 `ngIf` 语句的内部，该内容也总会被初始化。
+
+使用 `<ng-template>` 元素，你可以让组件根据你想要的任何条件显式渲染内容，并可以进行多次渲染。在显式渲染 `<ng-template>` 元素之前，Angular 不会初始化该元素的内容。
+
+在接受 `<ng-template>` 元素的组件中，使用 `<ng-container>` 元素渲染该模板，比如：
+
+```html
+<ng-container [ngTemplateOutlet]="content.templateRef"></ng-container>
+
+<ng-template appExampleZippyContent>
+   It depends on what you do with it.
+</ng-template>
+```
+
+将 `<ng-container>` 元素包装在另一个元素（比如 div 元素）中，然后应用条件逻辑。
+
+```html
+<div *ngIf="expanded" [id]="contentId">
+    <ng-container [ngTemplateOutlet]="content.templateRef"></ng-container>
+</div>
+```
