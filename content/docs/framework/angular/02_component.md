@@ -511,3 +511,64 @@ Angular 元素就是打包成自定义元素的 Angular 组件。所谓自定义
 例化的 JavaScript 类映射到 HTML 标签上。
 
 `@angular/elements` 包的 `createCustomElement()` API 把组件转换成自定义元素可以让所有所需的 Angular 基础设施都在浏览器中可用。
+
+
+## Change Detection：变化检测策略
+
+Angular 默认的变化检测机制是 `ChangeDetectionStrategy.Default`：异步事件 callback 结束后，NgZone 会触发整个组件树至上而下做变化检测。
+
+但是在实际应用里，并不是每个异步操作需要变化检测，某些组件也可以完全不用做变化检测，应用越大页面越复杂，过多的变化检测会影响整个应用的性能。Angular 除了默认的变化检测
+机制，也提供了 `ChangeDetectionStrategy.OnPush`，用 `OnPush` 可以跳过某个组件或者某个父组件以及它下面所有子组件的变化检测。
+
+定义一个 `ParentComponent` 如下：
+
+```typescript
+@Component({
+    template: `<h1> { { data.title } } </h1>
+
+               <cd-child [data]="data"></cd-child>
+   
+               <button (click)="changeInfo()">Change Info</button>`
+})
+export class ParentComponent {
+    data: any = {
+       title: 'parent',
+    };
+    changeInfo() {
+        this.data.title = 'child';
+    }
+
+}
+```
+
+定义一个 `ChildComponent` 如下：
+```typescript
+@Component({
+    selector: "cd-child",
+    template: `<h3>{ { title } } </h3>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class CDChildComponent implements OnChanges {
+   @Input() data: any;
+
+   ngOnChanges() {
+      console.log('data has been changed: ' + this.data.title);
+   }
+}
+```
+
+点击 `ChangeInfo` 按钮，不会触发 `ChildComponent` 中的变化检测，页面 title 也不会有变化。加了 `OnPush` 表示，在发生异步事件以后触发变化检测，Angular 会跳过这个组件，不会触发
+这个组件的变化检测。如果 `OnPush` 是加在某个父组件上，那么这个父组件和它下面所有的子组件都不会触发变化检测。
+
+但是在实际应用里，我们并不希望把整个组件的变化检测都禁掉，而是希望部分操作还是可以触发它的变化检测，比如从后端 API 返回新的数据，虽然加了 `OnPush`，这些数
+据还是能够更新在页面上。
+
+Angular 在组件里添加了 `OnPush` 策略，以下四种情况还是可以触发该组件的变化检测：
+
+1. 组件的 `@Input` 引用发生变化。注意 `Object` 是通过引用传递的，每次对 `Object` 改动，引用不会改变。
+2. 组件的 DOM 事件，包括它子组件的 DOM 事件，比如 `click`、`submit`、`mouse down`。
+3. `Observable` 订阅事件，同时设置 `Async pipe`。
+4. 利用以下方式手动触发变化检测： 
+   - `ChangeDetectorRef.detectChanges`
+   - `ChangeDetectorRef.markForCheck()`
+   - `ApplicationRef.tick()`
