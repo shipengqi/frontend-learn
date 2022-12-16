@@ -226,6 +226,8 @@ export class CountdownViewChildParentComponent implements AfterViewInit {
 
 装饰器 `@ViewChild` 将子组件 `CountdownTimerComponent` 注入到私有属性 `timerComponent` 里面。`#timer` 本地变量就可以删掉了。
 
+#### ViewChildren
+
 ### 父组件和子组件通过 service 来通讯
 
 父组件和它的子组件共享同一个服务，利用该服务在组件家族内部实现双向通讯。
@@ -572,3 +574,31 @@ Angular 在组件里添加了 `OnPush` 策略，以下四种情况还是可以�
    - `ChangeDetectorRef.detectChanges`
    - `ChangeDetectorRef.markForCheck()`
    - `ApplicationRef.tick()`
+
+## Todo
+
+- Angular 如何实现 UI 指令
+- ViewChildren, ContentChildren, @Component.host, @Component.preserveWhitespaces, @Component.encapsulation
+  - [@Component](https://www.jianshu.com/p/befc099097a0)
+  - [@ViewChild](https://juejin.cn/post/6900507694579318791)
+  - [ContentChildren Official](https://angular.io/api/core/ContentChildren)
+  - [ng-content 和 @ContentChild](https://cloud.tencent.com/developer/article/1809430)
+  - [ContentChild & ContentChildren](https://www.jianshu.com/p/f6462aac259a)
+- 更改检测
+  - [Angular 更改检测](https://cloud.tencent.com/developer/news/489235)
+  - [Angular 的变化检测](https://zhuanlan.zhihu.com/p/50715168)
+- [Angular 路由](https://cloud.tencent.com/developer/section/1489557)
+  - [Angular 路由 Official](https://v9.angular.cn/guide/router#router-state)
+  - [RouterOutlet 指令](https://segmentfault.com/a/1190000039677270)
+  - [router-outlet 使用](https://www.jianshu.com/p/d2e0223a337d)
+- CSS
+  - 元素选择器，所有的伪类，动画，过渡，transform，系统学习
+  - [::before 和 ::after](https://juejin.cn/post/6992961262560739364)
+  - [::before 和 ::after 伪元素的实际用途](https://juejin.cn/post/7103110475960811527)
+  - [:before 和 :after 用法详解](https://www.cnblogs.com/wonyun/p/5807191.html)
+  - [::after ::before与原理详解](https://blog.csdn.net/weixin_34533343/article/details/113041858)
+  - [CSS 变量教程](https://www.ruanyifeng.com/blog/2017/05/css-variables.html)
+  - [CSS 全局变量的使用](https://juejin.cn/post/6883759797338898439)
+  - [垂直居中的12种实现方式](https://juejin.cn/post/6844903550909153287)
+  - [元素垂直居中笔记](https://segmentfault.com/a/1190000008707864)
+  - [CSS元素居中教程](https://www.pengfeixc.com/blogs/css/css-center-element-tutorial)
