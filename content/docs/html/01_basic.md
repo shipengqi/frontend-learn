@@ -351,6 +351,20 @@
 语法：
 
 ```css
+@media not|only mediatype and (mediafeature and|or|not mediafeature) {
+  CSS-Code;
+}
+```
+
+媒体类型：
+
+`all`：所有设备。
+`print`：用于打印机和打印预览。
+`screen`：用于电脑屏幕，平板电脑，智能手机等。。
+`speech`：应用于屏幕阅读器等发声设备。
+
+示例：
+```css
 /* 屏幕小于 640px 时，改变 h1 的颜色*/
 @media screen and (max-width: 640px) {
   h1 {

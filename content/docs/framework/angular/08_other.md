@@ -1,4 +1,5 @@
-# `:host` 、`:host-context`、`::ng-deep`
+# Other
+## `:host` 、`:host-context`、`::ng-deep`
 
 Angular 中每个组件都有自己的样式，虽然每个组件都有自己的样式，但是最终都会打包到一起，那么，组件之间的样式会不会相互影响？
 
@@ -77,3 +78,66 @@ export class BComponent implements OnInit {}
 独修改它的样式，而不影响别的组件。
 
 组合在一起就是只有本组件和本组件的子组件里的 div 才能被选择到, 这样既能控制范围，又能影响到子组件。
+
+## Angular Component selector
+
+Angular中，组件装饰器的 selector 一般这么写：
+
+```typescript
+@Component({    
+    selector: 'greet', 
+    template: 'Hello {{name}}!'
+})
+```
+
+其他组件中使用这个组件：
+
+```html
+<greet></greet>
+```
+
+selector 还有其他的写法：
+
+```typescript
+@Component({    
+   selector: '.greet', 
+    template: 'Hello {{name}}!'
+})
+```
+
+这个时候，要想使用这个组件，就需要这么用了：
+
+```html
+<div class='greet'></div>
+```
+
+还可以这么写:
+
+```typescript
+@Component({    
+  selector: ['greet'],
+  template: 'Hello {{name}}!'
+})
+```
+
+使用这个组件的时候：
+
+```html
+<div greet></div>
+```
+
+## Angular Directive selector
+
+在 Directive selector 里需要使用中括号，使用的时候去掉。
+
+```typescript
+@Directive({
+  selector: '[greet]',
+})
+```
+
+使用这个指令的时候：
+
+```html
+<div greet></div>
+```

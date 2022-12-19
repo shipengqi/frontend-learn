@@ -575,15 +575,267 @@ Angular 在组件里添加了 `OnPush` 策略，以下四种情况还是可以�
    - `ChangeDetectorRef.markForCheck()`
    - `ApplicationRef.tick()`
 
+## Component 装饰器的其他属性
+- `styles`：本组件用到的一个或多个内联 CSS 样式。
+- `animations`：一个或多个动画 trigger()调用，包含一些 state()和 transition()定义。
+- `interpolation`：改写默认的插值表达式起止分界符（`{{` 和 `}}`）
+- `preserveWhitespaces`：值为 `false` 时，从编译后的模板中移除可能多余的空白字符，为 `true` 时则保留，空白字符就是指那些
+  能在 JavaScript 正则表达式中匹配 `\s` 的字符。默认为 `false`。
+
+### encapsulation
+
+当我们定义一个 Component 的时候，要考虑它的 encapsulation 封装性，也就是说你期望这个组件里定义的样式是只作用于这个组件，还是想作用于全局。
+
+供模板和 CSS 样式使用的样式封装策略。取值为：
+
+- `ViewEncapsulation.Native`：使用 Shadow DOM。它只在原生支持 Shadow DOM 的平台上才能工作。允许我们对元素应用作用域样式，而不影响其他元素。
+- `ViewEncapsulation.Emulated`：使用垫片（shimmed) CSS 来模拟原生行为。可以将样式范围限定为特定元素。而且由于它没有使用Shadow DOM，因此它仍然可以在不支
+  持 Shadow DOM 的浏览器中运行。
+- `ViewEncapsulation.None`： Use global CSS without any encapsulation.
+- `ViewEncapsulation.None`：使用全局 CSS，不做任何封装。 如果没有提供，该值就会从 CompilerOptions 中获取它。默认的
+  编译器选项是 `ViewEncapsulation.Emulated`
+
+### viewProviders
+
+定义一组可注入对象，它们在视图的各个子节点中可用。[示例](https://angular.io/api/core/Component#injecting-a-class-with-a-view-provider)
+
+```typescript
+class Greeter {
+   greet(name:string) {
+     return 'Hello ' + name + '!';
+   }
+}
+
+@Directive({
+  selector: 'needs-greeter'
+})
+class NeedsGreeter {
+  greeter:Greeter;
+
+  constructor(greeter:Greeter) {
+    this.greeter = greeter;
+  }
+}
+
+@Component({
+  selector: 'greet',
+  viewProviders: [
+    Greeter
+  ],
+  // 重点
+  template: `<needs-greeter></needs-greeter>`
+})
+class HelloWorld {
+}
+```
+
+### animations
+
+想在我们的应用中使用动画，有一个前提条件，得先引入 `BrowserAnimationsModule` 模块。
+
+```typescript
+    animations: [
+        trigger('flyInOut', [
+            state('in', style({transform: 'translateX(0)'})),
+            // keyframes 多阶段动画(任何状态切换的时候都使用该动画)
+            transition('* => *', [
+                animate(1000, keyframes([
+                    style({opacity: 0, transform: 'translateX(-100%)', offset: 0}),
+                    // 多往右边移除一点
+                    style({opacity: 1, transform: 'translateX(50%)', offset: 0.5}),
+                    style({opacity: 1, transform: 'translateX(0)', offset: 1.0})
+                ]))
+            ])
+        ])
+    ]
+```
+
+`trigger` 触发器，将根据提供的 `triggerName` 值创建一个动画触发器。在模板中使用 `[@triggerName]` 语法来把它附加到一个或多个元素上去。
+把元素和触发器对应的动画绑定起来。
+
+```html
+<div style="width: 200px; height: 200px;background-color: #67ee38" [@flyInOut]></div>
+```
+
+`state` 状态：通过这个 `state` 函数来定义每个状态最终的样式(动画开始时候的样子和动画结束之后的样子)；想要动画动起来需要通过改变状态 (state)来触
+发(trigger)动画(animate)。
+
+`transition` 过渡，定义 state 转换的时候使用什么的样的动画来完成。
+
+```typescript
+trigger('animationState', [
+    // stateA 状态最终样式
+    state('stateA', style({
+        backgroundColor: '#67ee38',
+        transform: 'scale(1)'
+    })),
+    // stateB 状态最终样式
+    state('stateB', style({
+        backgroundColor: '#4a302c',
+        transform: 'scale(1.1)'
+    })),
+    // stateA 到 stateB 状态动画
+    transition('stateA => stateB', animate('500ms ease-in')),
+    // stateB 到 stateA 状态动画
+    transition('stateB => stateA', animate('500ms ease-out'))
+]),
+```
+
+两个状态之间的装换就是通过 `状态 => 状态` 这样的表达式来定义。
+`*`、`void` 状态。其中 `*` 状态匹配任何状态，`void` 状态表示元素没有被附加到视图时候的状态。
+
+入场和出场动画：
+
+```typescript
+    animations: [
+        trigger('flyInOut', [
+            state('in', style({opacity: 1, transform: 'translateX(0) scale(1)'})),
+            // 进场动画
+            transition('void => *', [
+                style({opacity: 0, transform: 'translateX(-100%) scale(0)'}),
+                animate(500)
+            ]),
+            // 出场动画
+            transition('* => void', [
+                animate(500, style({opacity: 0, transform: 'translateX(100%) scale(0)'}))
+            ])
+        ])
+    ]
+```
+
+
+### 继承自 Directive 装饰器
+
+`selector`：这个 CS S选择器用于在模板中标记出该指令，并触发该指令的实例化。
+`jit`：如果为 `true`，则该指令/组件将会被 AOT 编译器忽略，始终使用 JIT 编译。
+
+#### exportAs
+
+定义一个名字，用于在模板中把该指令赋值给一个变量。父组件就可以获得指令的实例了。
+
+```typescript
+@Directive({
+  selector: '[appColorful]',
+  // 加上 exportAs
+  exportAs: 'colorful'
+})
+```
+在模板上就可以使用 `#color="colorful"` 的方式，取得 directive 实体了：
+
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+  <!-- 使用 #color="colorful" 取得实体 -->
+  <p appColorful="blue" #color="colorful">Hello World</p>
+  <button (click)="change()">Change Color</button>
+  `,
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+  // 确定取得的是 ColorDirective 的实体
+  @ViewChild('color') color: ColorfulDirective;
+
+  change() {
+    console.log(this.color);
+    this.color.changeColor('black');
+  }
+}
+```
+
+
+#### host
+
+使用一组键-值对，把类的属性映射到宿主元素的绑定（Property、Attribute 和事件）。
+
+`@HostBinding()` 可以为指令的宿主元素添加类、样式、属性等，而 `@HostListener()` 可以监听宿主元素上的事件。
+
+官网的说明：
+- `HostBinding`：用于把一个 DOM 属性标记为绑定到宿主的属性，并提供配置元数据。 Angular 在变更检测期间会自动检查宿主属性绑定，如果这个绑定变化了，它就会更新该指令所在的宿主元素。
+- `HostListener`：用于声明要监听的 DOM 事件，并提供在该事件发生时要运行的处理器方法。
+
+```typescript
+@Component({
+  selector: 'demo-component',
+  host: {
+    '(click)': 'onClick($event.target)', // 事件
+    'role': 'nav', // 属性
+    '[class.pressed]': 'isPressed', // 类
+  }
+})
+export class DemoComponent {
+  isPressed: boolean = true;
+ 
+  onClick(elem: HTMLElement) {
+    console.log(elem);
+  }
+}
+```
+
+等价于 `@HostBinding`、`@HostListener`：
+
+```typescript
+@Component({
+  selector: 'demo-component'
+})
+export class DemoComponent {
+  @HostBinding('attr.role') role = 'nav';
+  @HostBinding('class.pressed') isPressed: boolean = true;
+ 
+  @HostListener('click', ['$event.target'])
+  onClick(elem: HTMLElement) {
+    console.log(elem);
+  }
+}
+```
+
+实现一个在输入时实时改变字体和边框颜色：
+```typescript
+import { Directive, HostBinding, HostListener } from '@angular/core'; 
+@Directive({  
+    selector:'[rainbow]'      
+})
+
+export class RainbowDirective{ 
+possibleColors = [
+  'darksalmon', 'hotpink', 'lightskyblue', 'goldenrod',   
+  'peachpuff', 'mediumspringgreen', 'cornflowerblue', 
+  'blanchedalmond', 'lightslategrey'  
+];                       
+@HostBinding('style.color') color: string; 
+@HostBinding('style.borderColor') borderColor: string;    
+@HostListener('keydown') onKeydown() {    
+    const colorPick = Math.floor(Math.random()*this.possibleColors.length);      
+    this.color = this.borderColor = this.possibleColors[colorPick];  
+}}
+```
+
+用 `@HostBinding()`装饰 `color` 和 `borderColor`，用于设置样式。`@HostListener()` 监听宿主元素的 `keydown` 事件，为 `color` 
+和 `borderColor` 随机分配颜色。
+
+```html
+<input rainbow>
+```
+
+`@HostBinding` 的作用其实就是将某个属性绑定到了宿主元素上，这个属性指的是 angular 模板中支持的属性，其实 `@HostBinding` 就相当于模板中的 `[]` 或者 `bind-`。
+`@HostListener` 就相当于模板中的 `()` 或者 `on-`。
+
+## ContentChild, ContentChildren
+
+`ContentChildren` 属性装饰器用来从通过 Content Projection 方式设置的视图中获取 `ng-content` 里面匹配的多个元素，返回的结果是一个 `QueryList` 集合。
+
+`ContentChild` 类似 `ContentChildren`，不过返回的是一个元素。
+
+`ContentChild` 和 `ViewChild` 的区别：
+
+`ContentChild` 用来从通过 Content Projection 方式 (ng-content) 设置的视图中获取匹配的元素。
+`ViewChild` 匹配的元素在组件的模板中定义的内容，它是组件的一部分。
+在父组件的 `ngAfterContentInit` 生命周期钩子中才能成功获取通过 `ContentChild` 查询的元素
+在父组件的 `ngAfterViewInit` 生命周期钩子中才能成功获取通过 `ViewChild` 查询的元素
+
+
 ## Todo
 
-- Angular 如何实现 UI 指令
-- ViewChildren, ContentChildren, @Component.host, @Component.preserveWhitespaces, @Component.encapsulation
-  - [@Component](https://www.jianshu.com/p/befc099097a0)
-  - [@ViewChild](https://juejin.cn/post/6900507694579318791)
-  - [ContentChildren Official](https://angular.io/api/core/ContentChildren)
-  - [ng-content 和 @ContentChild](https://cloud.tencent.com/developer/article/1809430)
-  - [ContentChild & ContentChildren](https://www.jianshu.com/p/f6462aac259a)
 - 更改检测
   - [Angular 更改检测](https://cloud.tencent.com/developer/news/489235)
   - [Angular 的变化检测](https://zhuanlan.zhihu.com/p/50715168)
