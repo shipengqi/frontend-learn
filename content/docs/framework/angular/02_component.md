@@ -691,11 +691,13 @@ trigger('animationState', [
         trigger('flyInOut', [
             state('in', style({opacity: 1, transform: 'translateX(0) scale(1)'})),
             // 进场动画
+            // void => * 可以替换为 :enter
             transition('void => *', [
                 style({opacity: 0, transform: 'translateX(-100%) scale(0)'}),
                 animate(500)
             ]),
             // 出场动画
+            // * => void 可以替换为 :leave
             transition('* => void', [
                 animate(500, style({opacity: 0, transform: 'translateX(100%) scale(0)'}))
             ])
@@ -703,6 +705,148 @@ trigger('animationState', [
     ]
 ```
 
+关键帧动画：
+
+```typescript
+transition(":leave", [
+  animate(
+    600,
+    keyframes([
+      style({ offset: 0.3, transform: "translateX(-80px)" }),
+      style({ offset: 1, transform: "translateX(100%)" })
+    ])
+  )
+])
+```
+
+动画回调：
+
+```html
+<li @slide (@slide.start)="start($event)" (@slide.done)="done($event)"></li>
+```
+
+```typescript
+import { AnimationEvent } from "@angular/animations"
+
+start(event: AnimationEvent) {
+  console.log(event)
+}
+done(event: AnimationEvent) {
+  console.log(event)
+}
+```
+
+可重用动画：
+
+动画定义在一个独立的文件中：
+```typescript
+import {animate, animation, keyframes, style, transition, trigger, useAnimation} from "@angular/animations"
+
+export const slideInUp = animation(
+    [
+        style({ opacity: 0, transform: "translateY(40px)" }),
+        animate("{{ duration }} {{ delay }} {{ easing }}")
+    ],
+    {
+        params: {
+            duration: "400ms",
+            delay: "0s",
+            easing: "ease-out"
+        }
+    }
+)
+
+export const slideOutLeft = animation([
+    animate(
+        600,
+        keyframes([
+            style({ offset: 0.3, transform: "translateX(-80px)" }),
+            style({ offset: 1, transform: "translateX(100%)" })
+        ])
+    )
+])
+
+export const slide = trigger("slide", [
+    transition(":enter", useAnimation(slideInUp, {params: {delay: "1s"}})),
+    transition(":leave", useAnimation(slideOutLeft))
+])
+```
+
+```typescript
+import { slide } from "./animations"
+
+@Component({
+  animations: [slide]
+})
+```
+
+查询元素执行动画：
+
+`query` 方法可以用来查找元素并为元素创建动画
+```typescript
+import { slide } from "./animations"
+
+animations: [
+  slide,
+  trigger("todoAnimations", [
+    transition(":enter", [
+      query("h2", [
+        style({ transform: "translateY(-30px)" }),
+        animate(300)
+      ]),
+      // 查询子级动画 使其执行
+      query("@slide", animateChild())
+    ])
+  ])
+]
+```
+
+```html
+<div class="container" @todoAnimations>
+  <h2>Todos</h2>
+  <ul class="list-group">
+    <li
+      @slide
+      (click)="removeItem(i)"
+      *ngFor="let item of todos; let i = index"
+      class="list-group-item"
+    >
+      {{ item }}
+    </li>
+  </ul>
+</div>
+```
+
+默认情况下，父级动画和子级动画按照顺序执行，先执行父级动画，再执行子级动画，可以使用 `group` 方法让其并行
+
+```typescript
+trigger("todoAnimations", [
+  transition(":enter", [
+    group([
+      query("h2", [
+        style({ transform: "translateY(-30px)" }),
+        animate(300)
+      ]),
+      query("@slide", animateChild())
+    ])
+  ])
+])
+```
+
+交错动画：
+
+`stagger` 方法，在多个元素同时执行同一个动画时，让每个元素动画的执行依次延迟，**stagger 方法只能在 query 方法内部使用**。
+```typescript
+transition(":enter", [
+  group([
+    query("h2", [
+      style({ transform: "translateY(-30px)" }),
+      animate(300)
+    ]),
+    query("@slide", stagger(200, animateChild()))
+  ])
+])
+```
 
 ### 继承自 Directive 装饰器
 
@@ -743,7 +887,124 @@ export class AppComponent  {
 }
 ```
 
+路由动画：
 
+1. 为路由添加状态标识，此标识即为路由执行动画时的自定义状态：
+    ```typescript
+    const routes: Routes = [
+      {
+        path: "",
+        component: HomeComponent,
+        pathMatch: "full",
+        data: {
+          animation: "one" 
+        }
+      },
+      {
+        path: "about",
+        component: AboutComponent,
+        data: {
+          animation: "two"
+        }
+      },
+      {
+        path: "news",
+        component: NewsComponent,
+        data: {
+          animation: "three"
+        }
+      }
+    ]
+    ```
+
+2. 通过路由插座对象获取路由状态标识，并将标识传递给动画的调用者，让动画执行当前要执行的状态是什么：
+
+    ```html
+    <div class="routerContainer" [@routerAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+    ```
+    
+    ```typescript
+    import { RouterOutlet } from "@angular/router"
+    
+    export class AppComponent {
+      prepareRoute(outlet: RouterOutlet) {
+        return (
+          outlet &&
+          outlet.activatedRouteData &&
+          outlet.activatedRouteData.animation
+        )
+      }
+    }
+    ```
+3. 将 `routerContainer` 设置为相对定位，将它的直接一级子元素设置成绝对定位：
+
+    ```css
+    /* styles.css */
+    .routerContainer {
+      position: relative;
+    }
+    
+    .routerContainer > * {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+    ```
+4. 创建动画：
+```typescript
+trigger("routerAnimations", [
+  transition("one => two, one => three, two => three", [
+    query(":enter", style({ transform: "translateX(100%)", opacity: 0 })),
+    group([
+      query(
+        ":enter",
+        animate(
+          "0.4s ease-in",
+          style({ transform: "translateX(0)", opacity: 1 })
+        )
+      ),
+      query(
+        ":leave",
+        animate(
+          "0.4s ease-out",
+          style({
+            transform: "translateX(-100%)",
+            opacity: 0
+          })
+        )
+      )
+    ])
+  ]),
+  transition("three => two, three => one, two => one", [
+    query(
+      ":enter",
+      style({ transform: "translateX(-100%)", opacity: 0 })
+    ),
+    group([
+      query(
+        ":enter",
+        animate(
+          "0.4s ease-in",
+          style({ transform: "translateX(0)", opacity: 1 })
+        )
+      ),
+      query(
+        ":leave",
+        animate(
+          "0.4s ease-out",
+          style({
+            transform: "translateX(100%)",
+            opacity: 0
+          })
+        )
+      )
+    ])
+  ])
+])
+```
 #### host
 
 使用一组键-值对，把类的属性映射到宿主元素的绑定（Property、Attribute 和事件）。
