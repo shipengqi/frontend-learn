@@ -418,3 +418,60 @@
 
 
 `transition` 两个状态的过渡动画，`transition: all 2s` all 表示所有属性。
+
+
+## 滚动条
+
+`overflow:scroll` x 和 y 轴的滚动条
+`overflow-x:scroll` x 轴的滚动条
+`overflow-y:scroll`  y 轴的滚动条
+
+`::-webkit-scrollbar` —— 整个滚动条，可以设置宽度等。
+`::-webkit-scrollbar-button` —— 滚动条两端的按钮（上下箭头）。
+`::-webkit-scrollbar-thumb` —— 滚动条上的滚动滑块。
+`::-webkit-scrollbar-track` —— 滚动条轨道。
+`::-webkit-scrollbar-track-piece`——滚动条没有滑块的轨道部分。
+`::-webkit-scrollbar-corner` —— 当同时有垂直滚动条和水平滚动条时交汇的部分。通常是浏览器窗口的右下角。
+`::-webkit-resizer` —— 出现在某些元素底角的可拖动调整大小的滑块。
+
+
+`-webkit` 开头的样式，只针对 webkit 内核浏览器有效。
+
+```css
+/*定义滚动条高宽及背景
+ 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+    width:16px;
+    height:16px;
+    background-color:#F5F5F5;
+}
+/*定义滚动条轨道
+ 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius:10px;
+    background-color:#F5F5F5;
+}
+/*定义滑块
+ 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius:10px;
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+    background-color:#555;
+}
+
+```
+
+IE 浏览器：
+
+`scrollbar-arrow-color`: 三角箭头的颜色
+`scrollbar-face-color`: 立体滚动条的颜色（包括箭头部分的背景色）
+`scrollbar-3dlight-color`: 立体滚动条亮边的颜色
+`scrollbar-highlight-color`: 滚动条的高亮颜色（左阴影？）
+`scrollbar-shadow-color`: 立体滚动条阴影的颜色
+`scrollbar-darkshadow-color`: 立体滚动条外阴影的颜色
+`scrollbar-track-color`: 立体滚动条背景颜色
+`scrollbar-base-color`: 滚动条的基色
