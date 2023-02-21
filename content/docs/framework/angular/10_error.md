@@ -53,3 +53,36 @@ formControl.enable(); // 启用
 ```javascript
 [attr.disabled]="!!readonly ? '' : null"
 ```
+
+
+## crypto add a fallback 'resolve.fallback: { "crypto": require.resolve("crypto-browserify") }'
+
+```
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+
+If you want to include a polyfill, you need to:
+	- add a fallback 'resolve.fallback: { "crypto": require.resolve("crypto-browserify") }'
+	- install 'crypto-browserify'
+If you don't want to include a polyfill, you can use an empty module like this:
+	resolve.fallback: { "crypto": false }
+ @ ./config/amplify.ts 1:0-49 3:27-41
+ @ ./src/App.tsx 6:0-42 21:18-27
+ @ ./src/index.tsx 5:0-24 14:118-121
+```
+
+解决：
+
+`npm install crypto-browserify`
+
+配置 `package.json`：
+
+```json
+"browser": {
+  "crypto": false
+},
+"dependencies": {
+  "crypto-browserify": "^3.12.0"
+  // ...
+}
+```
