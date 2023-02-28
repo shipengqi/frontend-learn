@@ -141,3 +141,225 @@ selector 还有其他的写法：
 ```html
 <div greet></div>
 ```
+
+
+## ElementRef 
+
+## Title
+
+Title 标签是一个 HTML 元素，用于指定网页标题。Title 标签作为给定结果的可点击标题，显示在搜索引擎结果页面（SERP）上。它们对于可用性、SEO 和社交共享而言至关重要。
+
+Angular 在 `@angular/platform-browser` 中有一个 `Title` 服务。只需将 `Title` 服务注入到组件中，然后使用 `setTitle` 方法设置标题。
+
+```typescript
+import { Title } from "@angular/platform-browser"
+@Component({
+    ...
+})
+export class LoginComponent implements OnInit {
+    constructor(private title: Title) {}
+    ngOnInit() {
+        title.setTitle("Login")
+    }
+}
+```
+
+## Meta
+
+Angular 在 `@angular/platform-browser` 中有一个 `Meta` 服务，使我们能够从组件中设置 `meta` 标签。
+
+Meta 元素提供有关网页的信息，搜索引擎可以在这些信息的帮助下正确地分类网页。
+
+```typescript
+import { Meta } from "@angular/platform-browser"
+@Component({
+    ...
+})
+export class BlogComponent implements OnInit {
+    constructor(private meta: Meta) {}
+    ngOnInit() {
+        meta.updateTag({name: "title", content: ""})
+        meta.updateTag({name: "description", content: "Lorem ipsum dolor"})
+        meta.updateTag({name: "image", content: "./assets/blog-image.jpg"})
+        meta.updateTag({name: "site", content: "My Site"})
+    }
+}
+```
+
+## DOCUMENT
+
+DOCUMENT 是表示渲染上下文的 DI 令牌。在浏览器中这就是 DOM 文档。它以与环境无关的方式提供 DOM 操作。
+
+```typescript
+@Component({
+})
+export class CanvasElement {
+    constructor(@Inject(DOCUMENT) _doc: Document) {}
+}
+
+
+@Component({
+})
+export class CanvasElement {
+    constructor(@Inject(DOCUMENT) _doc: Document) {}
+    renderCanvas() {
+        this._doc.getElementById("doc_id")
+    }
+}
+```
+
+## Location
+
+可以使用 `Location` 服务获取当前浏览器窗口的 URL。
+
+```typescript
+import { Location } from "@angular/common"
+@Component({
+    ...
+})
+export class AppComponent {
+    constructor(private location: Location) {}
+    navigatTo(url) {
+        this.location.go(url)
+    }
+    goBack() {
+        location.back()
+    }
+    goForward() {
+        location.forward()
+    }
+}
+```
+
+## NgZone
+
+触发组件的变化检测的事件：
+
+1. 组件的 `@Input` 引用发生变化。注意 `Object` 是通过引用传递的，每次对 `Object` 改动，引用不会改变。
+2. 组件的 DOM 事件，包括它子组件的 DOM 事件，比如 `click`、`submit`、`mouse down`。
+3. `Observable` 订阅事件，同时设置 `Async pipe`。
+4. 利用以下方式手动触发变化检测：
+    - `ChangeDetectorRef.detectChanges`
+    - `ChangeDetectorRef.markForCheck()`
+    - `ApplicationRef.tick()`
+
+每次变更检测都意味着额外的计算和资源消耗，如何优化性能？
+
+Angular 引入 Zone.js 以处理变更检测，具体来说，Zone.js 通过对所有常见的异步 API 打上了“补丁” 以追踪所有的异步操作，进而使 Angular 可以决定何时刷新 UI。
+
+- `Zone` 是一种用于拦截和跟踪异步工作的机制。
+- `NgZone` Zone.js 将会对每一个异步操作创建一个 task。一个 task 运行于一个 Zone 中。通常来说，在 Angular 应用中，每个 task 都会在 Angular Zone 中运行，
+  这个 Zone 被称为 `NgZone`。一个 Angular 应用中只存在一个 Angular Zone，而变更检测只会由运行于这个 NgZone 中的异步操作触发。
+
+NgZone 是一种用于在 Angular 区域内部或外部执行工作的可注入的 service。
+
+### runOutsideAngular
+
+函数 `runOutsideAngular` 内执行的代码不会触发变更检测。
+
+```typescript
+// setInterval 定时器便不会触发变更检测
+constructor(private ngZone: NgZone) {
+  this.ngZone.runOutsideAngular(() => {
+    setInterval(() => doSomething(), 100)
+  });
+}
+```
+
+### run
+
+`run` 方法的目的与 `runOutsideAngular` 正好相反。任何写在 `run` 里的方法，都会进入 Angular Zone 的管辖范围。
+
+```typescript
+import { Component, NgZone } from '@angular/core';
+    
+@Component({
+  selector: 'demo-app',
+  template: `
+  <p>
+    <label>Count: </label>
+  </p>  
+  `
+})
+export class AppComponent {
+  num = 0;
+  constructor(private zone: NgZone) {
+    this.zone.runOutsideAngular(() => {
+      let i = 0;
+      const token = setInterval(() => {
+        this.zone.run(() => {
+          this.num = ++i;
+        })
+
+        if (i == 10) {
+          clearInterval(token);
+        }
+      }, 1000);
+    })
+  }
+}
+```
+
+### onUnstable 和 onStable
+
+通过订阅 `onUnstable` 和 `onStable` 可以得知有异步行为需要变更检测，同时也能知道所有事件跑完最终稳定的时候。
+
+```typescript
+import { Component, NgZone } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  constructor(private zone: NgZone) { }
+
+  ngOnInit() {
+    this.zone.onUnstable.subscribe(() => { console.log('有事件发生了') });
+    this.zone.onStable.subscribe(() => { console.log('事件結束了') });
+  }
+}
+```
+
+## DomSanitizer
+ 
+当使用 `iframe` 来加载一个外部网页时，Angular 的默认安全策略会禁止加载 `src` 的网页。Angular中有默认的安全规则会阻止链接的加载。
+可以使用 `DomSanitizer` 来处理。
+
+```typescript
+import { DomSanitizer } from '@angular/platform-browser';
+@Component({
+    selector: 'my-app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+    link: string = 'https://www.baidu.com';
+    
+    constructor(private sanitizer: DomSanitizer) { }
+
+    trust() {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
+    }
+}
+```
+
+`DomSanitizer` 提供的方法
+1. `sanitize()`
+为在给定的 SecurityContext 中使用而对 value 进行转义。
+如果这个值在这个上下文中是可信的，则该方法会解开所包含的安全值，并且直接使用它；否则，这个值就会根据给定的安全上下文净化成安全的，比如替换那些具有不安全协议（例如 `javascript:`）的 URL。 该实现负责确保在给定的上下文中可以绝对安全的使用该值。
+2. `bypassSecurityTrustHtml()`
+绕过安全检查，并信任给定的值是一个安全的 HTML。只有当要绑定的 HTML 是不安全内容（比如包含 `<script>`）而且你确实希望运行这些代码时，才需要使用它。 净化器会确保安全 HTML 的完整性，因此在大多数场景下都不需要使用该方法。
+3. `bypassSecurityTrustStyle()`
+绕过安全检查，并信任给定的值是一个安全的样式（CSS）。
+4. `bypassSecurityTrustScript()`
+绕过安全检查，并信任给定的值是一个安全的JavaScript。
+5. `bypassSecurityTrustUrl()`
+绕过安全检查，并信任给定的值是一个安全的样式 URL。也就是说该值可安全地用在链接或 `<img src>` 中。
+6. `bypassSecurityTrustResourceUrl()`
+绕过安全检查，并信任给定的值是一个安全的资源 URL。也就是说该地址可以安全的用于加载可执行代码，比如 `<script src>` 或 `<iframe src>`。
+
+## SafeHtml 
+
+## innerHTML
