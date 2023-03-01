@@ -527,3 +527,21 @@ IE 浏览器：
 
 - `white-space: nowrap;`
 - `overflow: hidden;`
+
+
+## scrollHeight, clientHeight, offsetHeight
+
+每个 html 元素都具有 `clientHeight` `offsetHeight` `scrollHeight` `offsetTop` `scrollTop` 这 5 个和元素高度、滚动、位置相关的属性。
+
+`clientHeight`：包括 `padding` 但不包括 `border`、水平滚动条、`margin` 的元素的高度。对于 `inline` 的元素这个属性一直是 0，单位 `px`，只读元素。
+`offsetHeight`：包括 `padding`、`border`、水平滚动条，但不包括 `margin` 的元素的高度。对于 `inline` 的元素这个属性一直是 0，单位 `px`，只读元素。
+
+有滚动条时的情况：
+
+当本元素的子元素比本元素高且 `overflow=scroll` 时，本元素会 `scroll`，这时：
+
+`scrollHeight`: 因为子元素比父元素高，父元素不想被子元素撑的一样高就显示出了滚动条，在滚动的过程中本元素有部分被隐藏了，`scrollHeight` 代表包括当
+前不可见部分的元素的高度。而可见部分的高度其实就是 `clientHeight`，也就是 `scrollHeight>=clientHeight` 恒成立。在有滚动条时讨论 `scrollHeight` 才有意义，
+在没有滚动条时 `scrollHeight==clientHeight` 恒成立。单位 `px`，只读元素。
+`scrollTop`: 代表在有滚动条时，滚动条向下滚动的距离也就是元素顶部被遮住部分的高度。在没有滚动条时 `scrollTop==0` 恒成立。单位 `px`，可读可设置。
+`offsetTop`: 当前元素顶部距离最近父元素顶部的距离,和有没有滚动条没有关系。单位 `px`，只读元素。

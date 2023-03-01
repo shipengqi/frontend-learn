@@ -145,6 +145,114 @@ selector 还有其他的写法：
 
 ## ElementRef 
 
+通过 `ElementRef` 可以轻松地访问到 native 元素。
+
+```typescript
+import {AfterViewInit, Component, ElementRef} from '@angular/core';
+
+@Component({
+    selector: 'demo-app',
+    template: `
+    <h1>Welcome to Angular World</h1>
+    <div>Hello {{ name }}</div>
+  `,
+})
+export class AppComponent implements AfterViewInit {
+    name: string = 'Pooky';
+
+    constructor(private elementRef: ElementRef) {}
+    
+    ngAfterVeiwInit() {
+        let divEle = this.elementRef.nativeElement.querySelector('div');
+        console.log(divEle);
+    }
+}
+```
+
+建议使用 `@ContentChild`、 `@ContentChildren`、`@ViewChild`、`@ViewChildren` 等装饰器。
+
+```typescript
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+
+@Component({
+  selector: 'demo-app',
+  template: `
+    <h1>Welcome to Angular World</h1>
+    <div #greet>Hello {{ name }}</div>
+  `,
+})
+export class AppComponent {
+  name: string = 'Pooky';
+
+  @ViewChild('greet')
+  greetDiv: ElementRef;
+
+  ngAfterViewInit() {
+    this.greetDiv.nativeElement.style.backgroundColor = 'red';
+  }
+}
+```
+
+### Renderer2
+
+上面的代码，设置 div 元素的背景，是默认的运行环境在是浏览器。我们要尽量减少应用层与渲染层之间强耦合关系，从而让我们应用能够灵活地运行在不同环境。
+
+为了能够支持跨平台，Angular 通过抽象层封装了不同平台的差异。比如定义了抽象类 `Renderer2` 、抽象类 `RootRenderer` 等。此外还定义了以下引用
+类型：`ElementRef`、`TemplateRef`、`ViewRef` 、`ComponentRef` 和 `ViewContainerRef` 等。通过 `模板变量`、`@ViewChild` 等方法获取 DOM 元素。
+
+`Renderer2` 用来对元素进行设置样式、属性、插入子元素等操作。
+
+```typescript
+class Renderer2 {
+    get data: {...}
+    destroyNode: ((node: any) => void) | null
+    destroy(): void
+    createElement(name: string, namespace?: string | null): any // 创建元素
+    createComment(value: string): any // 创建注释元素
+    createText(value: string): any // 创建文本元素
+    appendChild(parent: any, newChild: any): void // 添加子元素（在最后）
+    insertBefore(parent: any, newChild: any, refChild: any): void // 添加子元素（在最前）
+    removeChild(parent: any, oldChild: any): void // 移除子元素
+    selectRootElement(selectorOrNode: string | any): any // 获取根元素
+    parentNode(node: any): any // 获取父元素
+    nextSibling(node: any): any // 获取下一个兄弟元素
+    setAttribute(el: any, name: string, value: string, namespace?: string | null): void // 设置属性
+    removeAttribute(el: any, name: string, namespace?: string | null): void // 移除属性
+    addClass(el: any, name: string): void // 添加样式类
+    removeClass(el: any, name: string): void // 移除样式类
+    setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2): void // 设置样式
+    removeStyle(el: any, style: string, flags?: RendererStyleFlags2): void // 移除样式
+    setProperty(el: any, name: string, value: any): void // 设置DOM对象属性，不同于元素属性
+    setValue(node: any, value: string): void // 设置元素值
+    listen(target: 'window' | 'document' | 'body' | any, eventName: string, callback: (event: any) => boolean | void): () => void // 注册事件
+}
+```
+
+```typescript
+import { Component, ElementRef, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
+
+@Component({
+  selector: 'demo-app',
+  template: `
+    <h1>Welcome to Angular World</h1>
+    <div #greet>Hello {{ name }}</div>
+  `,
+})
+export class AppComponent {
+  name: string = 'Semlinker';
+
+  @ViewChild('greet')
+  greetDiv: ElementRef;
+
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+
+  ngAfterViewInit() {
+    // this.greetDiv.nativeElement.style.backgroundColor  = 'red';
+    this.renderer.setStyle(this.greetDiv.nativeElement, 'backgroundColor', 'red');
+  }
+}
+```
+
 ## Title
 
 Title 标签是一个 HTML 元素，用于指定网页标题。Title 标签作为给定结果的可点击标题，显示在搜索引擎结果页面（SERP）上。它们对于可用性、SEO 和社交共享而言至关重要。
@@ -360,6 +468,54 @@ export class AppComponent {
 6. `bypassSecurityTrustResourceUrl()`
 绕过安全检查，并信任给定的值是一个安全的资源 URL。也就是说该地址可以安全的用于加载可执行代码，比如 `<script src>` 或 `<iframe src>`。
 
-## SafeHtml 
 
 ## innerHTML
+
+使用 `innerHtml` 属性绑定，可以将 HTML 内容以字符串的形式绑定。
+
+```html
+<div [innerHTML]="content"></div>
+```
+
+组件：
+```typescript
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "demo-app",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  content: string;
+  constructor() {
+    this.content = "Plain Text Example &amp; <strong>Bold Text Example</strong>";
+  }
+}
+```
+
+`content` 的内容，会当做 html 渲染。
+
+渲染 html 通常有可能引入跨站脚本 (XSS)。html 可能包含存在安全问题的恶意脚本。解决 XSS 的一种方法是将 html 元素和属性的种类限制为一组已知的“安全”元素和属性。
+
+使用 Angular 的 `DomSanitizer.bypassSecurityTrustHtml` 处理原始的 html，并返回可信的安全的 html 字符串内容。限制 `[innerHTML]` 值使用 `<script>` 和 `<style>` 
+标签和 `style` 属性。
+
+```typescript
+import { Component } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+
+@Component({
+  selector: "demo-app",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  content: SafeHtml;
+  constructor(private sanitizer: DomSanitizer) {
+    this.content = this.sanitizer.bypassSecurityTrustHtml(
+      "Plain Text Example &amp; <strong>Bold Text Example</strong>"
+    );
+  }
+}
+```
