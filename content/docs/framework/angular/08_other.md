@@ -519,3 +519,74 @@ export class AppComponent {
   }
 }
 ```
+
+## 覆盖模板插值
+
+一般我们使用默认模板插值器 `{{}}` 来显示组件中的属性。
+
+其实插值器的符号是可以替换的。
+
+`interpolation` 属性可以用来指定插值器的符号。
+
+```typescript
+@Component({
+    template: `
+        <div>
+            ((data))
+        </div>
+    `,
+    // "((", "))" 代替 "{{", "}}"
+    interpolation: ["((","))"]
+})
+export class AppComponent {}
+```
+
+
+## `Attribute` 装饰器
+
+`Attribute` 装饰器，使我们能够消除对静态字符串的变更检测，这样在传递静态字符串时就不会降低性能了。
+
+```typescript
+@Component({
+    ...
+})
+export class BlogComponent {
+    constructor(@Attribute("type") private type: string) {}
+}
+```
+
+## AppInitializer
+
+有时候我们需要在 Angular 应用启动时运行一段代码，这段代码可能会加载一些设置，比如加载缓存，加载配置。可以使用 `AppInitializer`。
+
+`APP_INITIALIZER`：初始化应用时执行的函数。
+
+只需要 `AppModule` 中添加 `APP_INITIALIZER` 即可：
+```typescript
+function runSettingsOnInit() {
+    ...
+}
+
+@NgModule({
+    providers: [
+        { provide: APP_INITIALIZER, useFactory: runSettingsOnInit }
+    ]
+})
+```
+
+
+## 引导监听器
+
+`APP_BOOTSTRAP_LISTENER` 能够在引导组件时进行侦听。
+
+`APP_BOOTSTRAP_LISTENER` 添加到 `AppModule` 的 `provider` 中即可：
+```typescript
+@NgModule({
+    {
+        provide: APP_BOOTSTRAP_LISTENER, multi: true, 
+        useExisting: runOnBootstrap
+    }
+    ...
+})
+export class AppModule {}
+```
