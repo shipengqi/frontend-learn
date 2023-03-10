@@ -158,3 +158,57 @@ function log<T>(value: T): T {
 1. 函数和类可以很简单的支持多种类型，增强了扩展性
 2. 不必谢多条函数重载
 3. 灵活控制类型之间的约束
+
+## 索引签名
+
+`{[key: string]: string}` 语法是 TypeScript 中的索引签名，代表一个键值结构，当我们事先不知道类型属性的所有名称但知道值的类型时使用。 索引签名可以指定键和值的类型。
+
+```typescript
+// function returning index signature
+// (a key-value structure with key and value strings)
+function getObj(): { [key: string]: string } {
+  return { name: 'Tom', country: 'Chile' };
+}
+
+// Interface using index signature
+interface Person {
+    [index: string]: string;
+}
+
+const p1: Person = { name: 'Tom', country: 'Chile' };
+
+type Animal = {
+    [index: string]: string;
+};
+
+const a1: Animal = { name: 'Alfred', type: 'dog' };
+```
+
+向不在联合中的类型添加属性会导致错误：
+```typescript
+interface Person {
+  [index: string]: string | number;
+  age: number;
+  name: string;
+  // ERROR: Property 'colors' of type 'string[]' is not assignable
+  // to 'string' index type 'string | number'.ts(2411)
+  colors: string[];
+}
+```
+
+还可以将索引签名设置为 `readonly`：
+
+```typescript
+interface ReadonlyObj {
+  readonly [index: string]: string;
+}
+
+const obj: ReadonlyObj = {
+  name: 'Tom',
+  country: 'Chile',
+};
+
+// Index signature in type 'ReadonlyObj'
+// only permits reading.
+obj.name = 'Alfred';
+```
