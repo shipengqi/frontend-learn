@@ -33,7 +33,7 @@ console.log(Dog.prototype) // {constructor: ƒ, run: ƒ}
 console.log(Dog.food) // bones
 
 let dog = new Dog('wangwnag')
-console.log(dog) // Dog {name: 'wangwnag'} name 属性在实例上
+console.log(dog) // Dog{name: 'wangwnag'} name 属性在实例上
 
 // 私有成员不能被类的实例调用
 // dog.pri() // Property 'pri' is private and only accessible within class 'Dog'.ts(2341)
