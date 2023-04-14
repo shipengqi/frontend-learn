@@ -86,3 +86,18 @@ If you don't want to include a polyfill, you can use an empty module like this:
   // ...
 }
 ```
+
+## Error: bundle initial exceeded maximum budget.
+
+
+Open `angular.json` file and find `budgets` keyword.
+
+```json
+    "budgets": [
+       {
+          "type": "initial",
+          "maximumWarning": "2mb",
+          "maximumError": "5mb"
+       }
+    ]
+```
