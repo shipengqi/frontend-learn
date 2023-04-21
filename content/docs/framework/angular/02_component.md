@@ -228,6 +228,8 @@ export class CountdownViewChildParentComponent implements AfterViewInit {
 
 #### ViewChildren
 
+`ViewChildren` 和 `ViewChild` 行为类似，只是 `ViewChild` 只返回一个引用，而 `ViewChildren` 以 `QueryList` 对象的形式返回多个引用。
+
 ### 父组件和子组件通过 service 来通讯
 
 父组件和它的子组件共享同一个服务，利用该服务在组件家族内部实现双向通讯。

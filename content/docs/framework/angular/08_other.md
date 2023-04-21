@@ -142,10 +142,44 @@ selector 还有其他的写法：
 <div greet></div>
 ```
 
+## Angular 操作 DOM
 
-## ElementRef 
+### ViewChild
+Angular 提供了一种叫做 DOM query 的技术，它们以 `@ViewChild` 和 `@ViewChildren` 装饰器的形式出现。
 
-通过 `ElementRef` 可以轻松地访问到 native 元素。
+通常这些装饰器与模板引用变量（template reference variable）配合使用，模板引用变量可以理解为 DOM 元素的引用标识，类似于 html 元素的 id 属性。
+你可以使用模板引用（template reference）来标记一个 DOM 元素（下面示例中的 `#tref`），并在组件/指令中使用 `ViewChild` 装饰器查询到它，比如：
+
+```typescript
+@Component({
+    selector: 'sample',
+    template: `
+        <span #tref>I am span</span>
+    `
+})
+export class SampleComponent implements AfterViewInit {
+    @ViewChild("tref", {read: ElementRef}) tref: ElementRef;
+
+    ngAfterViewInit(): void {
+        // outputs `I am span`
+        console.log(this.tref.nativeElement.textContent);
+    }
+}
+```
+
+`ViewChild` 装饰器基本语法是：
+
+`@ViewChild([reference from template], {read: [reference type]});`
+
+上例中把 `tref` 作为模板引用名称，并将 `ElementRef` 与该元素联系起来。第二个参数 `read` 是可选的，因为 Angular 会根据 DOM 元素的类型推
+断出该引用类型。例如，如果它（`#tref`）挂载的是类似 `span` 的简单 `html` 元素，Angular 推断为 `ElementRef` 类型；如果它挂载的是 `template` 元素，
+Angular 推断为 TemplateRef 类型。**一些引用类型如 `ViewContainerRef` 就不可以被 Angular 推断出来，所以必须在 `read` 参数中显式声明**。
+其他的如 `ViewRef` 不可以挂载在 DOM 元素中，所以必须手动在构造函数中编码构造出来。
+
+### ElementRef 
+
+通过 `ElementRef` 可以轻松地访问到 native 元素。是最为基本的抽象。它仅仅持有它关联到的原生元素。
+
 
 ```typescript
 import {AfterViewInit, Component, ElementRef} from '@angular/core';
@@ -169,7 +203,13 @@ export class AppComponent implements AfterViewInit {
 }
 ```
 
+`ElementRef` 会带来安全风险，它还将你的应用程序与渲染层绑定在一起，破坏了抽象，使得难以运行在其它平台上。
 建议使用 `@ContentChild`、 `@ContentChildren`、`@ViewChild`、`@ViewChildren` 等装饰器。
+
+因为所有的 `Component` 都是寄宿在一个自定义的 DOM 元素之中，而所有的指令都需要通过 DOM 元素来应用，所以，`Component` 和 `Directive` 可以通
+过依赖注入而得到一个其关联寄宿元素的 `ElementRef` 的实例。
+
+所以，`Component` 是通过 DI 来访问其计算的元素，而 `ViewChild` 等装饰器更多用于获得 `Component` 内部模板中的 DOM 元素的引用。
 
 ```typescript
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
@@ -192,6 +232,167 @@ export class AppComponent {
   }
 }
 ```
+
+### TemplateRef
+
+Angular通过 `TemplateRef` 类来使用 `<template>`。
+
+```typescript
+@Component({
+    selector: 'sample',
+    template: `
+        <ng-template #tpl>
+            <span>I am span in template</span>
+        </ng-template>
+    `
+})
+export class SampleComponent implements AfterViewInit {
+    @ViewChild("tpl") tpl: TemplateRef<any>;
+
+    ngAfterViewInit() {
+        let elementRef = this.tpl.elementRef;
+        // outputs `template bindings={}`
+        console.log(elementRef.nativeElement.textContent);
+    }
+}
+```
+
+上面的示例在渲染时，Angular 会从 DOM 中移除 `template` 元素，并在其位置插入注释，这是渲染后的样子：
+
+```html
+<sample>
+    <!--template bindings={}-->
+</sample>
+```
+
+`TemplateRef` 类型，是一个简单的类。通过属性 `elementRef` 持有其宿主元素的引用，还有一个方法：`createEmbeddedView()`，该方法非常有用，因为它支持创建 `View `并返回
+一个对该 `View` 的引用 `ViewRef`。
+
+### ViewRef
+
+`ViewRef` 是 Angular 视图 (View) 的抽象。在 Angular 中，`View` 是应用程序的基本构建块。它是在一起被创建或者销毁的最小元素组单位。Angular 哲学鼓励开发者将 UI 界面
+看作 View 的聚合。而不要看作标准的 HTML 元素树。
+
+Angular 支持两种 View:
+
+Embedded View，指 `Template`
+Host View，指 `Component`
+
+### ViewContainerRef
+
+`ViewContainerRef` 是可以容纳一个或者多个 View 的容器。任何 DOM 元素都可以作为视图容器，然而对于绑定 `ViewContainer` 的 DOM 元素，Angular 不会
+把视图插入该元素的内部，而是追加到该元素后面，这类似于 `router-outlet` 中插入组件的方式。
+
+通常，把 `ViewContainer` 绑定在 `ng-container` 元素上，因为 `ng-container` 元素会被渲染为注释，从而不会在 DOM 中引入多余的 html 元素。
+
+```typescript
+@Component({
+    selector: 'sample',
+    template: `
+        <span>I am first span</span>
+        <ng-container #vc></ng-container>
+        <span>I am last span</span>
+    `
+})
+export class SampleComponent implements AfterViewInit {
+    @ViewChild("vc", {read: ViewContainerRef}) vc: ViewContainerRef;
+
+    ngAfterViewInit(): void {
+        // outputs `template bindings={}`
+        console.log(this.vc.element.nativeElement.textContent);
+    }
+}
+```
+
+和其他 DOM 抽象类一样，`ViewContainer` 绑定到特殊的 DOM 元素，并可以通过 `element` 访问到。例如上例中，它绑定到` ng-container` 元素上，
+并且渲染为 HTML 注释，所以输出会是 `template bindings={}`。
+
+`ViewContainer` 提供了一些操作视图 API：
+
+```typescript
+class ViewContainerRef {
+    ...m
+    clear() : void
+    insert(viewRef: ViewRef, index?: number) : ViewRef
+    get(index: number) : ViewRef
+    indexOf(viewRef: ViewRef) : number
+    detach(index?: number) : ViewRef
+    move(viewRef: ViewRef, currentIndex: number) : ViewRef
+}
+```
+
+可以通过 `insert` 方法将 View 插入 DOM 中。下面示例描述如何通过 `ng-template` 创建内嵌视图，并在 `ng-container` 中插入该视图。
+
+```typescript
+@Component({
+    selector: 'sample',
+    template: `
+        <span>I am first span</span>
+        <ng-container #vc></ng-container>
+        <span>I am last span</span>
+        <ng-template #tpl>
+            <span>I am span in template</span>
+        </ng-template>
+    `
+})
+export class SampleComponent implements AfterViewInit {
+    @ViewChild("vc", {read: ViewContainerRef}) vc: ViewContainerRef;
+    @ViewChild("tpl") tpl: TemplateRef<any>;
+
+    ngAfterViewInit() {
+        let view = this.tpl.createEmbeddedView(null);
+        this.vc.insert(view);
+    }
+}
+```
+
+渲染后的 html 是：
+```html
+<sample>
+    <span>I am first span</span>
+    <!--template bindings={}-->
+    <span>I am span in template</span>
+
+    <span>I am last span</span>
+    <!--template bindings={}-->
+</sample>
+```
+
+上面可以看出是追加到 `ng-container` 后面，而不是插入到该 DOM 元素内部，因为在 **Angular 中 `ng-container` 元素不会生成真实的 DOM 元素**，
+所以在结构中不会发现这个 “追加” 的痕迹。如果把 `ng-container` 替换成其他元素，则可以明显地看到视图是追加在 `viewContainer` 之后的：
+
+```html
+<div _ngcontent-c4=""></div>
+<span _ngcontent-c4>I am span in template</span>
+```
+
+可以通过 `detach` 方法从 DOM 移除视图，其他的方法可以很容易通过方法名知道其含义，如通过 `index` 方法获得对应索引的视图引用，`move` 方法移动视图位置次序，或者使用 `remove` 方法从移除所有的视图。
+
+### ngTemplateOutlet
+
+该指令会把 DOM 元素标记为 `ViewContainer`，并插入由模板创建的内嵌视图，从而不需要在组件类中显式创建该内嵌视图。这意味着，上面实例中
+创建内嵌视图并插入 `#vc` DOM 元素的代码就可以重写为：
+
+```typescript
+@Component({
+    selector: 'sample',
+    template: `
+        <span>I am first span</span>
+        <ng-container [ngTemplateOutlet]="tpl"></ng-container>
+        <span>I am last span</span>
+        <ng-template #tpl>
+            <span>I am span in template</span>
+        </ng-template>
+    `
+})
+export class SampleComponent {}
+```
+
+### ngComponentOutlet
+
+与 `ngTemplateOutlet` 很相似，区别是 `ngComponentOutlet` 创建的是由组件实例化生成的宿主视图，不是内嵌视图。
+
+`<ng-container *ngComponentOutlet="ColorComponent"></ng-container>`
 
 ### Renderer2
 
