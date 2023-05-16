@@ -81,7 +81,7 @@
 
 浮动的弊端，会导致父元素的高度塌陷。
 比如 `div` 块容器会占一整行，如果该元素里面包含有浮动元素，会导致该元素的高度没有了。
-因为浮动元素脱离了文档流，父元素会认为没有子元素，高度也就没有了。
+**因为浮动元素脱离了文档流，父元素会认为没有子元素，高度也就没有了**。
 
 解决方式：
 1. 设置父元素的高度（前提是父元素的高度是已知的）。
@@ -157,7 +157,7 @@
 `flex-wrap: nowrap`：默认是 `nowrap`，不换行。`wrap` 换行，如果侧轴排布是 `stretch`，换行以后是两行，那么两行会被拉伸，各占一半。
 
 多行的侧轴分布：
-`align-cintent: flex-start`：`flex-start` 多行都向侧轴的起点靠拢。`flex-end` 多行都向侧轴的终点靠拢。`center` 多行居中。
+`align-content: flex-start`：`flex-start` 多行都向侧轴的起点靠拢。`flex-end` 多行都向侧轴的终点靠拢。`center` 多行居中。
 `space-around` 平均分布，和侧轴的起点和终点有间距，两边的间距是中间的一半。`space-between` 平均分布，和侧轴的起点和终点没有间距。
 `space-evenly` 平均分布，间距一致。
 
@@ -545,3 +545,66 @@ IE 浏览器：
 在没有滚动条时 `scrollHeight==clientHeight` 恒成立。单位 `px`，只读元素。
 `scrollTop`: 代表在有滚动条时，滚动条向下滚动的距离也就是元素顶部被遮住部分的高度。在没有滚动条时 `scrollTop==0` 恒成立。单位 `px`，可读可设置。
 `offsetTop`: 当前元素顶部距离最近父元素顶部的距离,和有没有滚动条没有关系。单位 `px`，只读元素。
+
+## linear-gradient
+
+从头部开始的线性渐变。
+
+```css
+background-image: linear-gradient(direction, color-stop1, color-stop2, ...);
+```
+
+- `direction`	用角度值指定渐变的方向（或角度）。
+- `color-stop1`, `color-stop2`,...	用于指定渐变的起止颜色。
+
+线性渐变，需要指定两种颜色，还可以实现不同方向（指定为一个角度）的渐变效果，如果不指定方向，默认从上到下渐变：
+```css
+/* 从上到下，蓝色渐变到红色 */
+linear-gradient(blue, red);
+ 
+/* 渐变轴为45度，从蓝色渐变到红色 */
+linear-gradient(45deg, blue, red);
+ 
+/* 从右下到左上、从蓝色渐变到红色 */
+linear-gradient(to left top, blue, red);
+ 
+/* 从下到上，从蓝色开始渐变、到高度40%位置是绿色渐变开始、最后以红色结束 */
+linear-gradient(0deg, blue, green 40%, red);
+```
+
+示例：
+
+渐变轴为 90 度， `#19224A 0%` `#222E61 25%` `#23346A 65%` `#146693 90%` `#088CB2 100%`：
+
+```css
+background-image: linear-gradient(90deg, #19224A 0, #222E61 25%, #23346A 65%, #146693 90%, #088CB2);
+```
+
+## RGBA
+
+RGB是一种色彩标准，由红（Red）、绿（Green）、蓝（Blue）3种颜色变化来得到各种颜色。而RGBA，说白了就是在RGB基础上增加了一个透明度通道 Alpha。
+
+```css
+rgba(R, G, B, A)
+```
+
+R，指的是红色值（Red）；G，指的是绿色值（Green）；B，指的是蓝色值（Blue）；A，指的是透明度（Alpha）。
+
+R、G、B这三个可以为整数，取值范围为 `0~255`，也可以为百分比，取值范围为 `0%~100%`。参数 A 为透明度，跟 `opacity` 属性是一样的，取值范围为 `0.0~1.0`。
+
+
+示例：
+
+```css
+background-color:rgba(255,0,255,1.0);
+```
+
+定义背景颜色 `background-color` 为 RGBA 颜色，因此 RGBA 颜色中的透明度也只是针对元素的背景颜色，而不会改变元素内部文本的透明度。
+
+下面的 css 子元素以及文本内容都会受到影响。
+```css
+{
+  background-color:rgb(255, 0, 255);
+  opacity:0.3;
+}
+```
