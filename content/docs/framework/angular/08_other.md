@@ -760,7 +760,7 @@ export class BlogComponent {
 
 有时候我们需要在 Angular 应用启动时运行一段代码，这段代码可能会加载一些设置，比如加载缓存，加载配置。可以使用 `AppInitializer`。
 
-`APP_INITIALIZER`：初始化应用时执行的函数。
+`APP_INITIALIZER`：初始化应用时执行的函数。如果这些函数中的任何一个返回一个 `Promise` 或 `Observable`，初始化就不会完成，直到 `Promise` 被解析或 `Observable` 被完成。
 
 只需要 `AppModule` 中添加 `APP_INITIALIZER` 即可：
 ```typescript
@@ -774,7 +774,6 @@ function runSettingsOnInit() {
     ]
 })
 ```
-
 
 ## 引导监听器
 
