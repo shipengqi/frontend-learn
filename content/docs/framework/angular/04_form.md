@@ -175,3 +175,31 @@ export class HelloPageComponent implements OnInit {
     }
 }
 ```
+
+## valueChanges 和 statusChanges
+
+### valueChanges
+
+`valueChanges` 是 `AbstractControl` 的一个属性，**当控件的值发生变化时，它就会发出一个事件**（例如 `setValue`）。`valueChanges` 属性在 `FormControl`、
+`FormArray` 和 `FormGroup` 类中可用，因为它们继承了 `AbstractControl` 类。
+
+`valueChanges` 返回一个 `Observable`，我们可以订阅它。
+
+1. 如果我们订阅一个 `FormControl` 实例的 `valueChanges`，只要有任何变化，我们就会得到该控件的最新值。
+2. 如果我们订阅一个 `FormArray` 实例的 `valueChanges`，只要有任何变化，我们就会得到这些数组控件的最新值。
+3. 如果我们订阅 `FormGroup` 实例的 `valueChanges`，每当表单中的任何控件发生变化时，我们就会得到表单控件的最新值。
+
+### statusChanges
+
+`statusChanges` 是 `AbstractControl` 的一个属性，在每次重新计算控件的验证状态时都会发出一个事件（例如 `setErrors`）。 `statusChanges` 属性在 `FormControl`、
+`FormArray` 和 `FormGroup` 类中可用，因为它们继承了 `AbstractControl` 类。
+
+`statusChanges` 返回一个 `Observable`，我们可以订阅它。
+
+1. 如果我们订阅 `FormControl` 实例的 `statusChanges`，每当该控件的验证状态被重新计算时，我们就会得到该控件的最新验证状态。
+2. 如果我们订阅 `FormArray` 实例的 `statusChanges`，每当这些数组控件的验证状态被重新计算时，我们会得到这些数组控件的最新验证状态。
+3. 如果我们订阅 `FormGroup` 实例的 `statusChanges`，每当表单的任何控件的验证状态被重新计算时，我们就会得到表单控件的最新验证状态。
+
+### updateValueAndValidity
+
+`FormControl.setValue()` 函数，内部会调用 `updateValueAndValidity`，重新计算表单控件的值和验证状态等。
