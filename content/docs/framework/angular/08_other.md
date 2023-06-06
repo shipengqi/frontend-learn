@@ -81,7 +81,7 @@ export class BComponent implements OnInit {}
 
 ## Angular Component selector
 
-Angular中，组件装饰器的 selector 一般这么写：
+Angular 中，组件装饰器的 selector 一般这么写：
 
 ```typescript
 @Component({    
@@ -101,7 +101,7 @@ selector 还有其他的写法：
 ```typescript
 @Component({    
    selector: '.greet', 
-    template: 'Hello {{name}}!'
+   template: 'Hello {{name}}!'
 })
 ```
 
@@ -235,7 +235,7 @@ export class AppComponent {
 
 ### TemplateRef
 
-Angular通过 `TemplateRef` 类来使用 `<template>`。
+Angular 通过 `TemplateRef` 类来使用 `<template>`。
 
 ```typescript
 @Component({

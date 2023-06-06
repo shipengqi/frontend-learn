@@ -101,6 +101,45 @@ Angular 的管道可以让你在模板中声明显示值的转换逻辑。带有
 
 属性型指令会修改现有元素的外观或行为。`ngModel` 指令就是属性型指令。
 
+#### trackBy
+
+在 Angular 中遍历数组时，会用到 `ngFor` 指令，如果数组中的数据改变了（新数组替换旧数组），Angular 会删除与数据关联的所有 DOM 元素，然后再次创建它们。
+这意味着将有很多 DOM 操作。
+
+为了 减少 DOM 操作，可以使用 `trackBy` 选项。`trackBy` 接受一个带两个参数的函数（index 和 item）。如果给出了 `trackBy`，Angular 就会使用该函数的返回值来跟踪变化。
+
+```typescript
+@Component({
+    selector: 'my-app',
+    template: `
+    <ul>
+      <li *ngFor="let item of collection;trackBy: trackByFn">{{item.id}}</li>
+    </ul>
+    <button (click)="getItems()">Refresh items</button>
+  `,
+})
+export class App {
+
+    constructor() {
+        this.collection = [{id: 1}, {id: 2}, {id: 3}];
+    }
+
+    getItems() {
+        this.collection = this.getItemsFromServer();
+    }
+
+    getItemsFromServer() {
+        return [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
+    }
+
+    // 数组改变时，Angular 可以根据 ID 跟踪已添加或删除的项目，仅创建或销毁已更改的项目。
+    trackByFn(index, item) {
+        return index; // or item.id
+    }
+}
+```
+
+使用 `trackBy` 的好处是自定义返回跟踪结果，以比对上次的跟踪结果，如果不一样，那么就刷新变化的页面实例（减少不必要的dom刷新而带来性能的提升）。
 
 ## 依赖注入
 
@@ -147,9 +186,9 @@ constructor(private service: HeroService) { }
     ...
    })
    ```
-   同一个 Service 实例对该 NgModule 中的所有组件可用。对于这个 NgModule 是单例的。但是如果有多个 NgModule，加载了这个 Service，
-   Service 就会被注册在多个地方。这会导致出现多个服务实例，并且该服务的行为不再像单例一样。
-   如果不希望这样：使用 `@Injectable()` 方式注册，或者在各个 NgModule 中都放一个 Servie，最后还可以定义 `forRoot()` 和 `forChild()` 方法
+   同一个 `Service` 实例对该 `NgModule` 中的所有组件可用。对于这个 `NgModule` 是单例的。但是如果有多个 `NgModule`，加载了这个 `Service`，
+   `Service` 就会被注册在多个地方。这会导致出现多个服务实例，并且该服务的行为不再像单例一样。
+   如果不希望这样：使用 `@Injectable()` 方式注册，或者在各个 `NgModule` 中都放一个 `Service`，最后还可以定义 `forRoot()` 和 `forChild()` 方法
 3. 在 `@Component()` 元数据的 `providers` 属性中注册 provider
    ```typescript
    @Component({
@@ -158,13 +197,13 @@ constructor(private service: HeroService) { }
        providers:   [ HeroService ]
    })
    ```
-   injector 会为组件的每一个新实例注入一个新的 Service 实例
+   `injector` 会为组件的每一个新实例注入一个新的 `Service` 实例
 
 #### forRoot() 模式
 
 `forRoot` 字面意思就是针对根模块的。这只是一种模式。
 
-例如在一个模块 A 中定义静态函数 `forRoot()` 把 provider 从模块 A 中分离出去，只有根模块中导入该模块 A 时，调用 `forRoot` 函数，返回的NgModule 的定义中把 providers 带上。
+例如在一个模块 A 中定义静态函数 `forRoot()` 把 provider 从模块 A 中分离出去，只有根模块中导入该模块 A 时，调用 `forRoot` 函数，返回的 `NgModule` 的定义中把 `providers` 带上。
 
 ```typescript
 static forRoot(config: UserServiceConfig): ModuleWithProviders<GreetingModule> {
@@ -195,9 +234,9 @@ export class AppModule {}
 
 #### forRoot() 和 Router
 
-RouterModule 中提供了 Router 服务。
+`RouterModule` 中提供了 `Router` 服务。
 
-如果 RouterModule 没有 `forRoot()`，那么每个特性模块都会实例化一个新的 Router 实例，而这会破坏应用的正常逻辑，因为应用中只能有一个 Router 实例。通过使用 `forRoot()` 方法，应用的根模块中会导入 `RouterModule.forRoot(...)`，从而获得一个 Router 实例，而所有的特性模块要导入 `RouterModule.forChild(...)`，它就不会实例化另外的 Router。
+如果 `RouterModule` 没有 `forRoot()`，那么每个特性模块都会实例化一个新的 `Router` 实例，而这会破坏应用的正常逻辑，因为应用中只能有一个 `Router` 实例。通过使用 `forRoot()` 方法，应用的根模块中会导入 `RouterModule.forRoot(...)`，从而获得一个 `Router` 实例，而所有的特性模块要导入 `RouterModule.forChild(...)`，它就不会实例化另外的 `Router`。
 
 #### 惰性加载
 
@@ -240,6 +279,51 @@ constructor(@Optional() @SkipSelf() parentModule?: GreetingModule) {
 如果该构造函数如预期般执行在 AppModule 中，那就不会有任何祖先注入器可以提供 `GreetingModule` 的实例，所以该注入器就会放弃注入。
 
 默认情况下，当注入器找不到想找的提供者时，会抛出一个错误。 但 `@Optional()` 装饰器表示找不到该服务也无所谓。于是注入器会返回 `null`，`parentModule` 参数也就被赋成了空值，而构造函数没有任何异常。
+
+#### 配置 dependency providers
+
+上面介绍的是如何使用 `Class` 作为依赖项，除了 `Class` 之外，你还可以用其他值作为依赖项，例如 `Boolean`、字符串、日期和对象。
+
+如果用服务类作为提供者令牌，则其默认行为是注入器使用 `new` 运算符实例化该类。例如 `providers: [Logger]` `Logger`  类提供了 `Logger` 的实例。
+
+但是，你可以将 DI 配置为使用不同的类或任何其他不同的值来与 `Logger` 类关联。当注入 `Logger` 时，会改为使用这个新值。
+
+实际上，类提供者语法 （`[Logger]`）是一个简写表达式，Angular 将 providers 值展开为完整的提供者对象 `[{ provide: Logger, useClass: Logger }]`。
+
+- `provide` 属性包含一个令牌，该令牌会作为定位依赖值和配置注入器时的键。
+- 第二个属性是一个提供者的定义对象，它会告诉注入器如何创建依赖值。提供者定义对象中的键可以是以下值：
+  - `useClass` 此选项告诉 Angular DI 在注入依赖项时要实例化这里提供的类
+  - `useExisting` 允许为令牌起一个别名，并引用任意一个现有令牌。
+  - `useFactory` 允许定义一个用来构造依赖项的函数。
+  - `useValue` 提供了一个应该作为依赖项使用的静态值。
+
+#### InjectionToken
+
+可以定义和使用一个 `InjectionToken` 对象来为非类的依赖选择一个提供者令牌。
+
+定义了一个类型为 `InjectionToken` 的 `APP_CONFIG`：
+
+```typescript
+import { InjectionToken } from '@angular/core';
+
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+```
+
+参数类型是可选的 `<AppConfig>`，`'app.config'` 是令牌的描述，指明了此令牌的用途。
+
+接着，在组件中注册这个依赖提供者：
+
+```typescript
+providers: [{ provide: APP_CONFIG, useValue: HERO_DI_CONFIG }]
+```
+
+现在，借助参数装饰器 `@Inject()`，你可以把这个配置对象注入到构造函数中：
+
+```typescript
+constructor(@Inject(APP_CONFIG) config: AppConfig) {
+  this.title = config.title;
+}
+```
 
 ## 模板变量   
 
