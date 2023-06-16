@@ -764,6 +764,7 @@ export class BlogComponent {
 
 只需要 `AppModule` 中添加 `APP_INITIALIZER` 即可：
 ```typescript
+
 function runSettingsOnInit() {
     ...
 }
