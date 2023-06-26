@@ -101,3 +101,64 @@ Open `angular.json` file and find `budgets` keyword.
        }
     ]
 ```
+
+## The injectable 'xxx' needs to be compiled using the JIT compiler, but '@angular/compiler' is not available.
+
+See https://angular.io/guide/creating-libraries#consuming-partial-ivy-code-outside-the-angular-cli.
+
+
+```typescript
+// TODO: Upgrade Cypress and remove this workaround
+// See more here: https://github.com/cypress-io/cypress/issues/19066
+
+import * as path from 'path';
+
+const tsConfigFile = path.resolve(__dirname, '../tsconfig.json');
+
+export default {
+  resolve: {
+    fullySpecified: false,
+    extensions: ['.ts', '.js', '.mjs']
+  },
+  devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: [ /node_modules/ ],
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+            configFile: tsConfigFile
+          }
+        }
+      },
+      { // Angular linker needed to link partial-ivy code
+        // See https://angular.io/guide/creating-libraries#consuming-partial-ivy-code-outside-the-angular-cli
+        test: /[/\\]@angular[/\\].+\.m?js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['@angular/compiler-cli/linker/babel'],
+            compact: false,
+            cacheDirectory: true
+          }
+        }
+      },
+      {
+        test: /ngx-logger.*\.m?js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['@angular/compiler-cli/linker/babel'],
+            compact: false,
+            cacheDirectory: true
+          }
+        }
+      }
+    ]
+  }
+};
+
+```

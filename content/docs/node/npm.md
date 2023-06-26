@@ -86,7 +86,7 @@ npm 在 3.x 版本做了一次较大更新。其将早期的嵌套结构改为�
 
 执行 `npm install` 或 `npm update` 命令下载依赖后，会存放到本地的缓存目录中，然后再将对应的的依赖复制到项目的 `node_modules` 目录下。
 
-`npm config get cache 命令可以查询
+`npm config get cache` 命令可以查询
 
 npm 在执行安装时，可以根据 `package-lock.json` 中存储的 integrity、version、name 生成一个唯一的 key 对应到 `index-v5` 目录下的缓存记录，从而找到 tar包的 hash，然后
 根据 hash 再去找缓存的 tar 包直接使用。
@@ -137,3 +137,58 @@ npm 版本号由 3 个数字组成： `{主版本}.{次版本}.{补丁版本}`�
   `1.0.0 || >=1.1.0 <1.2.0`：使用 `1.0.0` 或大于等于 `1.1.0` 但小于 `1.2.0` 的版本
 - `latest`：关键字，使用可用的最新版本
 
+### peerDependencies
+
+假设现在有一个 `demo` 工程,已经在其 `package.json` 的 `dependencies` 中声明了 `packageA`，有两个包 `app1` 和 `app2` 也依赖 `packageA`，
+如果在 `app1` 或 `app2` 中使用 `dependencies` 而不是 `peerDependencies` 来声明 `packageA`，那么 `npm install` 安装完 `app1` 和 `app2` 
+之后的依赖图是这样的：
+
+```
+├── demo
+│   └── node_modules
+│       ├── packageA
+│       ├── app1
+│       │   └── nodule_modules
+│       │       └── packageA
+│       └── app2
+│       │   └── nodule_modules
+│       │       └── packageA
+```
+
+`packageA` 依赖包被安装了 3 次，造成了 2 次安装冗余。
+
+如果采用 `peerDependencies` 来下载，就可以避免这个核心依赖库被重复下载的问题。`app1` 和 `app2` 的 `package.json` 文件使用 `peerDependencies` 字段声
+明 `packageA`。再执行 `npm install`，生成的依赖结构就会如下所示：
+
+```
+├── demo
+│   └── node_modules
+│       ├── packageA
+│       ├── app1
+│       └── app2
+```
+
+`packageA` 也只被安装了一次。
+
+> 如果用户在根目录的 `package.json` 文件里显式依赖了核心库，那么各个子项目里的 `peerDependencies` 声明就会忽略。
+> 如果用户没有显式依赖核心库，那么就按照子项目的 `peerDependencies` 中声明的版本将库安装到项目根目录中。当用户依赖的版本、各插件依赖的版本之
+> 间不相互兼容，会报错让用户自行修复。
+
+
+### `--legacy-peer-deps`
+
+在 npm v7 或以上版本，会默认安装 `peerDependencies`。
+
+在很多情况下，这会导致版本冲突，从而中断安装过程。
+
+`--legacy-peer-deps` 标志是在 v7 中引入的，目的是绕过 `peerDependency` 自动安装。它告诉 npm 忽略项目中引入的各个依赖模块之间依赖相同但版本不同的问题。
+
+### `--force`
+
+`--force` 也可以解决依赖冲突，目的是无视冲突，强制从远程仓库中获取资源并覆盖掉本地资源。
+
+### `legacy-peer-deps` 和 `--force`
+
+`legacy-peer-deps` 通常更安全，在处理同级别的依赖关系冲突时，应该是首选选项。
+
+`--force` 应该作为最后的手段来使用，而且只有在你完全理解其影响的情况下才可以使用。它有可能引入破坏性的变化或导致软件包的不一致。
