@@ -608,3 +608,32 @@ background-color:rgba(255,0,255,1.0);
   opacity:0.3;
 }
 ```
+
+## 伪类
+
+**1.首先了解一下链接的四种状态：**
+a:link - 普通的、未被访问的链接
+a:visited - 用户已访问的链接
+a:hover - 鼠标指针位于链接的上方
+a:active - 链接被点击的时刻
+
+
+这四种状态可以直接用，但是请注意
+当为链接的不同状态设置样式时，请按照以下次序规则：
+
+a:hover 必须位于 a:link 和 a:visited 之后
+a:active 必须位于 a:hover 之后
+
+```css
+<!--通过background-color设置点击状态的背景颜色-->
+a:link {background-color:#B2FF99;}
+a:visited {background-color:#FFFF85;}
+a:hover {background-color:#FF704D;}
+a:active {background-color:#FF704D;}
+
+<!--去掉下划线-->
+    a{ text-decoration:none}
+
+<!--默认方式是存在下划线的-->
+    a{ text-decoration:underline}
+```
