@@ -1,3 +1,8 @@
+---
+title: Cypress
+weight: 7
+---
+
 # Cypress
 
 启动 Cypress：
