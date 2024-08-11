@@ -1,6 +1,6 @@
 ---
 title: Node.js
-weight: 6
+weight: 3
 ---
 
 # Node.js

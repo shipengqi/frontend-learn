@@ -1,4 +1,7 @@
-# 基础
+---
+title: HTML 基础
+weight: 1
+---
 
 ```html
 <!doctype html>

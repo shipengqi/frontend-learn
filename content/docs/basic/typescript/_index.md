@@ -1,6 +1,6 @@
 ---
 title: Typescript
-weight: 10
+weight: 3
 ---
 
 # Typescript

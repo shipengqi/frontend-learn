@@ -1,6 +1,6 @@
 ---
 title: Javascript
-weight: 4
+weight: 2
 ---
 
 # Javascript
