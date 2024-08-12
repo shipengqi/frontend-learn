@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Animation Demo</title>
+  <style>
+    .demo {
+      width: 500px;
+      height: 200px;
+      background: url(./luoxuanwan.png);
+    }
+
+    .play {
+      animation-name: mymove;
+      animation-duration: 2s;
+      animation-timing-function: steps(16);
+      animation-iteration-count: 3;
+      animation-direction: normal;
+    }
+
+    @keyframes mymove {
+      from {
+        background-position: 0px 0px; 
+      }
+      to {
+        /* 垂直移动，x 轴不变，-2918 图片的高度，表示移动到图片的底部 */
+        /* 单行或者单列的动画都可以使用这种方式 */
+        /* 单行的区别时修改 x 轴，y 轴不变 */
+        background-position: 0px -2918px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="demo">
+
+  </div>
+  <button id="play">Click</button>
+  <script>
+    const btn = document.querySelector('#play');
+    btn.addEventListener('click', () => {
+      const demo = document.querySelector('.demo');
+      // demo.style.animationPlayState = 'paused';
+      demo.classList.add('play');
+      setTimeout(() => {
+        demo.classList.remove('play');
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Animation Demo</title>
+    <style>
+      .demo {
+        width: 500px;
+        height: 183px;
+        background: url(./luoxuanwan.png);
+      }
+
+      .play {
+        animation-name: mymove;
+        animation-duration: 2s;
+        animation-timing-function: steps(1);
+        animation-iteration-count: 1;
+        animation-direction: normal;
+      }
+
+      /* 多行多列动画，需要定义每一帧的位置，状态 */
+      /* 并将 animation-timing-function 设置为 steps(1) */
+      /* Multiline Keyframes Generator: https://ythinker.github.io/frame-animation/keyframes-generator.html */
+      @keyframes mymove {
+        0% {
+          background-position: 0px 183px;
+        }
+        3.225806451612903% {
+          background-position: 911px 183px;
+        }
+        6.451612903225806% {
+          background-position: 0px -366px;
+        }
+        9.677419354838708% {
+          background-position: 911px -366px;
+        }
+        12.903225806451612% {
+          background-position: 0px -549px;
+        }
+        16.129032258064516% {
+          background-position: 911px -549px;
+        }
+        19.354838709677416% {
+          background-position: 0px -732px;
+        }
+        22.58064516129032% {
+          background-position: 911px -732px;
+        }
+        25.806451612903224% {
+          background-position: 0px -915px;
+        }
+        29.032258064516128% {
+          background-position: 911px -915px;
+        }
+        32.25806451612903% {
+          background-position: 0px -1098px;
+        }
+        35.483870967741936% {
+          background-position: 911px -1098px;
+        }
+        38.70967741935483% {
+          background-position: 0px -1281px;
+        }
+        41.93548387096774% {
+          background-position: 911px -1281px;
+        }
+        45.16129032258064% {
+          background-position: 0px -1464px;
+        }
+        48.387096774193544% {
+          background-position: 911px -1464px;
+        }
+        51.61290322580645% {
+          background-position: 0px -1647px;
+        }
+        54.83870967741935% {
+          background-position: 911px -1647px;
+        }
+        58.064516129032256% {
+          background-position: 0px -1830px;
+        }
+        61.29032258064516% {
+          background-position: 911px -1830px;
+        }
+        64.51612903225806% {
+          background-position: 0px -2013px;
+        }
+        67.74193548387096% {
+          background-position: 911px -2013px;
+        }
+        70.96774193548387% {
+          background-position: 0px -2196px;
+        }
+        74.19354838709677% {
+          background-position: 911px -2196px;
+        }
+        77.41935483870967% {
+          background-position: 0px -2379px;
+        }
+        80.64516129032258% {
+          background-position: 911px -2379px;
+        }
+        83.87096774193547% {
+          background-position: 0px -2562px;
+        }
+        87.09677419354838% {
+          background-position: 911px -2562px;
+        }
+        90.32258064516128% {
+          background-position: 0px -2745px;
+        }
+        93.54838709677419% {
+          background-position: 911px -2745px;
+        }
+        96.77419354838709% {
+          background-position: 0px -2918px;
+        }
+        100% {
+          background-position: 911px -2918px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo"></div>
+    <button id="play">Click</button>
+    <script>
+      const btn = document.querySelector("#play");
+      btn.addEventListener("click", () => {
+        const demo = document.querySelector(".demo");
+        // demo.style.animationPlayState = 'paused';
+        demo.classList.add("play");
+        setTimeout(() => {
+          demo.classList.remove("play");
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
