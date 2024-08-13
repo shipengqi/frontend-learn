@@ -7,7 +7,6 @@ Frontend learning ...
 Development:
 
 ```sh
-```sh
 # init submodule, set the URLs and paths of the submodules based on the information in the .gitmodules file, 
 # but will not download the submodule's content
 # after cloning a repository containing submodules, run this command to initialize the submodules.

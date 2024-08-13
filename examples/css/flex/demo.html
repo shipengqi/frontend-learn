@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Flex Layout Demo</title>
+  <style>
+    .parent {
+      display: flex;
+      width: 600px;
+      height: 600px;
+      background: gray;
+    }
+    .child {
+      width: 100px;
+      height: 100px;
+    }
+    /* 剩余空间被分为 3 份，c1 占 1/3，c2 占 2/3 */
+    .c1 {
+      flex: 1;
+      background: skyblue;
+    }
+    .c2 {
+      flex: 2;
+      background: green;
+    }
+    .c3 {
+      order: 1;
+      background: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="child c1"></div>
+    <div class="child c2"></div>
+    <div class="child c3"></div>
+  </div>
+</body>
+</html>
