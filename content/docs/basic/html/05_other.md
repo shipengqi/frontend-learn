@@ -239,3 +239,9 @@ background-color:rgba(255,0,255,1.0);
 }
 ```
 
+水平居中：
+
+```css
+display: block; /* 设置为块级元素 */
+margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
+```

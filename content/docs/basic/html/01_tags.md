@@ -12,7 +12,7 @@ weight: 1
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>NgApp</title>
+  <title>Demo</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -23,14 +23,14 @@ weight: 1
 </html>
 ```
 
-`<!doctype html>`：声明文档类型是 html5。
-`<html>`：根标签，一般只包含 `head` 和 `body` 标签
-`<head>`：标签内容一般不会显示在页面上，用于描述页面的信息。
-`<body>`：页面的主要内容
-`<title>`：页面标题
-`<meta name="keywords" content="..., .., ..">`：针对搜索引擎的页面关键字
-`<meta name="description" content="...">`：针对搜索引擎的页面描述
-`<style>`：书写 css 样式
+- `<!doctype html>`：声明文档类型是 html5。
+- `<html>`：根标签，一般只包含 `head` 和 `body` 标签。
+- `<head>`：标签内容一般不会显示在页面上，用于描述页面的信息。
+- `<body>`：页面的主要内容。
+- `<title>`：页面标题。
+- `<meta name="keywords" content="..., .., ..">`：针对搜索引擎的页面关键字。
+- `<meta name="description" content="...">`：针对搜索引擎的页面描述。
+- `<style>`：书写 css 样式。
 
 ## 常用标签
 
