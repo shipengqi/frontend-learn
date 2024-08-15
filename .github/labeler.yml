@@ -1,0 +1,18 @@
+# Works with https://github.com/actions/labeler/
+# Below this line, the keys are labels to be applied, and the values are the file globs to match against.
+
+framework:
+  - changed-files:
+      - any-glob-to-any-file: content/docs/framework/*
+
+basic:
+  - changed-files:
+      - any-glob-to-any-file: content/docs/basic/*
+
+practice:
+  - changed-files:
+      - any-glob-to-any-file: "content/docs/practice/*"
+
+node:
+  - changed-files:
+      - any-glob-to-any-file: content/docs/node/*
