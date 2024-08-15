@@ -5,64 +5,37 @@ weight: 5
 
 # 其他
 
-## focus and tabindex 
+## 滤镜属性
 
-- `div` 默认情况下是不会被 focus 的，需要 focus `div`。 可以添加 attribute `tabindex = -1`，这个表示可以 focus 但是不可以 `tab`，如果要可以 tab 那么是 `tabindex = 0`。
-- `button` 默认情况下可以被 focus
-- `a` 如果有 `herf` 可以被 focus，没有 `herf` 默认情况下不会被 focus。
+`-webkit-filter`：滤镜属性。
+- `blur()` 设置元素的模糊度，默认是 `0px`。 例如：`-webkit-filter: blur(20px)`, `blur()` 中的值越大越模糊。
+- `grayscale()` 灰度，正常是 `0%`，也可以写数字。例如：`-webkit-filter: grayscale(100%)`。
+- `sepia()` 褐色，正常是 `0%` 可以写数字。例如：`-webkit-filter: sepia(100%)` 。
+- `brightness()` 亮度，正常亮度 `100%` 可以写数字，例如：`-webkit-filter: brightness(100%)` 。如果需要过度曝光的效果可以 `brightness(500%)`。
+- `contrast()` 对比度，正常是 `100%` 可以写数字，例如：`-webkit-filter: contrast(1000%)` 和 `-webkit-filter: contrast(10)` 是一个意思。
+- `saturate()` 饱和度，正常是 `100%` 可以写数字，例如：`-webkit-filter: saturate(1000%)`。
+- `hue-rotate()` 色相旋转，正常是 `0deg` 可以写数字，例如：`-webkit-filter: hue-rotate(45deg)`。
+- `invert()` 色相反转，底片效果，正常是 `0` 可以写数字，`-webkit-filter: invert(100%)`。
 
-`tabindex` 的 number 可以用来表示 focusable 和 tabable。
-
-浏览器会从 tabindex 1 开始， tabindex 越大顺序越靠后, 数字重复就用 `parent -> child -> sibling` 的顺序 (所以对于一个区块只要分配一个值就可以了)。 tabindex 0 的顺序
-会被放到最后。 例如：`1,1,2,2,2,2,3,4,5,0,0,0....`。
-
-click 会有 focus 的， 但是没有 tab effect 边框
-`display: none` 和 `visibility: hidden` 的元素是不可以 focus 的。
-`document.click()` 这种模拟 click 的话, 是不会 focus 的, 可以再调用 `.focus()` 来 focus 元素。
-
-## 伪类
-
-**1.首先了解一下链接的四种状态：**
-
-- `a:link`：普通的、未被访问的链接
-- `a:visited`：用户已访问的链接
-- `a:hover`： 鼠标指针位于链接的上方
-- `a:active`：链接被点击的时刻
+多个属性组合：`-webkit-filter: blur(20px) brightness(100%)`。
 
 
-这四种状态可以直接用，但是请注意
-当为链接的不同状态设置样式时，请按照以下次序规则：
+## 滚动条属性
 
-a:hover 必须位于 a:link 和 a:visited 之后
-a:active 必须位于 a:hover 之后
+- `overflow:scroll` x 和 y 轴的滚动条
+- `overflow-x:scroll` x 轴的滚动条
+- `overflow-y:scroll`  y 轴的滚动条
 
-```css
-<!--通过background-color设置点击状态的背景颜色-->
-a:link {background-color:#B2FF99;}
-a:visited {background-color:#FFFF85;}
-a:hover {background-color:#FF704D;}
-a:active {background-color:#FF704D;}
 
-<!--去掉下划线-->
-    a{ text-decoration:none}
 
-<!--默认方式是存在下划线的-->
-    a{ text-decoration:underline}
-```
 
-## 滚动条
-
-`overflow:scroll` x 和 y 轴的滚动条
-`overflow-x:scroll` x 轴的滚动条
-`overflow-y:scroll`  y 轴的滚动条
-
-`::-webkit-scrollbar` —— 整个滚动条，可以设置宽度等。
-`::-webkit-scrollbar-button` —— 滚动条两端的按钮（上下箭头）。
-`::-webkit-scrollbar-thumb` —— 滚动条上的滚动滑块。
-`::-webkit-scrollbar-track` —— 滚动条轨道。
-`::-webkit-scrollbar-track-piece`——滚动条没有滑块的轨道部分。
-`::-webkit-scrollbar-corner` —— 当同时有垂直滚动条和水平滚动条时交汇的部分。通常是浏览器窗口的右下角。
-`::-webkit-resizer` —— 出现在某些元素底角的可拖动调整大小的滑块。
+- `::-webkit-scrollbar` —— 整个滚动条，可以设置宽度等。
+- `::-webkit-scrollbar-button` —— 滚动条两端的按钮（上下箭头）。
+- `::-webkit-scrollbar-thumb` —— 滚动条上的滚动滑块。
+- `::-webkit-scrollbar-track` —— 滚动条轨道。
+- `::-webkit-scrollbar-track-piece`——滚动条没有滑块的轨道部分。
+- `::-webkit-scrollbar-corner` —— 当同时有垂直滚动条和水平滚动条时交汇的部分。通常是浏览器窗口的右下角。
+- `::-webkit-resizer` —— 出现在某些元素底角的可拖动调整大小的滑块。
 
 
 `-webkit` 开头的样式，只针对 webkit 内核浏览器有效。
@@ -97,14 +70,14 @@ a:active {background-color:#FF704D;}
 
 IE 浏览器：
 
-`scrollbar-arrow-color`: 三角箭头的颜色
-`scrollbar-face-color`: 立体滚动条的颜色（包括箭头部分的背景色）
-`scrollbar-3dlight-color`: 立体滚动条亮边的颜色
-`scrollbar-highlight-color`: 滚动条的高亮颜色（左阴影？）
-`scrollbar-shadow-color`: 立体滚动条阴影的颜色
-`scrollbar-darkshadow-color`: 立体滚动条外阴影的颜色
-`scrollbar-track-color`: 立体滚动条背景颜色
-`scrollbar-base-color`: 滚动条的基色
+- `scrollbar-arrow-color`: 三角箭头的颜色
+- `scrollbar-face-color`: 立体滚动条的颜色（包括箭头部分的背景色）
+- `scrollbar-3dlight-color`: 立体滚动条亮边的颜色
+- `scrollbar-highlight-color`: 滚动条的高亮颜色（左阴影？）
+- `scrollbar-shadow-color`: 立体滚动条阴影的颜色
+- `scrollbar-darkshadow-color`: 立体滚动条外阴影的颜色
+- `scrollbar-track-color`: 立体滚动条背景颜色
+- `scrollbar-base-color`: 滚动条的基色
 
 
 ## 换行
@@ -161,7 +134,7 @@ IE 浏览器：
 
 ## scrollHeight, clientHeight, offsetHeight
 
-每个 html 元素都具有 `clientHeight` `offsetHeight` `scrollHeight` `offsetTop` `scrollTop` 这 5 个和元素高度、滚动、位置相关的属性。
+每个 `html` 元素都具有 `clientHeight` `offsetHeight` `scrollHeight` `offsetTop` `scrollTop` 这 5 个和元素高度、滚动、位置相关的属性。
 
 `clientHeight`：包括 `padding` 但不包括 `border`、水平滚动条、`margin` 的元素的高度。对于 `inline` 的元素这个属性一直是 0，单位 `px`，只读元素。
 `offsetHeight`：包括 `padding`、`border`、水平滚动条，但不包括 `margin` 的元素的高度。对于 `inline` 的元素这个属性一直是 0，单位 `px`，只读元素。
@@ -212,7 +185,7 @@ background-image: linear-gradient(90deg, #19224A 0, #222E61 25%, #23346A 65%, #1
 
 ## RGBA
 
-RGB是一种色彩标准，由红（Red）、绿（Green）、蓝（Blue）3种颜色变化来得到各种颜色。而RGBA，说白了就是在RGB基础上增加了一个透明度通道 Alpha。
+RGB 是一种色彩标准，由红（Red）、绿（Green）、蓝（Blue）3 种颜色变化来得到各种颜色。而 RGBA，其实就是在 RGB 基础上增加了一个透明度 Alpha。
 
 ```css
 rgba(R, G, B, A)
@@ -245,3 +218,18 @@ background-color:rgba(255,0,255,1.0);
 display: block; /* 设置为块级元素 */
 margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 ```
+
+## focus and tabindex 
+
+- `div` 默认情况下是不会被 focus 的，需要 focus `div`。 可以添加 attribute `tabindex = -1`，这个表示可以 focus 但是不可以 `tab`，如果要可以 tab 那么是 `tabindex = 0`。
+- `button` 默认情况下可以被 focus
+- `a` 如果有 `herf` 可以被 focus，没有 `herf` 默认情况下不会被 focus。
+
+`tabindex` 的 number 可以用来表示 focusable 和 tabable。
+
+浏览器会从 tabindex 1 开始， tabindex 越大顺序越靠后, 数字重复就用 `parent -> child -> sibling` 的顺序 (所以对于一个区块只要分配一个值就可以了)。 tabindex 0 的顺序
+会被放到最后。 例如：`1,1,2,2,2,2,3,4,5,0,0,0....`。
+
+click 会有 focus 的， 但是没有 tab effect 边框
+`display: none` 和 `visibility: hidden` 的元素是不可以 focus 的。
+`document.click()` 这种模拟 click 的话, 是不会 focus 的, 可以再调用 `.focus()` 来 focus 元素。

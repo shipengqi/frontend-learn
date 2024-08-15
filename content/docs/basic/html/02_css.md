@@ -267,22 +267,6 @@ Font Class 就是使用了 `:before` 伪元素来实现的。
 
 动画通过控制关键帧来控制动画的每一步，实现更为复杂的动画效果，可以解决过渡的不足。
 
-
-
-## 滤镜属性
-
-`-webkit-filter`：滤镜属性。
-- `blur()` 设置元素的模糊度，默认是 `0px`。 例如：`-webkit-filter: blur(20px)`, `blur()` 中的值越大越模糊。
-- `grayscale()` 灰度，正常是 `0%`，也可以写数字。例如：`-webkit-filter: grayscale(100%)`。
-- `sepia()` 褐色，正常是 `0%` 可以写数字。例如：`-webkit-filter: sepia(100%)` 。
-- `brightness()` 亮度，正常亮度 `100%` 可以写数字，例如：`-webkit-filter: brightness(100%)` 。如果需要过度曝光的效果可以 `brightness(500%)`。
-- `contrast()` 对比度，正常是 `100%` 可以写数字，例如：`-webkit-filter: contrast(1000%)` 和 `-webkit-filter: contrast(10)` 是一个意思。
-- `saturate()` 饱和度，正常是 `100%` 可以写数字，例如：`-webkit-filter: saturate(1000%)`。
-- `hue-rotate()` 色相旋转，正常是 `0deg` 可以写数字，例如：`-webkit-filter: hue-rotate(45deg)`。
-- `invert()` 色相反转，底片效果，正常是 `0` 可以写数字，`-webkit-filter: invert(100%)`。
-
-多个属性组合：`-webkit-filter: blur(20px) brightness(100%)`。
-
 ## 常用单位
 
 - `%`：百分比。
@@ -291,3 +275,91 @@ Font Class 就是使用了 `:before` 伪元素来实现的。
 - `rem`：相对单位，相对于根元素（`html` 标签）的字体大小。
 - `vw`：`viewport width` 视窗宽度。`1vw` 就等于视窗宽度的 `1%`。 
 - `vh`：`viewport height` 视窗宽度。`1vh` 就等于视窗高度的 `1%`。
+
+## 伪元素
+
+伪元素用于创建一些不在 DOM 树中的元素，‌并为其添加样式。‌例如，‌`:before` 和 `:after` 伪元素可以在一个元素前或后增加一些文本，‌并为这些文本添加样式。‌虽然用户可以看到这些文本，但是这些文本实际上不在 DOM 树中。
+
+[MDN Web Docs (Pseudo-elements)](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements)。
+
+### `::before` `:before`
+
+可以在元素的内容前面插入新内容。
+
+```css
+/* 在每个 h1 元素前面插入一幅图片 */
+h1:before 
+{
+    content:url(smiley.gif);
+}
+```
+
+### `::after` `:after`
+
+可以在元素的内容之后插入新内容。
+
+```css
+/* 在每个 h1 元素后面插入一幅图片 */
+h1:after 
+{
+    content:url(smiley.gif);
+}
+```
+
+## 伪类
+
+伪类用于当已有元素处于某个状态时，‌为其添加对应的样式。‌例如链接的四种状态：
+
+- `a:link`：普通的、未被访问的链接。
+- `a:visited`：用户已访问的链接。
+- `a:hover`： 鼠标指针位于链接的上方。
+- `a:active`：链接被点击的时刻。
+
+[MDN Web Docs (Pseudo-classes)](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)。
+
+### 状态伪类
+
+状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的。
+
+**状态伪类的顺序很重要，顺序错误可能会导致没有效果**。
+
+例如为链接的不同状态设置样式时，必须按照以下次序规则：
+
+`a:hover` 必须位于 `a:link` 和 `a:visited` 之后，`a:active` 必须位于 `a:hover` 之后。
+
+```css
+<!-- 设置四种状态的背景颜色 -->
+a:link { background-color:#B2FF99; }
+a:visited { background-color:#FFFF85; }
+a:hover { background-color:#FF704D; }
+a:active { background-color:#FF704D; }
+```
+
+常用的状态伪类还有 `:focus`。
+
+
+### 结构化伪类
+
+结构化伪类是 CSS3 新增的选择器，利用 DOM 树进行元素过滤，通过文档结构的互相关系来匹配元素，可以减少 `class` 和 `id` 属性的定义，使文档结构更简洁。
+
+例如 `:first-child` 用来选择父元素的第一个子元素。
+
+```css
+/* 第一个子元素是 p 元素 */
+p:first-child
+{
+    color:blue;
+}
+
+/* 匹配的 p 元素中的第一个 i 元素 */
+p > i:first-child
+{
+    color:blue;
+}
+
+/* 第一个子元素是 p 元素的任意元素中的所有 i 元素 */
+p:first-child i
+{
+    color:blue;
+}
+```
