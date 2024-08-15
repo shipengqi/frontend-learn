@@ -1,6 +1,7 @@
 ---
 title: Vite
-weight: 8
+weight: 2
+draft: true
 ---
 
 # Vite

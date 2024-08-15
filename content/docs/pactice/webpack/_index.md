@@ -1,6 +1,6 @@
 ---
 title: Webpack
-weight: 9
+weight: 1
 ---
 
 # Webpack
