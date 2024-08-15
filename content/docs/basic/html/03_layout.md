@@ -145,6 +145,13 @@ weight: 3
   - `space-around` 平均分布，和主轴的起点和终点有间距，两边的间距是中间的一半。
   - `space-evenly` 平均分布，间距一致。
 
+弹性布局，设置水平居中只需要 `justify-content:center` 就可以实现，如果不是弹性布局，可以用下面的方式：
+
+```css
+display: block; /* 设置为块级元素 */
+margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
+```
+
 设置侧轴的排布：
 
 - `align-items: stretch`：默认是 `stretch`。
