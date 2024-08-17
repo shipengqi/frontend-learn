@@ -5,6 +5,13 @@ weight: 2
 
 # CSS 属性
 
+## 选择器
+
+### 优先级
+
+CSS 选择器优先级：`ID > Class > Tag > *`
+
+
 ## 容器属性
 
 ### 盒子模型属性
@@ -31,9 +38,40 @@ weight: 2
 
 ### 背景
 
-背景/背景颜色/背景图片
+- `background`：复合属性，`background: {color} {image} {repeat} {position} {size}`。
+- `background-clip`：背景的绘制区域。
+  - `border-box`：默认值，边框区域
+  - `padding-box`：内边距区域
+  - `content-box`：内容区域
+- `background-color`：背景颜色。设置单色背景时有效。对图片背景，渐变背景无效。
+- `background-image`：背景图片。
+- `background-repeat`：背景重复，对图片背景有效。
+  - `no-repeat`：不重复
+  - `repeat`：重复
+  - `repeat-x`：只重复水平方向
+  - `repeat-y`：只重复垂直方向
+- `background-origin`：背景的绘制起点，对图片背景有效。
+  - `border-box`：从边框区域开始绘制
+  - `padding-box`：从内边距区域开始绘制
+  - `content-box`：从内容区域开始绘制
+- `background-position`：绘制背景图片的位置。`left` `right` `bottom` 或者 `x y` 坐标。如果不设置这个属性，那么绘制背景会从背景图片的左上角开始绘制。设置该属性，例如 `background-position: 10px 10px`，会根据 `background-origin` 的值，再偏移 `10px 10px` 位置开始绘制。`left` 就是从背景图片左侧居中的位置开始绘制。`right bottom` 就是右下角位置开始绘制。
+- `background-size`：背景大小。背景图片的大小可以大于或者小于绘制背景的区域，这个时候就可以设置该值俩调整背景图片的显示。
+  - `cover`：横向或者纵向等比例缩放背景图片，完整的覆盖整个背景绘制区域。多余的部分就不显示了。
+  - `contain`：横向或者纵向等比例缩放背景图片去放到背景绘制区域。
+  - `{width} {height}`：背景大小。
+- `background-attachment`：背景是否固定，`scroll` 滚动，`fixed` 固定。
+
+
+#### 多层背景
+
+背景是可以设置多层的：`background: linear-gradient(yellow, orange), url(1.jpg), url(2.jpg), red`。
+
+上面的示例就设置成了一个四层背景。越靠前的背景会覆盖后面的背景。单色背景的优先级是最低的（跟顺序无关），并且只能设置一个。
+
 
 ### 盒子阴影
+
+`box-shadow`：`{x 偏移值} {y 偏移值} {模糊度} {扩散} {颜色} {内阴影}`，`box-shadow: 10px 0 0 red,10px 0 0 red;` 多组值，会有一个渐变的效果。可以配合动画实现闪光的效果。
 
 ## 字体属性
 
@@ -53,6 +91,51 @@ weight: 2
 
 > 所有的字体属性都会继承父元素的字体属性，所以在 `html` 元素上设置字体属性，会使所有的元素都会默认继承 `html` 上的字体属性。
 
+### 字体设置
+
+`font-family` 设置的字体可以分为两类
+
+- 系统已经安装的字体。
+- 远程获取的字体。
+
+`font-family` 可以设置多个值，用逗号隔开。例如：`font-family: "微软雅黑", "黑体", "宋体", "楷体", "Arial";`。这里会先去匹配第一个字体，如果没有，就会去匹配第二个字体，以此类推。全都没有就会使用默认的字体。一般情况下，会把比较常见的，大部分系统都有的字体放到后面，起到一个保底的作用。
+
+对于不同的系统，可能默认的字体都不太一样，如果想要简单使用系统的默认字体，就可以使用关键字 `system-ui`，`font-family: system-ui`。前提是浏览器支持。
+
+对于远程获取的字体，尽量避免使用，尤其时中文字体，体积较大，会导致网站加载较慢。
+
+引入在线字体：
+
+```html
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com.css2?family=Matemasie&display=swap" rel="stylesheet">
+  <!-- 注意要放在自己的 css 文件前面 -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<!-- 或者 -->
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com.css2?family=Matemasie&display=swap')
+  </style>
+  <!-- 注意要放在自己的 css 文件前面 -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+```
+
+对于在线字体最好的方式就是先下载下来，放到自己的项目中再引用。参考下面的字体图标。
+
+```css
+@font-face {
+  /* font-display */
+  /* 常用的可选值
+      block 字体文件加载时，显示空白
+      swap  字体文件加载时，显示备用字体，加载完成后切换
+      fallback  字体文件加载时，开始的很短的一段时间比如 100ms 会显示空白，如果短时间加载完成就切换，如果加载时间过长就不会再切换 */
+}
+```
 
 ### 字体图标
 
@@ -85,6 +168,11 @@ weight: 2
     src: url('iconfont.woff2?t=1723520893571') format('woff2'),
       url('iconfont.woff?t=1723520893571') format('woff'),
       url('iconfont.ttf?t=1723520893571') format('truetype');
+    /* font-display */
+    /* 可选值
+       block 字体文件加载时，显示空白
+       swap  字体文件加载时，显示备用字体，加载完成后切换
+       fallback  字体文件加载时，开始的很短的一段时间比如 100ms 会显示空白，如果短时间加载完成就切换，如果加载时间过长就不会再切换 */
   }
   /* 定义使用 iconfont 的样式 */
   .iconfont {
@@ -267,15 +355,6 @@ Font Class 就是使用了 `:before` 伪元素来实现的。
 
 动画通过控制关键帧来控制动画的每一步，实现更为复杂的动画效果，可以解决过渡的不足。
 
-## 常用单位
-
-- `%`：百分比。
-- `px`：像素单位。
-- `em`：相对单位，相对于父元素的字体大小。不建议使用。`2em` 就是父元素 `font-size` 的两倍。`1em` 就是 1 倍。
-- `rem`：相对单位，相对于根元素（`html` 标签）的字体大小。
-- `vw`：`viewport width` 视窗宽度。`1vw` 就等于视窗宽度的 `1%`。 
-- `vh`：`viewport height` 视窗宽度。`1vh` 就等于视窗高度的 `1%`。
-
 ## 伪元素
 
 伪元素用于创建一些不在 DOM 树中的元素，‌并为其添加样式。‌例如，‌`:before` 和 `:after` 伪元素可以在一个元素前或后增加一些文本，‌并为这些文本添加样式。‌虽然用户可以看到这些文本，但是这些文本实际上不在 DOM 树中。
@@ -363,3 +442,78 @@ p:first-child i
     color:blue;
 }
 ```
+
+## 常用单位
+
+- `%`：百分比。
+- `px`：像素单位。
+- `em`：相对单位，相对于父元素的字体大小。不建议使用。`2em` 就是父元素 `font-size` 的两倍。`1em` 就是 1 倍。
+- `rem`：相对单位，相对于根元素（`html` 标签）的字体大小。
+- `vw`：`viewport width` 视窗宽度。`1vw` 就等于视窗宽度的 `1%`。 
+- `vh`：`viewport height` 视窗宽度。`1vh` 就等于视窗高度的 `1%`。
+
+## 颜色
+
+### 关键字
+
+常见的颜色关键字：`red`、`green`、`blue`、`yellow` 等等。
+
+### 十六进制
+
+十六进制颜色是由 6 个十六进制字符组成的。例如 `#FF0000` 表示红色。如果两个字符相同，那么可以简写为一个字符。例如 `#F00` 表示红色。
+
+其实十六进制颜色后面还可以加两位表示透明度。例如 `#FF000080` 表示红色，透明度为 0.5。
+
+### RGB/RGBA
+
+RGB 是一种色彩标准，由红（Red）、绿（Green）、蓝（Blue）3 种颜色变化来得到各种颜色。而 RGBA，其实就是在 RGB 基础上增加了一个透明度 Alpha。
+
+```css
+rgb(R, G, B)
+rgba(R, G, B, A)
+```
+
+R，指的是红色值（Red）；G，指的是绿色值（Green）；B，指的是蓝色值（Blue）；A，指的是透明度（Alpha）。
+
+R、G、B 这三个可以为整数，取值范围是 `0~255` 或者 `0%~100%`。参数 A 为透明度，取值范围为 `0.0~1.0`。
+
+### HSL/HSLA
+
+HSL 是一种色彩标准，由色相（Hue）、饱和度（Saturation）、亮度（Lightness）3 种颜色变化来得到各种颜色。A 为透明度，取值范围为 `0.0~1.0`。
+
+```css
+hsl(H, S, L)
+hsla(H, S, L, A)
+```
+
+### 颜色的透明度和 opacity 的区别
+
+十六进制颜色，RGBA，HSLA，`opacity` 属性都可以设置透明度。颜色透明度和 `opacity` 的区别是：
+
+- 在元素中使用了 `opacity`，那么其后代元素都会受其影响。
+- RGBA 等颜色透明度可以为颜色单独设置透明度，不影响整个元素的透明度，也不会影响到元素的其他属性。
+
+
+示例：
+
+```css
+/* 设置背景颜色的透明度，而不会影响整个元素 */
+background-color:rgba(255,0,255,1.0);
+
+/* bg 后代元素以及文本内容都会受到影响 */
+.bg {
+  background-color:rgb(255, 0, 255);
+  opacity:0.3;
+}
+```
+
+## CSS 值的类型
+
+CSS 值的类型可以分为三类：
+
+- 特定关键字：例如颜色关键字，例如 `red`、`green`、`blue` 等。
+- 自定义值：例如 `100px`、`200px` 等。
+- 全局值：例如 `inherit`、`initial`、`unset` 等。
+  - `inherit`：继承父元素的属性。继承可以分为**默认继承**（指的是子元素没有设置对应属性，就会继承父元素的属性，大部分属性都不会默认继承，默认继承的主要是文字属性）和**主动继承**。
+  - `initial`：将元素的属性重置为默认值。
+  - `unset`：会根据属性是不是可继承的来决定应用 `inherit` 还是 `initial`。
