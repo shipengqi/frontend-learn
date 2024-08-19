@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Demo</title>
+    <style>
+        .child3 {
+            height: 30px;
+            width: 100px;
+            background-color: salmon;
+        }
+        .grid-container {
+            height: 600px;
+            width: 600px;
+            background-color: black;
+            display: grid;
+            /* grid-template-columns: 60px 60px auto; */
+            /* grid-template-columns: 60px 60px auto 1fr; */
+            grid-template-columns: 60px 60px auto auto;
+            grid-template-rows: 100px 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div>111</div>
+        <div>222</div>
+        <div class="child3">333</div>
+        <div class="child3">444</div>
+    </div>
+</body>
+</html>

@@ -103,3 +103,9 @@ draft: true
 <div class="pic">
 </div>
 ```
+
+## 隐藏元素
+
+- `display: none`：隐藏元素，不占据空间。
+- `visibility: hidden`：隐藏元素，但是占据空间。
+- `opacity: 0`：隐藏元素，但是占据空间。

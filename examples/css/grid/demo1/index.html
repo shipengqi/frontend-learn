@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Demo</title>
+    <style>
+        .grid-container {
+            height: 600px;
+            width: 600px;
+            background-color: black;
+            display: grid;
+            grid-template-columns: 60px 60px 60px;
+            grid-template-rows: 60px 60px 60px;
+        }
+        .grid-container2 {
+            height: 600px;
+            width: 600px;
+            background-color: black;
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            grid-template-rows: 60px 1fr;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container2"></div>
+</body>
+</html>
