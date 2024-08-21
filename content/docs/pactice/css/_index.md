@@ -120,3 +120,6 @@ draft: true
 设置了 `display: contents` 的元素，那么改元素的子元素可以参与该元素父元素的布局。
 
 
+## will-change
+
+`will-change: box-shadow`，相当于告知浏览器，`box-shadow` 属性将要变化，可以更高效的执行，可以解决一些页面渲染的性能问题。

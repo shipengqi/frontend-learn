@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transform Demo - Loading</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            position: absolute;
+            height: 100vh;
+            width: 100vw;
+            background-color: transparent;
+            display: flex;
+        }
+        .progress-bar {
+            height: 10px;
+            width: 100%;
+            background-color: skyblue;
+            transform: translateX(-100%);
+            animation: progressbar 5s linear forwards;
+        }
+        @keyframes progressbar {
+            0% {
+                transform: translateX(-100%);
+            }
+            10% {
+                transform: translateX(-90%);
+            }
+            20% {
+                transform: translateX(-80%);
+            }
+            30% {
+                transform: translateX(-70%);
+            }
+            40% {
+                transform: translateX(-60%);
+            }
+            50% {
+                transform: translateX(-50%);
+            }
+            60% {
+                transform: translateX(-40%);
+            }
+            70% {
+                transform: translateX(-30%);
+            }
+            80% {
+                transform: translateX(-20%);
+            }
+            90% {
+                transform: translateX(-10%);
+            }
+            100% {
+                transform: translateX(0%);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="progress-bar">
+    </div>
+</div>
+</body>
+</html>

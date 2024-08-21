@@ -55,18 +55,41 @@ weight: 4
 
 ### steps
 
+`steps(count, start|end)` 是一个特殊的时间函数，它和其他关键字 `linear` 等最大的区别就是，它不是一个连贯的变化，是一步一步的硬切换。
 
+例如 `steps(3, start|end)`，设置了 3 步，也就是会有 4 个状态，如下图：
+
+![](steps.png)
+
+1. 第一步切换由`初始状态`到`过程状态1`。
+2. 第二步由`过程状态1`到`过程状态2`。
+3. 第二步由`过程状态2`到`目标状态`。
+
+整个变化过程分为了三个时间段，`start` 和 `end` 表示的转台切换是在时间段的开始还是时间段的结束。
+
+例如 `steps(3, start)`，就表示时间段一开始，就切换状态，以上图为例，第一个时间段一开始，直接从`初始状态`就切换到了`过程状态1`，然后等第一段时间走完，第二段时间开始，`过程状态1`直接切换到`过程状态2`，依次类推。
+
+如果是 `steps(3, end)`，就表示时间段结束，才切换状态，以上图为例，第一个时间段走完，才从`初始状态`切换到`过程状态1`，然后等第二段时间走完，`过程状态1`切换到`过程状态2`，依次类推。
+
+- `step-start` 等价于 `steps(1, start)`。
+- `step-end` 等价于 `steps(1, end)`。
+
+`steps` 在动画效果中用的更多一点。
 
 ## 动画效果
 
-动画效果的格式：
+动画要先用 `@keyframes` 去定义好变化的过程，再去应用到某个元素。
 
-- `animation` 的默认值 `none 0 ease 0 1 normal none running`。
-- 关键帧，`@keyframes {动画名称}`
+`@keyframes {动画名称}` 用来设置关键帧，动画的中间过程会被补全。
+
+- 只有两个状态时，使用 `from` 和 `to`，`from` 是动画开始时的状态，`to` 是动画结束时的状态。
+- 多个状态时，使用百分比，`0%` 是动画开始时的状态，`100%` 是动画结束时的状态。更多中间状态用 `10%`，`20%`，`25%` 等。
+
+定义好变化的过程，再用 `animation` 去应用到某个元素：`animation` 是一个复合属性，默认值 `none 0 ease 0 1 normal none running`。
 
 `animation` 也可以分开设置：
 
-- `animation-name`：定义动画名称。
+- `animation-name`：定义动画名称，要和 `@keyframes` 定义的名称一致。
 - `animation-duration`：动画时间。`animation-duration` 属性是必须的，否则时长为 0，就不会播放动画了。
 - `animation-delay`：延迟时间。
 - `animation-timing-function`：动画速度，默认是 `ease`。
@@ -83,7 +106,7 @@ weight: 4
     - `alternate` 往返动画。
     - `alternate-reverse` 反向往返动画。
 - `animation-fill-mode`：最后填充模式，也就是动画结束时，要应用到元素的样式。默认值是 `none`。
-    - `none` 不填充。
+    - `none` 不填充。动画播放完以后回到原始的样式。
     - `forwards` 应用动画结束时最后一帧的样式。
     - `backwards` 应用动画结束时第一帧的样式。
     - `both` 遵循 `forwards` 和 `backwards` 的规则，从而在两个方向上扩展动画属性。
@@ -97,8 +120,10 @@ weight: 4
 ```css
 #div1 {
   /*3 次动画*/
-  animation: demo1 2s 3; 
-  /*animation: demo1 2s infinite alternate; 无限次的往返动画*/ 
+  animation-name: demo1;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  /*animation: demo1 2s infinite alternate; 无限次的往返动画*/
 }
 
 @keyframes demo1 {
@@ -111,33 +136,26 @@ weight: 4
 }
 
 @keyframes demo2 {
-    0% {
-        transform: translateX(0px);
-        background: red;
-    }
-    20% {
-        transform: translateX(500px);
-        background: blue;
-    }
-    70% {
-        transform: translateX(500px);
-        background: green;
-    }
-    100% {
-        transform: translateX(500px);
-        background: yellow;
-    }
+  0% {
+    transform: translateX(0px);
+    background: red;
+  }
+  20% {
+    transform: translateX(500px);
+    background: blue;
+  }
+  70% {
+    transform: translateX(500px);
+    background: green;
+    /* 时间函数是可以设置在单独的一段中，只会影响这一段的变化 */
+    animation-timing-function: linear;
+  }
+  100% {
+    transform: translateX(500px);
+    background: yellow;
+  }
 }
 ```
-
-`@keyframes` 用来设置关键帧，动画的中间过程会被补全。`animation-timing-function` 就是设置补全动画的速度。
-
-- `from` 和 `to` 是关键帧，`from` 是动画开始时的状态，`to` 是动画结束时的状态。
-- `0%` 和 `100%` 是关键帧，`0%` 是动画开始时的状态，`100%` 是动画结束时的状态。还可以设置 `10%`，`20%` 等。
-
-### steps
-
-
 
 ## 过渡和动画的区别
 
@@ -149,3 +167,28 @@ weight: 4
 - 一条过渡规则，只能定义一个属性的变化，不能涉及多个属性。
 
 动画通过控制关键帧来控制动画的每一步，实现更为复杂的动画效果，可以解决过渡的不足。
+
+## 转换
+
+### 2D 转换
+
+2D 转换有 2 个轴, `x`，`y`。
+
+- **平移**：`transform: translate(x, y)`，`x` 和 `y` 可以分开设置（`transform: translateX(200px)` `transform: translateY(100px)`）
+- **旋转**：`transform: rotate(x)`，`transform: rotate(30deg)` 顺时针旋转 `30` 度，负数就是逆时针旋转。
+
+### 3D 转换
+
+3D 转换实现 3D 立体效果，有 3 个轴, `x`，`y`，`z`。
+
+- **透视点**：眼睛与屏幕之间的距离。`perspective` （`perspective: 1000px`）意思是距离屏幕 1000 像素点的距离（一般在 `<body>` 上设置透视点）。
+透视点的位置默认是屏幕的正中央。
+- **平移**：`transform: translate3d(x, y, z)`，也可以分开设置，3D 比 2D 多了一个  `translateZ(100px)`。
+- **旋转**：`transform: rotate3d(x, y,z, 30deg)` 绕着 `x`，`y`，`z` 确定的轴旋转 30 度，`rotateX(45deg)` 绕着 X 轴旋转 45 度。`rotateY()` 绕着 Y 轴旋转。`rotateZ()` 绕着 Z 轴旋转。
+- **放大和缩小**：
+  - 放大：`transform: scale(3)` 放大 3 倍，`transform: scale(0.5, 2)` 表示水平缩小到 0.5 倍、垂直放大 2 倍。也可以分别设置 `transform: scaleX(3)` 水平放大 3 倍。`scaleY` 垂直缩放。
+  - 倾斜：`transform: skew(15deg, 0deg)` 基于 X 轴倾斜 15 度，Y 轴 0 度。值可以为负数。
+- `transform-style: preserve-3d`：可以渲染出一些在三维空间中的效果。
+- `transform-origin`：设置元素变换的中心点。
+- `transform-box`：变换中心点可设置的区域。
+- `perspective-origin`：可以修改透视点的位置，例如 `perspective-origin: left buttom` 将透视点的位置改为左下。
