@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Sort Demo</title>
+    <style>
+        .grid-container {
+            height: 600px;
+            width: 1000px;
+            background-color: black;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            padding: 16px;
+            font-size: 4rem;
+            color: white;
+            grid-template-areas: 'a a b'
+                                 'c c b'
+                                 'd e f';
+        }
+        .child {
+            padding: 8px;
+        }
+        .child1 {
+            background-color: #0055bb;
+            grid-area: a;
+        }
+        .child2 {
+            background-color: #66bbff;
+            grid-area: b;
+        }
+        .child3 {
+            background-color: #8440f1;
+            grid-area: c;
+        }
+        .child4 {
+            background-color: #b88dff;
+        }
+        .child5 {
+            background-color: #ff6666;
+        }
+        .child6 {
+            background-color: #ffdd66;
+        }
+        .child7 {
+            background-color: green;
+        }
+        .child8 {
+            background-color: greenyellow;
+        }
+        .child9 {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="child child1">1</div>
+        <div class="child child2">2</div>
+        <div class="child child3">3</div>
+<!--        <div class="child child4">4</div>-->
+<!--        <div class="child child5">5</div>-->
+<!--        <div class="child child6">6</div>-->
+<!--        <div class="child child7">7</div>-->
+<!--        <div class="child child8">8</div>-->
+<!--        <div class="child child9">9</div>-->
+    </div>
+</body>
+</html>
