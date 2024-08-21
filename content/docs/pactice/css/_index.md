@@ -114,3 +114,9 @@ draft: true
 - `display: none`：隐藏元素，不占据空间。
 - `visibility: hidden`：隐藏元素，但是占据空间。
 - `opacity: 0`：隐藏元素，但是占据空间。
+
+## display: contents
+
+设置了 `display: contents` 的元素，那么改元素的子元素可以参与该元素父元素的布局。
+
+

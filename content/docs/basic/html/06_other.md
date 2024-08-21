@@ -1,6 +1,6 @@
 ---
 title: 其他属性
-weight: 5
+weight: 6
 ---
 
 # 其他属性

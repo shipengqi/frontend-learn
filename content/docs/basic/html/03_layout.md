@@ -383,7 +383,7 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 
 `minmax()` 的优先级是高于 `auto` 的，它会在最大的范围中去压缩 `auto` 的空间。
 
-#### repat
+#### repeat
 
 `repeat({重复次数}, {尺寸})`：用来设置重复的列或者行，例如 `grid-template-columns: repeat(3, 100px);` 表示网格容器有三列，列宽都是 `100px`。
 
