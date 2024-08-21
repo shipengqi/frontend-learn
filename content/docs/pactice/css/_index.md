@@ -6,6 +6,11 @@ draft: true
 
 # CSS 技巧
 
+## CSS 常用库
+
+- [Animate CSS](https://github.com/animate-css/animate.css)
+- [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
+
 ## 横线
 
 ```html

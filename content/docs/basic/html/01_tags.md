@@ -21,7 +21,9 @@ weight: 1
   <link rel="icon" type="image/x-icon" href="favicon-16x16.ico" sizes="16x16">
   <link rel="icon" type="image/x-icon" href="favicon-32x32.ico" sizes="32x32">
   <link rel="icon" type="image/x-icon" href="favicon-48x48.ico" sizes="48x48">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Fallback for older browsers -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> <!-- 针对苹果设备，苹果设备保存网页到桌面的图标 -->
+  <link rel="manifest" href="site.webmanifest"> <!-- For PWA -->
 </head>
 <body>
   <app-root></app-root>
