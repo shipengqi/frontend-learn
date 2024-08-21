@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transform Demo - Cube</title>
+    <style>
+        body {
+            margin: 0;
+            font-size: 2rem;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+
+            /* 在父元素上设置一个 3D 旋转的效果，可以更直观的看到每个面移动旋转的效果 */
+            transform: rotateY(45deg) rotateX(-30deg);
+            transform-style: preserve-3d;
+
+            transform-origin: 50% 50% -100px;
+
+            animation: boxrotate 6s linear infinite;
+        }
+        @keyframes boxrotate {
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+        .card {
+            width: 200px;
+            height: 200px;
+
+            font-size: 10rem;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* 是所有 card 脱离文档流 */
+            position: absolute;
+        }
+
+        .one {
+            background-color: #ffdd66;
+        }
+        .two {
+            background-color: #b88dff;
+            transform: translateZ(-200px);
+        }
+        .three {
+            background-color: #ff6666;
+            transform: rotateY(90deg) translateX(100px) translateZ(100px);
+        }
+        .four {
+            background-color: #66bbff;
+            transform: rotateY(90deg) translateX(100px) translateZ(-100px);
+        }
+        .five {
+            background-color: #0055bb;
+            transform: rotateX(90deg) translateY(-100px) translateZ(100px);
+        }
+        .six {
+            background-color: yellowgreen;
+            transform: rotateX(90deg) translateY(-100px) translateZ(-100px);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card one">1</div>
+    <div class="card two">2</div>
+    <div class="card three">3</div>
+    <div class="card four">4</div>
+    <div class="card five">5</div>
+    <div class="card six">6</div>
+</div>
+</body>
+</html>

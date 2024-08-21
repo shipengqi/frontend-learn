@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transform Demo - Perspective</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            height: 100%;
+            /* 在父元素设置透视点，才会有近大远小的效果 */
+            perspective: 800px;
+        }
+        .card {
+            width: 300px;
+            height: 300px;
+            border-radius: 16px;
+            background-color: #ffdd66;
+            font-size: 10rem;
+            color: #000;
+            transition: trasform 1s;
+            transform: rotateY(0deg);
+        }
+
+        .card:hover {
+            transform: rotateY(45deg);
+            /* 子元素的 transform 也可以单独设置 perspective */
+            /* 注意子元素上设置的 perspective 的值会和父元素的设置叠加，不是覆盖 */
+            /*transform: perspective(200px) rotateY(45deg);*/
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <span>1</span>
+    </div>
+    <div class="card">
+        <span>2</span>
+    </div>
+</div>
+</body>
+</html>

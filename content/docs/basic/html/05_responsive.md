@@ -24,13 +24,13 @@ weight: 5
 
 例如下图，如果按照 `1:1` 的比例去显示，在普通屏幕上占 6 个像素的图片，放到高倍屏还是占据 6 个像素，按照这个逻辑，同样的内容，在高倍屏上显示差不多就是 `1/4`。
 
-![image-20230215191308962](URL_ADDRESS)
+![physical-resolution](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/physical-resolution.png?raw=true)
 
 那么这显然是不合理的，所以操作系统层面就出现了**逻辑分辨率**，就是一个虚拟的分辨率。对应屏幕的**物理分辨率**。逻辑分辨率就是为了让高倍屏和普通屏在显示内容时能显示出一样的大小。
 
 如下图，如果一张图片占 6 个像素，那么在高倍屏时，操作系统会根据高倍屏的逻辑分辨率，把这张图片放大到 24 个像素，这样就不会出现内容变小的情况。
 
-![](URL_ADDRESS)
+![logical-resolution](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/logical-resolution.png?raw=true)
 
 **设备像素比**就是逻辑分辨率的宽度（高度）除以物理分辨率的宽度（高度）。对于移动端设备，设备像素比可能更高。设备像素比可以在浏览器的控制台查看，输入 `devicePixelRatio` 回车即可。
 

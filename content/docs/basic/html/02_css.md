@@ -227,26 +227,6 @@ Font Class 就是使用了 `:before` 伪元素来实现的。
 未来的主流方式。这种其实是做了一个 svg 的集合。支持多色图标，支持字体属性，但是兼容性较差。浏览器渲染 svg 的性能一般。
 
 
-## 转换
-
-### 2D 转换
-
-2D 转换有 2 个轴, `x`，`y`。
-
-- **平移**：`transform: translate(x, y)`，`x` 和 `y` 可以分开设置（`transform: translateX(200px)` `transform: translateY(100px)`）
-- **旋转**：`transform: rotate(x)`，`transform: rotate(30deg)` 顺时针旋转 `30` 度，负数就是逆时针旋转。
-
-### 3D 转换
-
-3D 转换实现 3D 立体效果，有 3 个轴, `x`，`y`，`z`。
-
-- **透视点**：眼睛与屏幕之间的距离。`perspective` （`perspective: 1000px`）意思是距离屏幕 1000 像素点的距离（一般在 `<body>` 上设置透视点）。透视点的位置默认是屏幕的正中央，`perspective-origin` 可以修改透视点的位置，例如 `perspective-origin: left buttom` 将透视点的位置改为左下。如果子元素需要保留 3D 效果，需要单独设置 `transform-style: preserve-3d`（一般在实现 3D 效果的子元素上设置 `transform-style: preserve-3d`）。
-- **平移**：`transform: translate3d(x, y, z)`，也可以分开设置，3D 比 2D 多了一个  `translateZ(100px)`。
-- **旋转**：`transform: rotate3d(x, y,z, 30deg)` 绕着 `x`，`y`，`z` 确定的轴旋转 30 度，`rotateX(45deg)` 绕着 X 轴旋转 45 度。`rotateY()` 绕着 Y 轴旋转。`rotateZ()` 绕着 Z 轴旋转。
-- **放大和缩小**：
-  - 放大：`transform: scale(3)` 放大 3 倍，`transform: scale(0.5, 2)` 表示水平缩小到 0.5 倍、垂直放大 2 倍。也可以分别设置 `transform: scaleX(3)` 水平放大 3 倍。`scaleY` 垂直缩放。
-  - 倾斜：`transform: skew(15deg, 0deg)` 基于 X 轴倾斜 15 度，Y 轴 0 度。值可以为负数。
-
 ## 伪元素
 
 伪元素用于创建一些不在 DOM 树中的元素，‌并为其添加样式。‌例如，‌`:before` 和 `:after` 伪元素可以在一个元素前或后增加一些文本，‌并为这些文本添加样式。‌虽然用户可以看到这些文本，但是这些文本实际上不在 DOM 树中。
