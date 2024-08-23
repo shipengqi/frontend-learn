@@ -75,11 +75,11 @@ radial-gradient(red, blue);
 多个属性组合：`-webkit-filter: blur(20px) brightness(100%)`。
 
 
-## 滚动条属性
+## 滚动属性
 
 `overflow` 属性用于在内容超出容器时，如何处理内容的显示。
 
-**容器必须有一个指定的高度，`overflow` 才会生效**。
+**容器必须有一个确定的高度或者宽度，`overflow` 才会生效**。
 
 `overflow` 也可以分别设置 X 轴 `overflow-x` 和 Y 轴 `overflow-y`。
 
@@ -108,6 +108,9 @@ div {
 - `scroll`：显示滚动条，超出容器的内容，可以滚动滚动条来显示。
 - `auto`：和 `scroll` 基本一样。在内容有溢出时才显示滚动条，没有溢出则不显示滚动条。
 - `overlay`：和 `auto` 差不多，不同的是 `auto` 显示的滚动条会在容器内占据一个位置，会导致内容发生位移。`overlay` 则是会覆盖在容器右侧，不会占据位置
+
+### background-attachment
+
 
 
 ### 滚动条的样式
