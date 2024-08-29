@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overflow Hidden Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .test-b1 {
+            border: 10px solid greenyellow;
+        }
+        .test-b2 {
+            width: 100px;
+            height: 200px;
+            border: 10px solid red;
+            overflow: hidden;
+        }
+        .test-c {
+            width: 300px;
+            height: 400px;
+
+            background-color: #66bbff;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-b1">
+        <div class="test-b2">
+            <div class="test-c"></div>
+        </div>
+    </div>
+</body>
+</html>

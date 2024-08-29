@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position Sticky Section Demo</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-sizing: border-box;
+
+            height: 500px;
+            border: 5px solid #ff6666;
+            overflow-y: scroll;
+        }
+        .item {
+            width: 200px;
+            height: 200px;
+            background-color: #66bbff;
+
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="item"></div>
+    <div class="item" style="position: sticky;background-color: #ff6666;top: 50px;"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+</div>
+</body>
+</html>

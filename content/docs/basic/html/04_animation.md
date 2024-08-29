@@ -59,7 +59,7 @@ weight: 4
 
 例如 `steps(3, start|end)`，设置了 3 步，也就是会有 4 个状态，如下图：
 
-![](steps.png)
+![steps](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/steps.png?raw=true)
 
 1. 第一步切换由`初始状态`到`过程状态1`。
 2. 第二步由`过程状态1`到`过程状态2`。

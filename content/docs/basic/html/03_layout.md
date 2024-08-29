@@ -645,13 +645,30 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 
 ## 定位
 
-定位：可以设置元素具体在某个位置上。元素默认就是 `static`，也就是没有定位。
+可以设置元素具体在某个位置上。元素默认就是 `static`，也就是没有定位。
 
 `relative`、`absolute`、`fixed` 这三个属性值有一个共同点，都是相对于某个基点的定位，只是基点不同。
 
+### 文档流
+
+文档流（Normal Flow）简单说就是 HTML 元素的一种排布规则，元素默认是从上到下、从左到右依次排列（盒模型）。不同的布局模式，例如弹性布局或者网格布局，会有不同的排布规则。
+不管是哪种文档流，本质都是对内部元素进行空间分配，元素与元素之间不产生重叠。
+
+#### 脱离文档流
+
+脱离文档流是指，元素会被文档流忽略，不分配空间。脱离文档流的元素可以理解为漂浮在文档流的上方。当一个元素脱离文档流后，文档流中的其他元素将忽略该元素并填补其原先的空间。
+
+脱离文档流的方法有**浮动** `float`，绝对定位 `position:absolute` 和固定定位 `position:fixed`。
+
+### static
+
+`static` 表示浏览器会按照源码的顺序，决定每个元素的位置，每个块级元素占据自己的区块，元素与元素之间不产生重叠，这个位置就是元素的默认位置。
+
+`static` 定位的元素位置，是浏览器自主决定的，所以这时 `left/right/top/bottom` 这四个属性是无效的。
+
 ### 相对定位
 
-`position: relative`：相对于默认位置（即 `static` 时的位置）的定位，虽然形状移动了，但是原来的位置依然占据着。必须配合 `left/right/top/bottom` 属性使用，用来指定偏移的方向和距离。
+`position: relative`：相对于默认位置（即 `static` 时的位置）进行偏移，虽然元素根据 `left/right/top/bottom` 这四个属性进行了偏移，但是在文档流中占据的位置是不变的。
 
 ```css
 div {
@@ -664,21 +681,57 @@ div {
 
 ### 绝对定位
 
-`position: absolute`：相对于最接进自身并且已定位的父元素或者祖先元素（不是 `static` 的元素）。必须配合 `left/right/top/bottom` 属性使用。
+`position: absolute`：相对于最接进自身并且设置了非 `static` 定位的父元素或者祖先元素（不是 `static` 的元素）。配合 `left/right/top/bottom` 属性使用。
 
 **设置了绝对定位的元素，会脱离文档流**，不会占据空间。正常的元素会顶上去。
 
+设置了绝对定位的元素的位置如何确定？
+
+1. 没有设置定位偏移属性（`left/right/top/bottom`）的情况
+
+要根据父元素的文档流模式来确定位置，例如 `flex` 布局：
+
+弹性容器设置了 `justify-content: start;`：
+
+![position-absolute-flex-start](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-start.png?raw=true)
+
+弹性容器设置了 `justify-content: end;`：
+
+![position-absolute-flex-end](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-end.png?raw=true)
+
+弹性容器设置了 `justify-content: center;`：
+
+![position-absolute-flex-center](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-center.png?raw=true)
+
+
+2. 设置了定位偏移属性的情况
+
+元素的定位基点是设置了非 `static` 定位的最近的父元素或者祖先元素，如果没有非 `static` 定位的祖先元素，那么会以浏览器显示区域边界来进行定位。
+
+元素设置 `position: absolute;bottom: 20px;left: 20px;`：
+
+![position-absolute](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute.png?raw=true)
 
 ### 固定定位
 
-`position: fixed`：固定在浏览器窗口中的某个位置，相对于浏览器窗口定位。这会导致元素的位置不随页面滚动而变化，好像固定在网页上一样。配合 `left/right/top/bottom` 属性使用。
+`position: fixed`：固定在浏览器窗口中的某个位置，相对于浏览器窗口定位。配合 `left/right/top/bottom` 属性使用。
+
+**设置了固定定位的元素，会脱离文档流**，不会占据空间。
+
+设置了固定定位的元素的位置如何确定？
+
+1. 没有设置定位偏移属性（`top`、`bottom`、`left`、`right`）的情况下，和绝对定位的表现是一样的。
+2. 设置了定位偏移属性的情况下，元素的定位基点是浏览器的显示区域边界。无论页面如何滚动，元素的位置是固定不变的。
 
 ### 粘性定位
 
+`sticky` 的定位基点是设置了 `overflow:scroll` 的最近的祖先元素。如果没有就以浏览器显示区域边界来进行定位。
+
+`sticky` 定位不会脱离文档流。
+
 `sticky` 会产生动态效果，很像 `relative` 和 `fixed` 的结合。比如，网页的搜索工具栏，初始加载时，在自己的默认位置（`relative` 定位），页面向下滚动时，工具栏可以在距离浏览器相对应的位置固定住，始终停留在页面头部（`fixed` 定位）。等到页面重新向上滚动回到原位，工具栏也会回到默认位置。必须配合 `left/right/top/bottom` 属性使用。
 
-当页面滚动，父元素开始脱离视口时（即部分不可见），只要与 `sticky` 元素的距离达到生效门槛，`relative` 定位自动切换为 `fixed` 定位；等到父元素完全脱离视口时（即完全不可见），`fixed` 定位自动切换回 `relative` 定位。
-
+当页面滚动，父元素开始脱离视口时（即部分不可见），只要与 `sticky` 元素的距离达到生效门槛，`relative` 定位自动切换为 `fixed` 定位；等到父元素完全脱离视口时（即完全不可见），`fixed` 定位自动切换回 `relative` 定位。`sticky` 元素这个时候也是不可见的。
 
 ## 层
 

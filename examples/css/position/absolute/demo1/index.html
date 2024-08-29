@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position Absolute-Flex Demo</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .container {
+            /*width: 300px;*/
+            height: 200px;
+            border: 1px solid #000;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .item {
+            background-color: #66bbff;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">
+
+        </div>
+        <div class="item">
+
+        </div>
+        <div class="item" style="background-color: #b88dff;position: absolute">
+
+        </div>
+        <div class="item">
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="item">
+
+        </div>
+        <div class="item" >
+
+        </div>
+        <div class="item" style="background-color: #b88dff;position: absolute;bottom: 20px;left: 20px">
+
+        </div>
+        <div class="item">
+
+        </div>
+    </div>
+</body>
+</html>

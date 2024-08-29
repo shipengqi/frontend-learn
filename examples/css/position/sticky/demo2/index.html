@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position Sticky Section Demo</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 200px;
+            height: 500px;
+            border: 1px solid #000;
+            overflow-y: scroll;
+        }
+        .one-block {
+            width: 100%;
+        }
+        .title {
+            position: sticky;
+            top: 0;
+            background-color: rgb(199, 199, 199);
+            font-size: 2rem;
+        }
+        .content {
+            background-color: #b88dff;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="one-block">
+        <div class="title">1</div>
+        <div class="content">内容一</div>
+    </div>
+    <div class="one-block">
+        <div class="title">2</div>
+        <div class="content">内容二</div>
+    </div>
+    <div class="one-block">
+        <div class="title">3</div>
+        <div class="content">内容三</div>
+    </div>
+    <div class="one-block">
+        <div class="title">4</div>
+        <div class="content">内容四</div>
+    </div>
+</div>
+</body>
+</html>
