@@ -1,6 +1,6 @@
 ---
 title: Chrome 使用
-weight: 7
+weight: 8
 ---
 
 # Chrome 使用

@@ -5,12 +5,6 @@ weight: 2
 
 # CSS 常用属性
 
-## 选择器
-
-### 优先级
-
-CSS 选择器优先级：`ID > Class > Tag > *`
-
 ## 容器属性
 
 ### 盒子模型属性
@@ -227,102 +221,22 @@ Font Class 就是使用了 `:before` 伪元素来实现的。
 未来的主流方式。这种其实是做了一个 svg 的集合。支持多色图标，支持字体属性，但是兼容性较差。浏览器渲染 svg 的性能一般。
 
 
-## 伪元素
-
-伪元素用于创建一些不在 DOM 树中的元素，‌并为其添加样式。‌例如，‌`:before` 和 `:after` 伪元素可以在一个元素前或后增加一些文本，‌并为这些文本添加样式。‌虽然用户可以看到这些文本，但是这些文本实际上不在 DOM 树中。
-
-[MDN Web Docs (Pseudo-elements)](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements)。
-
-### `::before`、`:before`
-
-可以在元素的内容前面插入新内容。
-
-```css
-/* 在每个 h1 元素前面插入一幅图片 */
-h1:before 
-{
-    content:url(smiley.gif);
-}
-```
-
-### `::after`、`:after`
-
-可以在元素的内容之后插入新内容。
-
-```css
-/* 在每个 h1 元素后面插入一幅图片 */
-h1:after 
-{
-    content:url(smiley.gif);
-}
-```
-
-## 伪类
-
-伪类用于当已有元素处于某个状态时，‌为其添加对应的样式。‌例如链接的四种状态：
-
-- `a:link`：普通的、未被访问的链接。
-- `a:visited`：用户已访问的链接。
-- `a:hover`： 鼠标指针位于链接的上方。
-- `a:active`：链接被点击的时刻。
-
-[MDN Web Docs (Pseudo-classes)](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)。
-
-### 状态伪类
-
-状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的。
-
-**状态伪类的顺序很重要，顺序错误可能会导致没有效果**。
-
-例如为链接的不同状态设置样式时，必须按照以下次序规则：
-
-`a:hover` 必须位于 `a:link` 和 `a:visited` 之后，`a:active` 必须位于 `a:hover` 之后。
-
-```css
-<!-- 设置四种状态的背景颜色 -->
-a:link { background-color:#B2FF99; }
-a:visited { background-color:#FFFF85; }
-a:hover { background-color:#FF704D; }
-a:active { background-color:#FF704D; }
-```
-
-常用的状态伪类还有 `:focus`。
-
-
-### 结构化伪类
-
-结构化伪类是 CSS3 新增的选择器，利用 DOM 树进行元素过滤，通过文档结构的互相关系来匹配元素，可以减少 `class` 和 `id` 属性的定义，使文档结构更简洁。
-
-例如 `:first-child` 用来选择父元素的第一个子元素。
-
-```css
-/* 第一个子元素是 p 元素 */
-p:first-child
-{
-    color:blue;
-}
-
-/* 匹配的 p 元素中的第一个 i 元素 */
-p > i:first-child
-{
-    color:blue;
-}
-
-/* 第一个子元素是 p 元素的任意元素中的所有 i 元素 */
-p:first-child i
-{
-    color:blue;
-}
-```
-
 ## 常用单位
 
-- `%`：百分比。
+### 绝对单位
+
 - `px`：像素单位。
-- `em`：相对单位，相对于父元素的字体大小。不建议使用。`2em` 就是父元素 `font-size` 的两倍。`1em` 就是 1 倍。
-- `rem`：相对单位，相对于根元素（`html` 标签）的字体大小。
-- `vw`：`viewport width` 视窗宽度。`1vw` 就等于视窗宽度的 `1%`。 
-- `vh`：`viewport height` 视窗宽度。`1vh` 就等于视窗高度的 `1%`。
+- `pt`、`in`：打印单位。
+
+### 相对单位
+
+- `%`：百分比。占父元素宽度或高度的百分比。
+- `em`：相对于父元素的字体大小。不建议使用。`2em` 就是父元素 `font-size` 的两倍。`1em` 就是 1 倍。
+- `rem` 相对于根元素（`html` 标签）的字体大小。`2rem` 就是根元素 `font-size` 的两倍。不仅可以用来设置字体大小，也可以用设置宽高。最终都会换算成 `px`。
+- `vw`：`viewport width` 视口单位，视口指的是浏览器的显示区域。视口宽度。`20vw` 就是视口宽度的 `20%`。
+- `vh`：`viewport height` 视口单位，视口高度。`1vh` 就等于视口高度的 `1%`。
+- `vmin`、`vmax`：`vmin` 是选择视口宽度或者高度中较小的那个。`vmax` 是选择视口宽度或者高度中较大的那个。例如 `30vmax` 当浏览器显示区域的高度大于宽度时，那就表示视口高度的 `30%`。不常用。
+- `svh` `lvh` `dvh` `svw` `lvw` `dvw`：移动端单位。
 
 ## 颜色
 

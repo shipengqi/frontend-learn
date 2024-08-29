@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overflow Hidden Cut Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .test-b1 {
+            border: 10px solid greenyellow;
+        }
+        .test-b2 {
+            width: 100px;
+            height: 200px;
+            border: 10px solid red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 子元素设置了绝对定位，已经脱离文档流 */
+            /* 这时的子元素的绝对定位的参考父级是浏览器的根元素 */
+            /* 所以这里需要设置非 static 定位 */
+            /* overflow: hidden 这时才会生效 */
+            overflow: hidden;
+            position: relative;
+        }
+        .test-c {
+            width: 300px;
+            height: 400px;
+            position: absolute;
+
+            background-color: rgba(102, 187, 255, 0.27);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-b1">
+        <div class="test-b2">
+            <div class="test-c"></div>
+        </div>
+    </div>
+</body>
+</html>
