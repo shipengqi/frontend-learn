@@ -330,6 +330,8 @@ Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-
 
 ### 如何准备不同分辨率的图片
 
+
+
 ## 移动端响应式
 
 声明视窗的大小：`<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">`
