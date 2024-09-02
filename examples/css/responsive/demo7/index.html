@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conatiner Queries Demo</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-size: 3rem;
+
+            min-width: 320px;
+            box-sizing: border-box;
+        }
+        .parent {
+            background-color: blueviolet;
+            height: 300px;
+            width: 50vw;
+            container-type: size;
+        }
+        .child {
+            background-color: aqua;
+            width: 100%;
+            height: 100px;
+        }
+        @container (min-width: 320px) {
+            .child {
+                background-color: red;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child">1</div>
+    </div>
+</body>
+</html>

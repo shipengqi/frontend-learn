@@ -38,3 +38,45 @@ Chrome 的开发者工具查看元素的样式如下图：
 - `4`：缩放。
 - `5`：节流模式，可以模拟网速的快慢，无网络等状态。
 - `6`：旋转，模拟屏幕旋转。
+
+
+### 媒体查询
+
+打开媒体查询工具：
+
+![show-media-query](show-media-query.png)
+
+打开之后，尺寸下面多了一栏，鼠标悬浮上去会显示，当前的宽度是什么设备的尺寸。
+
+![media-query-tool](show-media-tool.png)
+
+如果设置了媒体查询，会出现对应的一行，鼠标悬浮上去会显示匹配的规则。
+
+![media-queries.png](media-queries.png)
+
+上图中有三条媒体查询的规则：
+
+```css
+.parent {
+    width: 50vh;
+    height: 50vh;
+    background-color: aqua;
+}
+@media (min-width: 600px) {
+    .parent {
+        background-color: blueviolet;
+    }
+}
+@media (max-width: 1000px) {
+    .parent {
+        background-color: blueviolet;
+    }
+}
+@media (min-width: 600px) and (max-width: 1000px) {
+    .parent {
+        background-color:burlywood;
+    }
+}
+```
+
+当多个媒体查询同时匹配时，会按照从上到下的顺序进行匹配。也就是说最后的才会生效。

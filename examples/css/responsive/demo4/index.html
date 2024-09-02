@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Queries Demo</title>
+    <style>
+        .parent {
+            width: 50vh;
+            height: 50vh;
+            background-color: aqua;
+        }
+        @media (min-width: 600px) {
+            .parent {
+                background-color: blueviolet;
+            }
+        }
+        @media (max-width: 1000px) {
+            .parent {
+                background-color: blueviolet;
+            }
+        }
+        @media (min-width: 600px) and (max-width: 1000px) {
+            .parent {
+                background-color:burlywood;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="parent">
+
+    </div>
+</body>
+</html>

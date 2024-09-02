@@ -130,7 +130,7 @@ p:first-child i
 
 ```css
 /* 在每个 h1 元素前面插入一幅图片 */
-h1:before 
+h1::before 
 {
     content:url(smiley.gif);
 }
@@ -142,7 +142,7 @@ h1:before
 
 ```css
 /* 在每个 h1 元素后面插入一幅图片 */
-h1:after 
+h1::after 
 {
     content:url(smiley.gif);
 }
