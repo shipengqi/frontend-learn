@@ -135,10 +135,13 @@ Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-
 
 常用的断点：
 
-- 宽度小于 `480px` 一般是手机设备。
-- 宽度小于 `1024px` 主要是平板设备。
-- 宽度小于 `1920px` 一般是大一点的平板或者小一点的笔记本电脑。
-- 宽度大于 `1920px` 台式电脑显示器。
+- 宽度 `480px` 一般是手机设备。
+- 宽度 `768px` 主流平板设备的基本宽度。
+- 宽度 `1024px` 主要是大尺寸平板设备，或者比较老的笔记本。
+- 宽度 `1280px` 笔记本电脑。
+- 宽度 `1440px` 台式机显示器。
+
+一般选择三个断点就够了，通常是 `480px`、`1024px`、`1440px`。
 
 常用的断点设置的模式有两种，一种是**移动优先**，一种是**桌面优先**。
 
@@ -168,7 +171,7 @@ Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
-@media (min-width: 1920px) {
+@media (min-width: 1440px) {
     .container {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
@@ -191,7 +194,7 @@ Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-
     gap: 10px;
 }
 
-@media (max-width: 1920px) {
+@media (max-width: 1440px) {
     .container {
         grid-template-columns: 1fr 1fr 1fr;
     }
@@ -324,11 +327,119 @@ Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-
 
 所以对于位图，一般会使用 `@media` 媒体查询来处理。对于不同显示尺寸，准备不同分辨率的图片。
 
-为什么不准备一个分辨率的图片，而是准备多个分辨率的图片？
+为什么不准备一个高分辨率的图片，而是准备多个分辨率的图片？
 
 对于显示尺寸较小的设备，加载大分辨率的图片，图片可能几兆甚至十几兆，这会导致页面加载速度变慢，并且客户端访问时会去服务器下载，耗费大量的服务器带宽。
 
 ### 如何准备不同分辨率的图片
+
+如果一个图片在页面上展示的尺寸是 `400px*300px`，那么根据屏幕的 DPR 来计算实际需要的图片的分辨率。
+
+如果屏幕的 DPR 是 1，那么需要的图片分辨率就是 `400px*300px`。如果屏幕的 DPR 是 2，那么需要的图片分辨率就是 `800px*600px`。
+
+```
+需要展示的尺寸（逻辑像素）* 屏幕 DPR => 需要的图片原始分辨率
+```
+
+### 图片响应式处理
+
+图片响应式处理主要有四种方式
+
+#### img 标签
+
+`<img>` 标签引入了 `srcset` 属性，`srcset` 属性用来指定多张图片，适应不同像素密度的屏幕。
+
+示例：
+
+```html
+<img src="small-640.jpg"
+    srcset="
+    small-640.jpg 640w,
+    medium-1280.jpg 1280w,
+    large-1920.jpg 1920w"
+    alt="">
+```
+
+上面的示例 `srcset` 属性给出了三个图片 URL，适应三种不同的像素密度。图片 URL 空格后面的是**像素密度描述符**或者**宽度描述符**（如 `640w`，`w` 表示 `width`。）。
+
+像素密度描述符，格式是`像素密度倍数（DPR） + 字母x`。`1x` 表示单倍像素密度，可以省略。浏览器根据当前设备的像素密度（DPR），选择需要加载的图片。
+
+> 如果 `srcset` 属性中的图片都不满足条件，那么就加载 `src` 属性指定的默认图片。
+
+像素密度的适配，是根据整个屏幕的宽度来计算的，这样可能会导致实际使用的图片分辨率会比需要的分辨率大很多。例如：
+
+```html
+<img src="small-640.jpg"
+    srcset="
+    small-640.jpg 640w,
+    medium-1280.jpg 1280w,
+    large-1920.jpg 1920w"
+    style="width: 50%"
+    alt="">
+```
+
+图片设置了宽度为 `50%`，实际使用的图片分辨率会大很多。这时就需要使用 `sizes` 属性。
+
+`sizes` 属性列出不同设备的图片显示宽度.
+
+`sizes` 属性的值是一个逗号 `,` 分隔的字符串，除了最后一部分，前面每个部分都是一个放在括号里面的**媒体查询表达式**，后面是一个空格，再加上图片的显示宽度。
+
+```html
+<img srcset="foo-160.jpg 160w,
+             foo-320.jpg 320w,
+             foo-640.jpg 640w,
+             foo-1280.jpg 1280w"
+     sizes="(max-width: 440px) 100vw,
+            (max-width: 900px) 33vw,
+            254px"
+     src="foo-1280.jpg">
+```
+
+`sizes` 属性给出了三种屏幕条件，以及对应的图片显示宽度。宽度不超过 `440px` 的设备，图片显示宽度为 `100%`；宽度 `441px` 到 `900px` 的设备，图片显示宽度为 `33%`；宽度 `900px` 以上的设备，图片显示宽度为 `254px`。
+
+浏览器根据当前设备的宽度，从 `sizes` 属性获得图片的显示宽度，然后从 `srcset` 属性找出最接近该宽度的图片，进行加载。
+
+例如当前设备的屏幕宽度是 `480px`，浏览器从 `sizes` 属性查询得到，图片的显示宽度是 `33vw`（即 `33%`），等于 `160px`。`srcset` 属性里面，正好有宽度等于 `160px` 的图片，于是加载 `foo-160.jpg`。
+
+#### picture、source、img 标签组合
+
+如果要同时考虑屏幕尺寸和像素密度的适配，就要用到 `<picture>` 标签。
+
+```html
+<picture>
+  <source srcset="homepage-person@desktop.png,
+                  homepage-person@desktop-2x.png 2x"       
+          media="(min-width: 990px)">
+  <source srcset="homepage-person@tablet.png,
+                  homepage-person@tablet-2x.png 2x" 
+          media="(min-width: 750px)">
+  <img srcset="homepage-person@mobile.png,
+               homepage-person@mobile-2x.png 2x" 
+       alt="Shopify Merchant, Corrine Anestopoulos">
+</picture>
+```
+
+浏览器按照 `<source>` 标签出现的顺序，依次判断当前设备是否满足 `media` 属性的媒体查询表达式，如果满足就加载 `srcset` 属性指定的图片文件，并且不再执行后面的 `<source>` 标签和 `<img>` 标签。
+
+> `<img>` 标签是默认情况下加载的图片，用来满足上面所有 `<source>` 都不匹配的情况。
+
+`<picture>` 标签还可以用来选择不同格式的图片。比如，如果当前浏览器支持 Webp 格式，就加载这种格式的图片，否则加载 PNG 图片。
+
+```html
+<picture>
+  <source type="image/svg+xml" srcset="logo.xml">
+  <source type="image/webp" srcset="logo.webp"> 
+  <img src="logo.png" alt="ACME Corp">
+</picture>
+```
+
+浏览器按照 `<source>` 标签出现的顺序，依次检查是否支持 `type` 属性指定的图片格式，如果支持就加载图片，并且不再检查后面的 `<source>` 标签了。
+
+#### CSS
+
+CSS 媒体查询，CSS 样式只针对背景图片。
+
+JS
 
 
 

@@ -30,7 +30,7 @@ Chrome 的开发者工具查看元素的样式如下图：
 
 ## Device ToolBar
 
-![device-toolbar](device-toolbar.png)
+![device-toolbar](https://github.com/shipengqi/illustrations/blob/96977c045d05bdc5cac7878bf23baa77f43558c3/frontend-learn/basic/device-toolbar.png?raw=true)
 
 - `1`：切换移动端模式。
 - `2`：添加更多的移动端设备，并且可以添加自定义尺寸的设备。

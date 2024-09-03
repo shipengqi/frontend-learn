@@ -303,3 +303,87 @@ CSS 值的类型可以分为三类：
   - `inherit`：继承父元素的属性。继承可以分为**默认继承**（指的是子元素没有设置对应属性，就会继承父元素的属性，大部分属性都不会默认继承，默认继承的主要是文字属性）和**主动继承**。
   - `initial`：将元素的属性重置为默认值。
   - `unset`：会根据属性是不是可继承的来决定应用 `inherit` 还是 `initial`。
+
+
+## 变量
+
+声明变量，变量名前加 `--`，变量名大小写敏感：
+
+```css
+body {
+  --foo: #7F583F;
+  --bar: #F7EFD2;
+}
+```
+
+上面的示例声明了两个变量：`--foo` 和 `--bar`。
+
+用 `--` 表示变量是因为 `$` 被 Sass 用掉了，`@` 被 Less 用掉了。为了不产生冲突，官方的 CSS 变量就改用 `--` 了。
+
+### var 函数
+
+`var()` 函数用于读取变量。
+
+```css
+a {
+  color: var(--foo);
+  text-decoration-color: var(--bar);
+}
+```
+
+`var()` 函数使用第二个参数，表示变量的默认值（例如 `color: var(--foo, #7F583F);`）。如果该变量不存在，就会使用这个默认值。
+
+数值与单位直接写在一起，是无效的：
+
+```css
+.foo {
+  --gap: 20;
+  /* 无效 */
+  margin-top: var(--gap)px;
+}
+/* 必须使用calc()函数 */
+.foo {
+  --gap: 20;
+  margin-top: calc(var(--gap) * 1px);
+}
+```
+
+### 作用域
+
+同一个 CSS 变量，可以在多个选择器内声明。读取的时候，优先级最高的声明生效。这与 CSS 的"层叠"（cascade）规则是一致的。
+
+```css
+
+<style>
+  :root { --color: blue; }
+  div { --color: green; }
+  #alert { --color: red; }
+  * { color: var(--color); }
+</style>
+
+<p>蓝色</p>
+<div>绿色</div>
+<div id="alert">红色</div>
+```
+
+**变量的作用域就是它所在的选择器的有效范围**。
+
+```css
+body {
+  --foo: #7F583F;
+}
+
+.content {
+  --bar: #F7EFD2;
+}
+```
+
+变量 `--foo` 的作用域是 `body` 选择器的生效范围，`--bar` 的作用域是 `.content` 选择器的生效范围。
+
+全局的变量通常放在根元素 `:root` 里面：
+
+```css
+:root {
+  --main-color: #06c;
+}
+```
