@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check Light Demo</title>
+    <style>
+        body {
+            margin: 0;
+            font-size: 4rem;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            perspective: 800px;
+            background-color: rgb(26, 26, 26);
+        }
+        .label-btn {
+            width: 100px;
+            height: 40px;
+            background-color: #4a4c4c;
+            display: block;
+            border-radius: 100px;
+            transition: background-color 0.5s;
+        }
+        #toggle:checked + .label-btn {
+            background-color: #818585;
+        }
+
+        .label-btn::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.5s;
+            background-color: white;
+        }
+        #toggle {
+            display: none;
+        }
+        #toggle:checked + .label-btn::after {
+            transform: translateX(60px);
+        }
+
+        .light-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            gap: 100px;
+        }
+        .lights {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .lights > div {
+            width: 300px;
+            height: 300px;
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
+        .lights > :first-child {
+            position: absolute;
+            background-color: rgb(56, 56, 56);
+            z-index: 2;
+            transition: background-color 0.5s;
+        }
+        .lights > :last-child {
+            /* 设置第二个圆稍小一点，隐藏边框 */
+            width: 280px;
+            height: 280px;
+            transition: filter 0.5s;
+        }
+
+        #toggle:checked + label + .lights > :first-child {
+            background-color: white;
+        }
+        #toggle:checked + label + .lights > :last-child {
+            filter: blur(100px);
+        }
+    </style>
+</head>
+<body>
+    <div class="light-box">
+        <input type="checkbox" id="toggle" class="toggle" checked>
+        <label for="toggle" class="label-btn"></label>
+        <div class="lights">
+            <div class="main-light"></div>
+            <div></div>
+        </div>
+    </div>
+</body>
+</html>

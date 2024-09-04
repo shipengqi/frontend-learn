@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pseudo Elements Demo</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 50vw;
+            height: 50vh;
+        }
+        .container > div:nth-of-type(1)::first-line {
+            color: #ff6666;
+            font-weight: 500;
+        }
+        .container > div:nth-of-type(1)::first-letter {
+            color: #ffdd66;
+            font-weight: 1000;
+        }
+        /* 单独使用，相当于为页面中的所有文字内容添加了选中样式 */
+        /*::selection {*/
+        /*    background-color: #b88dff;*/
+        /*}*/
+        .container > div:nth-of-type(1)::selection {
+            background-color: #b88dff;
+        }
+        input::placeholder {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            DTM is a distributed transaction framework which provides cross-service eventual data consistency. It provides saga, tcc, xa, 2-phase message, outbox, workflow patterns for a variety of application scenarios.
+        </div>
+        <input type="text" placeholder="enter something">
+    </div>
+</body>
+</html>

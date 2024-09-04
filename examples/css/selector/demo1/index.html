@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pseudo Elements Underline Demo</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50vw;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 2rem;
+        }
+        .text-item {
+            /* 实现文字下划线 */
+            /* 方式一 text-decoration */
+            /*text-decoration: underline;*/
+            /* 方式二 border-bottom */
+            /*border-bottom: 10px solid red;*/
+            /* 上面两种方式，边框的尺寸和文字的间距难以调整 */
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        /* 方式三，利用伪元素实现 */
+        .text-item::after {
+            content: "";
+            width: 50%;
+            height: 10px;
+            background-color: #66bbff;
+            display: block;
+            position: absolute;
+            bottom: -10px;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .text-item:hover::after {
+            width: 120%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-item">
+            Hello World
+        </div>
+    </div>
+</body>
+</html>

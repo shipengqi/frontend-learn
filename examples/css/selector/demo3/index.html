@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pseudo Elements Switch Button/Toggle Demo</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .toggle {
+            width: 120px;
+            height: 60px;
+            background-color: #d1cfcf;
+            border-radius: 200px;
+            position: relative;
+            transition: background-color 0.5s;
+        }
+        .toggle:hover {
+            background-color: #66bbff;
+        }
+        .toggle::after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            display: block;
+            background-color: #fbfbfb;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            transition: transform 0.5s;
+        }
+        .toggle:hover::after {
+            transform: translate(60px);
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle">
+    </div>
+</body>
+</html>
