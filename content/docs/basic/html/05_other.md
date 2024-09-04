@@ -1,6 +1,6 @@
 ---
 title: 其他属性
-weight: 6
+weight: 5
 ---
 
 # 其他属性
@@ -77,7 +77,9 @@ radial-gradient(red, blue);
 
 ## 滚动属性
 
-`overflow` 属性用于在内容超出容器时，超出的部分的如何处理。**容器必须有一个确定的高度或者宽度，`overflow` 才会生效**。
+`overflow` 属性用于在内容超出容器时，如何处理内容的显示。
+
+**容器必须有一个确定的高度或者宽度，`overflow` 才会生效**。
 
 `overflow` 也可以分别设置 X 轴 `overflow-x` 和 Y 轴 `overflow-y`。
 
@@ -103,85 +105,13 @@ div {
 
 - `visible`：默认值，不会出现滚动条，溢出内容会直接显示在容器外部。
 - `hidden`：不会出现滚动条，溢出内容会被裁剪，超出容器的部分不可见。
-- `scroll`：显示滚动条，自动判断内部子元素是高度还是宽度超过了父元素的尺寸，哪个超过了就会产生对应的滚动轴。
-- `auto`：和 `scroll` 基本一样。自动判断内部子元素是高度还是宽度超过了父元素的尺寸，哪个超过了就会产生对应的滚动轴。
+- `scroll`：显示滚动条，超出容器的内容，可以滚动滚动条来显示。
+- `auto`：和 `scroll` 基本一样。在内容有溢出时才显示滚动条，没有溢出则不显示滚动条。
 - `overlay`：和 `auto` 差不多，不同的是 `auto` 显示的滚动条会在容器内占据一个位置，会导致内容发生位移。`overlay` 则是会覆盖在容器右侧，不会占据位置
 
 ### background-attachment
 
-`background-attachment`：定义背景图片随滚动轴的移动方式。
-- `scroll` 默认值。**背景图片相对于元素是固定的**。
-  - 滚动元素内部滚动轴，背景图片相对于元素不会移动。
-  - 滚动整个页面的滚动轴，背景图片跟随元素整体移动。
-- `fixed` **背景图片相对于视口固定**。
-  - 滚动元素内部滚动轴，背景图片不会移动。
-  - 滚动整个页面的的滚动轴，背景图片相对于浏览器的显示区域不会移动，但是元素会移动。
-- `local` **背景图相对于元素内容固定**。
-  - 滚动元素内部滚动轴，背景图片会跟随内容的滚动而滚动。
-  - 滚动整个页面的的滚动轴，背景图片跟随元素整体移动。
 
-`background-attachment` 可以设置多个值，当有多层背景图片时可以使用。例如 `background-attachment: fixed, local;`。
-
-### overscroll-behavior
-
-`overscroll-behavior` 属性是 `overscroll-behavior-x` 和 `overscroll-behavior-y` 的复合属性。必须设置在滚动容器上。
-
-可以控制当用户滚动超过可滚动元素的边界（顶部、底部、左侧或右侧）时的行为。可选值：
-
-- `auto`: 默认值。滚动超过边界后继续滚动外部的可滚动容器。直到没有可滚动的容器，会出现一个回弹的效果。
-- `contain`: 滚动溢出行为只会在当前元素的内部。不会传递到外部的滚动区域进行滚动。
-- `none`: 和 `contain` 的类似。
-
-### scroll-behavior
-
-`scroll-behavior` 可以控制当用户单击可滚动区域中的链接时，是否平滑地（具动画效果）滚动到指定位置，而不是瞬间跳转过去。
-
-可选值：
-
-- `auto`：默认值。直接跳转。
-- `smooth`：平滑滚动。
-
-一般设置在 `html` （根元素）上来控制页面整体的滚动效果：
-
-```css
-html {
-  scroll-behavior: smooth;
-}
-```
-
-### 滚动对齐
-
-`scroll-snap-type`：**容器属性**，设置滚动对齐的方向（水平方向和垂直方向）和对齐模式。可选值：
-- `none`
-- `x`：水平方向
-- `y`：垂直方向
-- `mandatory`：可选值，表示滚动结束后，强制将元素停留在对齐的位置。
-- `proximity`：默认值，表示滚动结束后，滚动停止点可能就是滚动停止的位置，也可能会再进行额外移动，停留在对齐的位置。
-
-示例：
-```css
-scroll-snap-type: none;
-scroll-snap-type: x mandatory;
-scroll-snap-type: y mandatory;
-/* 表示水平方向和垂直方向的滚动，都会进行捕捉 */
-scroll-snap-type: both mandatory; 
-```
-
-`scroll-snap-align`：**子元素属性**，控制滚动子元素在滚动方向上相对于父容器的对齐方式。如果希望进行一些更精细的控制时，可以使用 `scroll-margin` 或者 `scroll-padding`。
-- `start` 滚动子元素在滚动方向上相对于父容器顶部对齐。
-- `end` 滚动子元素在滚动方向上相对于父容器底部对齐。
-- `center` 滚动子元素在滚动方向上相对于父容器中心对齐。
-
-
-> `scroll-snap-type` 和 `scroll-snap-align` 两个属性是必须的。
-
-其他属性：
-
-- `scroll-padding`：容器属性，类似于盒子的 `padding`。
-- `scroll-margin`：子元素属性，每个子元素的 `scroll-margin` 可以设置为不一样的值，类似于盒子的 `margin`。
-- `scroll-snap-stop`：子元素属性，定义元素在滚动时是否可以被跳过。
-  - `normal`：默认值，可以跳过。
-  - `always`：不可跳过。
 
 ### 滚动条的样式
 

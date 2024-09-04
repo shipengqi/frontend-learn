@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hover Light Demo</title>
+    <style>
+        body {
+            margin: 0;
+            font-size: 4rem;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            perspective: 800px;
+            background-color: rgb(26, 26, 26);
+        }
+
+        .touch-area {
+            width: 100px;
+            height: 50px;
+            background-color: #6a6b6c;
+            border-radius: 6px;
+            transition: background-color 0.5s;
+            cursor: pointer;
+        }
+        .touch-area:hover {
+            background-color: white;
+        }
+        .touch-area:hover + .light-effect > :first-child {
+            background-color: rgb(255, 255, 255);
+        }
+        .touch-area:hover + .light-effect > :last-child {
+            filter: blur(100px);
+        }
+        .light-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            gap: 100px;
+        }
+        .light-effect {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .light-effect > div {
+            width: 300px;
+            height: 300px;
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
+        .light-effect > :first-child {
+            position: absolute;
+            background-color: rgb(56, 56, 56);
+            z-index: 2;
+            transition: background-color 0.5s;
+        }
+        .light-effect > :last-child {
+            /* 设置第二个圆稍小一点，隐藏边框 */
+            width: 280px;
+            height: 280px;
+            transition: filter 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="light-box">
+        <div class="touch-area">
+
+        </div>
+        <div class="light-effect">
+            <div class="main-light"></div>
+            <div></div>
+        </div>
+    </div>
+</body>
+</html>

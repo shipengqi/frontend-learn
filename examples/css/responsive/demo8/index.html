@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images Demo</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            min-width: 320px;
+            box-sizing: border-box;
+        }
+        img {
+            width: 100%;
+        }
+        @media screen and (min-width: 640px) {
+            .medium-text {
+                display: block;
+            }
+            .small-text {
+                display: none;
+            }
+            .container > span {
+               font-size: 5rem;
+            }
+        }
+        @media screen and (min-width: 1280px) {
+            .medium-text {
+                display: none;
+            }
+            .large-text {
+                display: block;
+            }
+            .container > span {
+                font-size: 10rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="small-640.jpg"
+             srcset="
+             small-640.jpg 640w,
+             medium-1280.jpg 1280w,
+             large-1920.jpg 1920w"
+             sizes="
+             (max-width: 1280px)
+             "
+             alt="">
+        <span class="small-text">small</span>
+        <span class="medium-text">medium</span>
+        <span class="large-text">large</span>
+    </div>
+</body>
+</html>
