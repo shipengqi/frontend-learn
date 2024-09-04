@@ -44,15 +44,15 @@ Chrome 的开发者工具查看元素的样式如下图：
 
 打开媒体查询工具：
 
-![show-media-query](show-media-query.png)
+![show-media-query](https://github.com/shipengqi/illustrations/blob/219420382199da4b0c0fc08158dc2fabcbb7cb36/frontend-learn/basic/show-media-query.png?raw=true)
 
 打开之后，尺寸下面多了一栏，鼠标悬浮上去会显示，当前的宽度是什么设备的尺寸。
 
-![media-query-tool](show-media-tool.png)
+![media-query-tool](https://github.com/shipengqi/illustrations/blob/219420382199da4b0c0fc08158dc2fabcbb7cb36/frontend-learn/basic/media-query-tool.png?raw=true)
 
 如果设置了媒体查询，会出现对应的一行，鼠标悬浮上去会显示匹配的规则。
 
-![media-queries.png](media-queries.png)
+![media-queries.png](https://github.com/shipengqi/illustrations/blob/219420382199da4b0c0fc08158dc2fabcbb7cb36/frontend-learn/basic/media-queries.png?raw=true)
 
 上图中有三条媒体查询的规则：
 
