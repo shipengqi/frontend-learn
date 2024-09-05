@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nav Learn Demo</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .parent {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            background-color: #66bbff;
+        }
+
+        .parent:hover {
+            background-color: #ffdd66;
+        }
+
+        .parent:hover > .child {
+            transform: translateY(260px);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .child {
+            width: 200px;
+            height: 400px;
+            background-color: #ffdd66;
+            /* 此处 padding 是为了填补子元素与父元素之间的空白 */
+            /* 使鼠标悬浮在空白处也不会失去 hover 的效果 */
+            padding-top: 100px;
+
+            /* 为了方便查看 包含 padding 的元素区域， */
+            background-clip: content-box;
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+            border: 2px solid red;
+            /* 子元素虽然是透明的，但是还是存在的，*/
+            /* 所以会有一个问题，当鼠标悬浮在父元素下方，没有放在父元素,内子元素就会显示 */
+            /* 这就可以使用 pointer-events 来解决   */
+            /* pointer-events 可以控制元素是否对鼠标产生反应 */
+            /* 比如鼠标悬浮会不会有 hover 状态，比如元素被点击会不会产生反应 */
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div class="child"></div>
+</div>
+</body>
+</html>

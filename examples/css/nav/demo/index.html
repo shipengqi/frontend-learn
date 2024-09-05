@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nav Learn Demo</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .nav-box {
+            display: flex;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            /* 如果 nav-item 设置了背景色，会导致直接设置圆角无效 */
+            /* 内部的子元素没有圆角 */
+            /* 所以需要单独的给最左边的子元素设置左上，左下圆角 */
+            /* 最右边的子元素设置右上，右下圆角 */
+            border-radius: 10px;
+        }
+        .nav-item {
+            position: relative;
+            padding: 30px 50px;
+
+
+            /* 居中 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            transition: all 0.5s;
+        }
+
+        .nav-item > div {
+            position: absolute;
+            top: 100%;
+
+            padding-top: 12px;
+            background-clip: content-box;
+
+            display: flex;
+            flex-direction: column;
+
+            /* 向上移动 */
+            transform: translateY(-20px);
+            opacity: 0;
+
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .nav-item > div > span {
+            padding: 20px;
+            background-color: black;
+            color: white;
+        }
+
+        /* 给最左边的子元素设置左上，左下圆角 */
+        /* 最右边的子元素设置右上，右下圆角 */
+        .nav-item:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        .nav-item:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        /* 二级目录圆角与上面的实现是一样的 */
+        /* 注意背景颜色在 span 元素上设置 */
+        .nav-item > div >span:first-child {
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        .nav-item > div >span:last-child {
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        .nav-item:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .nav-item:hover > div {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="nav-box">
+    <div class="nav-item">
+        <span>Home</span>
+        <div>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+        </div>
+    </div>
+    <div class="nav-item">
+        <span>App</span>
+        <div>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+        </div>
+    </div>
+    <div class="nav-item">
+        <span>Deploy</span>
+        <div>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+        </div>
+    </div>
+    <div class="nav-item">
+        <span>Settings</span>
+        <div>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+            <span>123231</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
