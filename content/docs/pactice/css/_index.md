@@ -123,3 +123,113 @@ draft: true
 ## will-change
 
 `will-change: box-shadow`，相当于告知浏览器，`box-shadow` 属性将要变化，可以更高效的执行，可以解决一些页面渲染的性能问题。
+
+
+## 主题
+
+### 清明节全网灰色主题
+
+可以简单的在 `<body>` 上加上滤镜属性：
+
+```css
+filter: grayscale(100%);    
+-moz-filter: grayscale(100%);     // 兼容 Firefox
+-ms-filter: grayscale(100%);     // 兼容 IE、Edge
+-o-filter: grayscale(100%);       // 兼容 2013 年前的 Opera
+```
+
+对于较低版本的 IE 浏览器：
+
+```css
+filter: url(data:image/svg+xml;utf8,#grayscale);         // 兼容 IE10、IE11
+filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); // 兼容 IE6～9
+```
+
+### Dark 模式
+
+Dark 模式一种简单的实现方式，适合偏展示性的网站，页面元素简单，没有复杂动效的网站：
+
+```css
+filter: invert(1)    // 设置反相色，白底黑字变成黑底白字。
+
+// 上面的设置会导致彩色也会跟着反向，也就是说红色类的元素会变色绿色。可以使用 hue-rotate 色相旋转，它的特点：只对彩色生效。
+filter: invert(1) hue-rotate(180deg);     // 反向后，再进行 180 度的色相旋转
+```
+
+#### 系统偏好
+
+获取系统的模式有两种方式：
+
+1. 通过 CSS 的 `prefers-color-scheme` 媒体查询，直接获取系统的模式并切换样式。
+
+```css
+@media (prefers-color-scheme: dark) {
+  // Dark 模式
+  :root {
+    --background-color: black;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  // Light 模式
+  :root {
+    --background-color: white;
+  }
+}
+```
+
+2. 通过 JavaScript 获取系统的模式并切换样式。
+
+```html
+<script>
+  // 检测系统的模式
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // Dark 模式
+    document.documentElement.classList.add('dark');
+  } else {
+    // Light 模式
+    document.documentElement.classList.remove('dark');
+  }
+</script>
+```
+
+可以将用户选择的模式存储到 `localStorage` 中，再次访问可以通过 `localStorage` 来获取用户设置的主题。
+
+#### 用户偏好
+
+```javascript
+const toggleButton = document.querySelector('#toggle')
+toggleButton.addEventListener('click', () => {
+	const isDark = document.documentElement.classList.contains('dark')
+	if (isDark) 
+		document.documentElement.classList.remove('dark')
+	
+	else 
+		document.documentElement.classList.add('dark')
+})
+
+```
+
+#### 闪烁问题
+
+如果时通过 js 来获取系统的模式，那么在切换主题的时候，会有一个闪烁的问题。由于 js 是单线程，而通常为了不阻塞页面渲染一般是将 js 文件放置在 `body` 元素最下面，所以当 js 执行的时候，页面已经渲染完成，但是 dark 样式还没有添加上去，就会出现闪烁的问题。
+
+解决这个问题，可以把 `dark` 样式初始化的 js 代码放在 `head` 元素中，这样就可以避免闪烁的问题。
+
+```html
+<head>
+<script>
+  // 检测系统的模式
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // Dark 模式
+    document.documentElement.classList.add('dark');
+  } else {
+    // Light 模式
+    document.documentElement.classList.remove('dark');
+  }
+</script>
+</head>
+<body>
+</body>
+
+```
