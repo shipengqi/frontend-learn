@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter And Backdrop Filter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .bg {
+            width: 100vw;
+            height: 100vh;
+            background: url(background.jpeg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .child {
+            width: 300px;
+            height: 200px;
+            background: rgba(255, 255, 255, .7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .g-filter {
+            filter: blur(6px);
+        }
+        .g-backdrop-filter {
+            backdrop-filter: blur(6px);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div class="g-normal child">Normal</div>
+        <div class="g-filter child">Filter</div>
+        <div class="g-backdrop-filter child">Backdrop Filter</div>
+    </div>
+</body>
+</html>

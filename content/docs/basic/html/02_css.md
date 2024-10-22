@@ -64,6 +64,10 @@ weight: 2
   - `{width} {height}`：背景大小。
 - `background-attachment`：背景是否固定，`scroll` 滚动，`fixed` 固定。
 
+### 遮罩
+
+遮罩属性 `mask` 和背景属性使用方式非常类似，这个是属性可以给元素加一层遮罩。[MDN Web Docs (Mask)](https://developer.mozilla.org/en-US/docs/Web/CSS/mask)。
+
 
 #### 多层背景
 
