@@ -62,17 +62,26 @@ radial-gradient(red, blue);
 
 ## 滤镜属性
 
-`-webkit-filter`：滤镜属性。
-- `blur()` 设置元素的模糊度，默认是 `0px`。 例如：`-webkit-filter: blur(20px)`, `blur()` 中的值越大越模糊。
-- `grayscale()` 灰度，正常是 `0%`，也可以写数字。例如：`-webkit-filter: grayscale(100%)`。
-- `sepia()` 褐色，正常是 `0%` 可以写数字。例如：`-webkit-filter: sepia(100%)` 。
-- `brightness()` 亮度，正常亮度 `100%` 可以写数字，例如：`-webkit-filter: brightness(100%)` 。如果需要过度曝光的效果可以 `brightness(500%)`。
-- `contrast()` 对比度，正常是 `100%` 可以写数字，例如：`-webkit-filter: contrast(1000%)` 和 `-webkit-filter: contrast(10)` 是一个意思。
-- `saturate()` 饱和度，正常是 `100%` 可以写数字，例如：`-webkit-filter: saturate(1000%)`。
-- `hue-rotate()` 色相旋转，正常是 `0deg` 可以写数字，例如：`-webkit-filter: hue-rotate(45deg)`。
-- `invert()` 色相反转，底片效果，正常是 `0` 可以写数字，`-webkit-filter: invert(100%)`。
+滤镜属性有两个，可以用来实现毛玻璃的效果：
 
-多个属性组合：`-webkit-filter: blur(20px) brightness(100%)`。
+- `filter`：为元素本身设置滤镜效果，包括元素背后的区域。
+- `backdrop-filter`：只为元素背后的区域设置滤镜效果。
+
+滤镜属性支持的值：
+
+- `blur()` 设置元素的模糊度，默认是 `0px`。 例如：`filter: blur(20px)`, `blur()` 中的值越大越模糊。
+- `contrast()` 对比度，正常是 `100%` 可以写数字，例如：`filter: contrast(1000%)` 和 `filter: contrast(10)` 是一个意思。
+- `grayscale()` 灰度，正常是 `0%`，也可以写数字。例如：`filter: grayscale(100%)`。
+- `hue-rotate()` 色相旋转，正常是 `0deg` 可以写数字，例如：`filter: hue-rotate(45deg)`。
+- `drop-shadow` 投影效果，例如：`filter: drop-shadow(16px 16px 20px blue)`。
+- `sepia()` 褐色，正常是 `0%` 可以写数字。例如：`filter: sepia(100%)` 。
+- `brightness()` 亮度，正常亮度 `100%` 可以写数字，例如：`filter: brightness(100%)` 。如果需要过度曝光的效果可以 `brightness(500%)`。
+- `saturate()` 饱和度，正常是 `100%` 可以写数字，例如：`filter: saturate(1000%)`。
+- `invert()` 色相反转，底片效果，正常是 `0` 可以写数字，`filter: invert(100%)`。
+
+多个属性组合：`filter: blur(20px) brightness(100%)`。
+
+> 滤镜属性是比较耗费性能的。
 
 
 ## 滚动属性

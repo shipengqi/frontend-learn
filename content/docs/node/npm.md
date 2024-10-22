@@ -192,3 +192,59 @@ npm 版本号由 3 个数字组成： `{主版本}.{次版本}.{补丁版本}`�
 `legacy-peer-deps` 通常更安全，在处理同级别的依赖关系冲突时，应该是首选选项。
 
 `--force` 应该作为最后的手段来使用，而且只有在你完全理解其影响的情况下才可以使用。它有可能引入破坏性的变化或导致软件包的不一致。
+
+
+## npmrc
+
+`.npmrc` 是 NPM 的配置文件 。
+
+文件可以存在四个位置，具有不同的作用域：
+
+- 项目配置文件：项目根目录下的 `.npmrc` 文件作为当前项目的 NPM 配置文件。
+- 用户配置文件：在当前用户根目录下的 `~/.npmrc` 文件作为当前用户的 NPM 配置文件。
+- 全局配置文件：使用 `npm config get prefix` 获取 NPM 全局安装路径，使用获取的路径加上 `.../etc/.npmrc` 获取全局配置文件，当前配置文件作用于所有用户。
+- NPM 内置配置文件：放置于 `/path/to/npm/npmrc`，不可修改。
+
+配置文件的格式是 `ini` 格式的参数列表：
+
+```ini
+<key>=<value>
+```
+
+配置文件可以直接修改，也可以使用 NPM 命令：
+
+```bash
+# 设置
+npm config set <key>=<value> [<key>=<value> ...]
+npm set <key>=<value> [<key>=<value> ...]
+
+# 获取
+npm config get [<key> [<key> ...]]
+npm get [<key> [<key> ...]]
+
+# 显示所有配置（可显示为 json 结构）
+npm config list [--json]
+
+# 从所有配置文件中删除指定 key
+npm config delete <key> [<key> ...]
+```
+
+### 优先级
+
+`项目配置文件 > 用户配置文件 > 全局配置文件 > NPM 内置配置文件`
+
+### 常见用法
+
+#### 定义镜像源
+
+项目配置文件：
+
+```ini
+# 设置同一个前缀/目录下包的源
+# 设置将前缀为@babel的包源指向了华为源
+@babel:registry=https://mirrors.huaweicloud.com/repository/npm/
+
+# 指定项目下所有包的源，切换为国内源
+# 如果上面的前缀规则没有匹配到，则使用这里的源
+registry = https://registry.npmmirror.com
+```

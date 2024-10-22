@@ -53,7 +53,7 @@ Flex 布局子元素的逐步变化主要是利用两个属性：
 - `flex-grow`：默认值 0。占据剩余空间的份数。`flex-grow: 1` 就表示占据剩余空间的 1 份。
 - `flex-shrink`：默认值 1。当子元素的大小超过了主轴或者侧轴，那么设置了 `flex-shrink` 的子元素就会自动收缩。如果设置了换行，那么这个属性就没有用了。
 
-Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-columns` 和 `grid-template-rows` 值的设定使用 `fr` `%` `auto` 等单位。
+Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-columns` 和 `grid-template-rows` 值的设定使用 `fr`、`%`、`auto` 等单位。
 
 
 ## 媒体查询
@@ -131,7 +131,7 @@ Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-
 
 ### 移动优先和桌面优先
 
-媒体查询设置的 `max-width` 或者 `min-max` 这个宽度的分界点，称为**断点**。
+媒体查询设置的 `max-width` 或者 `min-max` 这个宽度的分界点，称为**断点**（breakpoint）。
 
 常用的断点：
 
@@ -313,12 +313,12 @@ Grid 布局子元素的逐步变化主要时在划分网格时，`grid-template-
 
 ### 容器查询的单位
 
-`cqw`：容器查询宽度（Container Query Width）占比。`1cqw` 等于容器宽度的 `1%`。例如容器宽度是 `1000px`，则此时 `1cqw` 对应的计算值就是 `10px`。
-`cqh`：容器查询高度（Container Query Height）占比。`1cqh` 等于容器高度的 `1%`。
-`cqi`：表示容器查询文字书写方向的尺寸（Container Query Inline-Size）占比。这个是逻辑属性单位，默认情况下等同于 `cqw`。
-`cqb`：容器查询垂直于文字书写方向尺寸（Container Query Block-Size）占比。同上，默认情况下等同于 `cqh`。
-`cqmin`：容器查询较小尺寸的（Container Query Min）占比。取 `cqw` 和 `cqh` 中较小的一个。
-`cqmax`：表示容器查询较大尺寸的（Container Query Min）占比。取 `cqw` 和 `cqh` 中较大的一个。
+- `cqw`：容器查询宽度（Container Query Width）占比。`1cqw` 等于容器宽度的 `1%`。例如容器宽度是 `1000px`，则此时 `1cqw` 对应的计算值就是 `10px`。
+- `cqh`：容器查询高度（Container Query Height）占比。`1cqh` 等于容器高度的 `1%`。
+- `cqi`：表示容器查询文字书写方向的尺寸（Container Query Inline-Size）占比。这个是逻辑属性单位，默认情况下等同于 `cqw`。
+- `cqb`：容器查询垂直于文字书写方向尺寸（Container Query Block-Size）占比。同上，默认情况下等同于 `cqh`。
+- `cqmin`：容器查询较小尺寸的（Container Query Min）占比。取 `cqw` 和 `cqh` 中较小的一个。
+- `cqmax`：表示容器查询较大尺寸的（Container Query Min）占比。取 `cqw` 和 `cqh` 中较大的一个。
 
 
 ## 图片的处理
