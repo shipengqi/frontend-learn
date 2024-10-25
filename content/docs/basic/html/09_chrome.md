@@ -1,6 +1,6 @@
 ---
 title: Chrome 开发者工具
-weight: 8
+weight: 9
 ---
 
 # Chrome 开发者工具
