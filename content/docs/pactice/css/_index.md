@@ -233,3 +233,50 @@ toggleButton.addEventListener('click', () => {
 </body>
 
 ```
+
+## 透明图片的阴影
+
+如果需要给某些带有透明部分的图片添加阴影，如过直接用 `box-shadow` 给图片添加阴影：
+
+```css
+img {
+  box-shadow: 0 0 20px gray;
+}
+```
+
+效果如下图：
+
+![]()
+
+如果只想给图片内容区域设置阴影，可以使用 `filter` 属性。
+
+```css
+img {
+  filter: drop-shadow(0 0 20px crimson);
+}
+```
+
+还有另一种方式可以是阴影的效果更好，就是在加一个一摸一样的图片元素：
+
+```html
+<head>
+    <style>
+        img {
+            /* 让两张图片的位置重合 */
+            position: absolute;
+        }
+        .hidden {
+            /* 作为背景图片 */
+            z-index: -1;
+            /* 设置背景图片模糊滤镜 */
+            filter: blur(20px);
+        }
+    </style>
+</head>
+<body>
+    <img class="show" src="./chrome.webp" alt="">
+    <img class="hidden" src="./chrome.webp" alt="">
+</body>
+```
+
+![]()

@@ -80,3 +80,28 @@ Chrome 的开发者工具查看元素的样式如下图：
 ```
 
 当多个媒体查询同时匹配时，会按照从上到下的顺序进行匹配。也就是说最后的才会生效。
+
+
+## Animations
+
+Chrome 开发者工具的动画面板，可以查看元素动画效果的细节。
+
+打开动画面板：
+
+![chrome-animations](chrome-animations.png)
+
+面板中有三个百分比，选择 `10%`，动画效果就会变得非常慢，面板中还记录了元素属性发生变化的过程，并且可以手动调节：
+
+![chrome-animation-detail](chrome-animation-detail.png)
+
+
+## 网页截图
+
+Chrome 提供了网页截图的工具，可以将网页截图保存到本地。打开命令行面板，输入 `screenshot` 命令，然后回车，会出现四个 `screenshot` 相关的命令：
+
+![]()
+
+1. capture full size screenshot：截图整个页面。
+2. capture node screenshot：截图元素。先使用选择页面元素工具在页面中选择某个需要截图的元素，再使用 `capture node screenshot` 命令，这个元素就会被截图。
+3. capture screenshot：截图当前页面显示区域。
+4. capture area screenshot：截图选中的区域。类似常见的截图工具，出现一个十字，选中区域截图。
