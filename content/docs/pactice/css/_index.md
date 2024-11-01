@@ -246,7 +246,7 @@ img {
 
 效果如下图：
 
-![image-box-shadow](https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-shadow.png?raw=true)
+<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-shadow.png?raw=true" width="50%" alt="box-shadow">
 
 如果只想给图片内容区域设置阴影，可以使用 `filter` 属性。
 
@@ -256,7 +256,9 @@ img {
 }
 ```
 
-![filter-shadow](https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-filter-shadow.png?raw=true)
+效果如下图：
+
+<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-filter-shadow.png?raw=true" width="50%" alt="filter-shadow">
 
 还有另一种方式可以是阴影的效果更好，就是在加一个一摸一样的图片元素：
 
@@ -281,4 +283,6 @@ img {
 </body>
 ```
 
-![bg-shadow](https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-bg-shadow.png?raw=true)
+效果如下图：
+
+<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-bg-shadow.png?raw=true" width="50%" alt="bg-shadow">
