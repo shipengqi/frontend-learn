@@ -88,18 +88,18 @@ Chrome 开发者工具的动画面板，可以查看元素动画效果的细节�
 
 打开动画面板：
 
-![chrome-animations](chrome-animations.png)
+![chrome-animations](https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-animations.png?raw=true)
 
 面板中有三个百分比，选择 `10%`，动画效果就会变得非常慢，面板中还记录了元素属性发生变化的过程，并且可以手动调节：
 
-![chrome-animation-detail](chrome-animation-detail.png)
+![chrome-animation-detail](https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-animation-detail.png?raw=true)
 
 
 ## 网页截图
 
 Chrome 提供了网页截图的工具，可以将网页截图保存到本地。打开命令行面板，输入 `screenshot` 命令，然后回车，会出现四个 `screenshot` 相关的命令：
 
-![]()
+![chrome-screenshot](https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-screenshot.png?raw=true)
 
 1. capture full size screenshot：截图整个页面。
 2. capture node screenshot：截图元素。先使用选择页面元素工具在页面中选择某个需要截图的元素，再使用 `capture node screenshot` 命令，这个元素就会被截图。

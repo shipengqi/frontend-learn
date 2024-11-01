@@ -1,7 +1,6 @@
 ---
 title: Cypress
 weight: 3
-draft: true
 ---
 
 # Cypress
