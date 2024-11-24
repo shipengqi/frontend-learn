@@ -776,6 +776,18 @@ function runSettingsOnInit() {
 })
 ```
 
+## ENVIRONMENT_INITIALIZER
+
+`ENVIRONMENT_INITIALIZER` 是 Angular 14 引入的，用于在 Angular 应用启动期间运行长时间任务。它允许开发者在环境注入器中注入一个或多个初始化函数，这些函数在环境准备阶段执行。这个特性特别适用于那些需要在应用程序启动时完成的初始化工作，但又不适合放在 `APP_INITIALIZER` 中执行的场景。比如设置全局的服务或配置，这些工作通常需要在应用程序完全启动之前完成。
+
+提高应用性能：通过在环境级别进行初始化，可以减少应用启动时的延迟，因为这些初始化任务可以在应用程序完全启动之前完成，从而提高应用的性能和响应速度。
+
+## PLATFORM_INITIALIZER
+
+`PLATFORM_INITIALIZER` 是用于初始化 Angular 平台的机制。这个机制允许开发者在 Angular 平台（例如在浏览器中）完全启动之前执行一些初始化逻辑。
+
+`PLATFORM_INITIALIZER` 通常用于执行那些需要在 Angular 平台完全启动之前完成的初始化任务，比如设置全局的提供者和服务。这个初始化器与 `APP_INITIALIZER` 和 `ENVIRONMENT_INITIALIZER` 的主要区别在于它的执行时机和作用范围，它更侧重于平台级别的初始化。
+
 ## 引导监听器
 
 `APP_BOOTSTRAP_LISTENER` 能够在引导组件时进行侦听。

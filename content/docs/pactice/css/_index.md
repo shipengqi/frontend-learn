@@ -234,6 +234,45 @@ toggleButton.addEventListener('click', () => {
 
 ```
 
+#### 不支持深色模式的系统环境中
+
+不支持深色模式的系统环境中，可以判断当前系统时间是否处于夜间，是则返回深色模式。
+
+```javascript
+finction getTheme(): boolean {
+  const currentTime = new Date().getHours();
+  const isNight = currentTime >= 19 || currentTime <= 6;
+  return isNight ? Theme.Dark : Theme.Light;
+}
+```
+
+### 利用 `setProperty` 切换主题色
+
+这个方案适用于由用户根据颜色面板自行设定各种颜色主题。参考 [vue-element-plus-admin](https://gitee.com/kailong110120130/vue-element-plus-admin)。
+
+实现思路，在全局中预设好 CSS 变量样式：
+
+```css
+:root {
+  --theme-color: #13c2c2;
+  --theme-background: #fff;
+}
+```
+
+定义一个工具类方法，用于修改指定的 CSS 变量值，使用 [CSSStyleDeclaration.setProperty](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty) 方法。
+
+```typescript
+export function setCssVar(prop: string, val: any, dom = document.documentElement): void {
+  dom.style.setProperty(prop, val);
+}
+```
+
+切换主题色：
+
+```javascript
+setCssVar('--theme-color', color);
+```
+
 ## 透明图片的阴影
 
 如果需要给某些带有透明部分的图片添加阴影，如过直接用 `box-shadow` 给图片添加阴影：
