@@ -346,6 +346,6 @@ tabindex 全局属性，表示元素是否可以被聚焦，以及是否能用 T
 
 ## user-select
 
-- `user-select`：设置为本是否可以被选中。默认值 `auto`。
+- `user-select`：设置文本是否可以被选中。默认值 `auto`。
   - `auto`：可以被选中。
   - `none`：不能被选中。

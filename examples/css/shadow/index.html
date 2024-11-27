@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Demo</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        img {
+            /* box-shadow: 0 0 0 20px gray; */
+            /* filter: drop-shadow(0 0 20px gray); */
+            position: absolute;
+        }
+        .hidden {
+            z-index: -1;
+            filter: blur(20px);
+        }
+    </style>
+</head>
+<body>
+    <img class="show" src="./chrome.webp" alt="">
+    <img class="hidden" src="./chrome.webp" alt="">
+</body>
+</html>

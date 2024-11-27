@@ -233,3 +233,95 @@ toggleButton.addEventListener('click', () => {
 </body>
 
 ```
+
+#### 不支持深色模式的系统环境中
+
+不支持深色模式的系统环境中，可以判断当前系统时间是否处于夜间，是则返回深色模式。
+
+```javascript
+finction getTheme(): boolean {
+  const currentTime = new Date().getHours();
+  const isNight = currentTime >= 19 || currentTime <= 6;
+  return isNight ? Theme.Dark : Theme.Light;
+}
+```
+
+### 利用 `setProperty` 切换主题色
+
+这个方案适用于由用户根据颜色面板自行设定各种颜色主题。参考 [vue-element-plus-admin](https://gitee.com/kailong110120130/vue-element-plus-admin)。
+
+实现思路，在全局中预设好 CSS 变量样式：
+
+```css
+:root {
+  --theme-color: #13c2c2;
+  --theme-background: #fff;
+}
+```
+
+定义一个工具类方法，用于修改指定的 CSS 变量值，使用 [CSSStyleDeclaration.setProperty](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty) 方法。
+
+```typescript
+export function setCssVar(prop: string, val: any, dom = document.documentElement): void {
+  dom.style.setProperty(prop, val);
+}
+```
+
+切换主题色：
+
+```javascript
+setCssVar('--theme-color', color);
+```
+
+## 透明图片的阴影
+
+如果需要给某些带有透明部分的图片添加阴影，如过直接用 `box-shadow` 给图片添加阴影：
+
+```css
+img {
+  box-shadow: 0 0 20px gray;
+}
+```
+
+效果如下图：
+
+<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-shadow.png?raw=true" width="50%" alt="box-shadow">
+
+如果只想给图片内容区域设置阴影，可以使用 `filter` 属性。
+
+```css
+img {
+  filter: drop-shadow(0 0 20px crimson);
+}
+```
+
+效果如下图：
+
+<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-filter-shadow.png?raw=true" width="50%" alt="filter-shadow">
+
+还有另一种方式可以是阴影的效果更好，就是在加一个一摸一样的图片元素：
+
+```html
+<head>
+    <style>
+        img {
+            /* 让两张图片的位置重合 */
+            position: absolute;
+        }
+        .hidden {
+            /* 作为背景图片 */
+            z-index: -1;
+            /* 设置背景图片模糊滤镜 */
+            filter: blur(20px);
+        }
+    </style>
+</head>
+<body>
+    <img class="show" src="./chrome.webp" alt="">
+    <img class="hidden" src="./chrome.webp" alt="">
+</body>
+```
+
+效果如下图：
+
+<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-bg-shadow.png?raw=true" width="50%" alt="bg-shadow">
