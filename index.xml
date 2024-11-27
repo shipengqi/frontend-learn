@@ -34,7 +34,10 @@ lvh、lvw：l 表示 large。 svh、svw：s 表示 small。 dvh、dvw：d 表示
 文字大小的逐步变化 # 文字大小的尺寸设置一般是用 px，em 和 rem，这三种单位都可以算是固定单位。因为 em 是相对于父元素的字体大小。rem 是相对于根元素（html 标签）的字体大小。也就是说如果父元素或者根元素的字体大小不变，那么利用 em 或 rem 设置尺寸的元素的内部元素的文字大小肯定也不会变化。
 如果想要文字的尺寸逐步变化，那么可以使用 vh、vw 等视窗单位来实现。
 通常，文字是不需要根据页面尺寸变化而变化的。
-Flex 布局和 Grid 布局中元素的逐步变化 # Flex 布局和 Grid 布局中的子元素都是可以缩放的。</description></item><item><title>Chrome 开发者工具</title><link>http://shipengqi.github.io/frontend-learn/docs/basic/html/08_chrome/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shipengqi.github.io/frontend-learn/docs/basic/html/08_chrome/</guid><description>Chrome 开发者工具 # Chrome 的开发者工具查看元素的样式如下图：
+Flex 布局和 Grid 布局中元素的逐步变化 # Flex 布局和 Grid 布局中的子元素都是可以缩放的。</description></item><item><title>SVG</title><link>http://shipengqi.github.io/frontend-learn/docs/basic/html/08_svg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shipengqi.github.io/frontend-learn/docs/basic/html/08_svg/</guid><description> SVG # SVG (Scaleable Vector Graphics) 可伸缩矢量图形，也即是说不管怎么放大，图形都不会失真。适合在响应式的网站中使用。
+与矢量图相对应的是位图，位图放的比较大的时候就会失真。常见的位图格式如：png、jpg、gif。只要是有图片分辨率的都是位图。位图本质上，它是由一个个像素点组成的。图片文件里保存的是每个像素点的颜色值。所以它一旦放大了之后，相当于让多个像素点显示同一个颜色，这样就会造成模糊的效果。
+矢量图保存的不是每个像素点的颜色值，而是图形的绘制逻辑。所以它本质上是文本文件，体积较小。
+LottieFiles：一个基于 SVG 的开源的动画解决方案，可以直接在网页端，手机端制作动画效果，再导出某种格式的文件。LottieFiles 的 Marketplace 中，有很多的动画效果，可以直接使用。 Rive：基于 Canvas 实现的动画解决方案，大部分动画效果都可以实现，2D，3D。</description></item><item><title>Chrome 开发者工具</title><link>http://shipengqi.github.io/frontend-learn/docs/basic/html/09_chrome/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shipengqi.github.io/frontend-learn/docs/basic/html/09_chrome/</guid><description>Chrome 开发者工具 # Chrome 的开发者工具查看元素的样式如下图：
 右侧样式的排序，选择器的优先级高的会在上面。
 use agent stylesheet 是浏览器给元素的默认样式。 :hov 给元素强制加上某种伪类，使元素显示对应的样式。 :cls 给元素添加 class 切换页面的深色模式：
 Computed 包含盒子模型和元素最终显示出来的样式的值。
