@@ -1,6 +1,7 @@
 ---
 title: Angular
 weight: 1
+draft: true
 ---
 
 # Angular

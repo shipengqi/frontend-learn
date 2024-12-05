@@ -162,3 +162,156 @@ export default {
 };
 
 ```
+
+
+ExpressionChangedAfterItHasBeenCheckedError 是 Angular 的一个常见错误，它通常出现在开发模式下。当 Angular 检测到某个值在检测周期之后发生了变化时，就会抛出此错误。
+
+错误背景
+Angular 采用 变更检测（Change Detection） 的机制，来确保视图（HTML）中的数据和组件中的数据保持同步。每当发生变化时，Angular 会进行变更检测。如果在变更检测过程中，某个数据发生了变化，Angular 会检测到不一致，并抛出 ExpressionChangedAfterItHasBeenCheckedError 错误。
+
+这个错误通常发生在：
+
+在组件的 ngOnInit 或构造函数中修改了绑定的属性（视图绑定）。
+在生命周期钩子（如 ngAfterViewInit 或 ngAfterViewChecked）中修改了绑定值。
+当你使用了异步数据（例如：setTimeout、Promise、Observable 等）来更新视图。
+
+
+错误示例
+typescript
+Copy code
+export class MyComponent implements OnInit {
+title = 'Initial title';
+
+ngOnInit() {
+// 在 ngOnInit 中改变了 title
+setTimeout(() => {
+this.title = 'Updated title';
+}, 0);
+}
+}
+在这个例子中，setTimeout 会在 Angular 完成第一次变更检测后修改 title，导致 Angular 检测到数据不一致，从而抛出错误。
+
+如何解决这个错误
+1. 使用 ChangeDetectorRef.detectChanges()
+   可以显式地触发变更检测，以告诉 Angular 更新视图。
+
+typescript
+Copy code
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+
+@Component({
+selector: 'app-my-component',
+templateUrl: './my-component.component.html',
+})
+export class MyComponent implements OnInit {
+title = 'Initial title';
+
+constructor(private cdRef: ChangeDetectorRef) {}
+
+ngOnInit() {
+setTimeout(() => {
+this.title = 'Updated title';
+this.cdRef.detectChanges();  // 手动触发变更检测
+}, 0);
+}
+}
+在上面的代码中，detectChanges() 会强制 Angular 重新运行变更检测，从而解决了错误。
+
+2. 使用 ngAfterViewInit 或 ngAfterViewChecked
+   你可以将属性的更新放在 ngAfterViewInit 或 ngAfterViewChecked 生命周期钩子中。ngAfterViewInit 在视图初始化之后调用，因此不会立即触发错误。
+
+typescript
+Copy code
+import { Component, AfterViewInit } from '@angular/core';
+
+@Component({
+selector: 'app-my-component',
+templateUrl: './my-component.component.html',
+})
+export class MyComponent implements AfterViewInit {
+title = 'Initial title';
+
+ngAfterViewInit() {
+setTimeout(() => {
+this.title = 'Updated title';
+}, 0);
+}
+}
+使用 ngAfterViewInit 或 ngAfterViewChecked 可以避免 Angular 在当前变更检测周期中检测到不一致的情况，因为这两个钩子会在视图初始化后调用。
+
+3. 使用 ChangeDetectionStrategy.OnPush
+   如果你的组件使用了 ChangeDetectionStrategy.OnPush，Angular 会只在输入属性变化时重新运行变更检测。在这种情况下，你需要显式地触发变更检测，通常使用 ChangeDetectorRef。
+
+typescript
+Copy code
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+
+@Component({
+selector: 'app-my-component',
+templateUrl: './my-component.component.html',
+changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class MyComponent implements OnInit {
+title = 'Initial title';
+
+constructor(private cdRef: ChangeDetectorRef) {}
+
+ngOnInit() {
+setTimeout(() => {
+this.title = 'Updated title';
+this.cdRef.markForCheck();  // 标记组件为需要检查
+}, 0);
+}
+}
+在这个例子中，markForCheck() 会告诉 Angular 检查该组件的变更，从而避免在生命周期钩子中直接更改数据。
+
+4. 延迟更新
+   在某些情况下，你可以通过将数据更新操作延迟到下一个 JavaScript 事件循环中，来避免在变更检测过程中更改值。
+
+typescript
+Copy code
+export class MyComponent implements OnInit {
+title = 'Initial title';
+
+ngOnInit() {
+setTimeout(() => {
+this.title = 'Updated title';
+}, 0);  // 延迟更新到下一个事件循环
+}
+}
+这会将更新放入队列中，确保它在变更检测完成后执行，从而避免错误。
+
+5. 使用 zone.js NgZone.run() (不推荐)
+   NgZone 可以用来在 Angular 的 Zone 之外执行异步操作，并确保变更检测周期被正确处理。然而，这种方法通常不推荐，因为它可能会绕过 Angular 的正常变更检测机制，可能导致其他问题。
+
+typescript
+Copy code
+import { Component, NgZone } from '@angular/core';
+
+@Component({
+selector: 'app-my-component',
+templateUrl: './my-component.component.html',
+})
+export class MyComponent {
+title = 'Initial title';
+
+constructor(private ngZone: NgZone) {}
+
+ngOnInit() {
+this.ngZone.run(() => {
+setTimeout(() => {
+this.title = 'Updated title';
+}, 0);
+});
+}
+}
+这种方法通常更适用于更复杂的场景，基本情况下推荐使用其他解决方案。
+
+总结
+ExpressionChangedAfterItHasBeenCheckedError 是因为在 Angular 的变更检测周期内，某个属性的值发生了变化。常见的解决方案有：
+
+使用 ChangeDetectorRef.detectChanges() 来手动触发变更检测。
+使用 ngAfterViewInit 或 ngAfterViewChecked 来延迟数据的更新。
+延迟数据更新到下一个事件循环（例如，使用 setTimeout()）。
+如果使用 OnPush 策略，确保显式触发变更检测。
+通常情况下，推荐使用 ChangeDetectorRef.detectChanges() 或 markForCheck() 来解决此问题。
