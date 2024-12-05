@@ -1,5 +1,26 @@
 # 路由
 
+## 路由器事件
+
+在每次导航过程中，路由器都会通过 `Router.events` 属性发出导航事件。这些事件如下表所示。
+
+- [NavigationStart](https://angular.dev/api/router/NavigationStart) ：导航开始。
+- [RouteConfigLoadStart](https://angular.dev/api/router/RouteConfigLoadStart) ：在路由器 lazy loads 之前进行路由配置。
+- [RouteConfigLoadEnd](https://angular.dev/api/router/RouteConfigLoadEnd) ：延迟加载路由后。
+- [RoutesRecognized](https://angular.dev/api/router/RoutesRecognized) ：当路由器解析 URL 并识别路由时。
+- [GuardsCheckStart](https://angular.dev/api/router/GuardsCheckStart) ：当路由器开始路由的保护阶段时。
+- [ChildActivationStart](https://angular.dev/api/router/ChildActivationStart) ：当路由器开始激活路由的子级时。
+- [ActivationStart](https://angular.dev/api/router/ActivationStart) ：当路由器开始激活路由时。
+- [GuardsCheckEnd](https://angular.dev/api/router/GuardsCheckEnd) ：当路由器成功完成路由的保护阶段时。
+- [ResolveStart](https://angular.dev/api/router/ResolveStart) ：当路由器开始路由的解析阶段时。
+- [ResolveEnd](https://angular.dev/api/router/ResolveEnd) ：当路由器成功完成路由的解析阶段时。
+- [ChildActivationEnd](https://angular.dev/api/router/ChildActivationEnd) ：当路由器完成激活路由的子级时。
+- [ActivationEnd](https://angular.dev/api/router/ActivationEnd) ：当路由器完成激活路由时。
+- [NavigationEnd](https://angular.dev/api/router/NavigationEnd) ：当导航成功结束时。
+- [NavigationCancel](https://angular.dev/api/router/NavigationCancel) ：当取消导航时。
+- [NavigationError](https://angular.dev/api/router/NavigationError) ：当导航由于意外错误而失败时。
+- [Scroll](https://angular.dev/api/router/Scroll) ：当用户滚动时。
+
 ## 路由守卫
 
 有时候需要控制对该应用的不同路由的访问。可能包括如下场景：

@@ -275,13 +275,12 @@ export class SampleComponent implements AfterViewInit {
 
 Angular 支持两种 View:
 
-Embedded View，指 `Template`
-Host View，指 `Component`
+- Embedded View，指 `Template`
+- Host View，指 `Component`
 
 ### ViewContainerRef
 
-`ViewContainerRef` 是可以容纳一个或者多个 View 的容器。任何 DOM 元素都可以作为视图容器，然而对于绑定 `ViewContainer` 的 DOM 元素，Angular 不会
-把视图插入该元素的内部，而是追加到该元素后面，这类似于 `router-outlet` 中插入组件的方式。
+`ViewContainerRef` 是可以容纳一个或者多个 View 的容器。任何 DOM 元素都可以作为视图容器，然而对于绑定 `ViewContainer` 的 DOM 元素， Angular 不会把视图插入该元素的内部，而是追加到该元素后面，这类似于 `router-outlet` 中插入组件的方式。
 
 通常，把 `ViewContainer` 绑定在 `ng-container` 元素上，因为 `ng-container` 元素会被渲染为注释，从而不会在 DOM 中引入多余的 html 元素。
 
@@ -304,8 +303,7 @@ export class SampleComponent implements AfterViewInit {
 }
 ```
 
-和其他 DOM 抽象类一样，`ViewContainer` 绑定到特殊的 DOM 元素，并可以通过 `element` 访问到。例如上例中，它绑定到` ng-container` 元素上，
-并且渲染为 HTML 注释，所以输出会是 `template bindings={}`。
+和其他 DOM 抽象类一样，`ViewContainer` 绑定到特殊的 DOM 元素，并可以通过 `element` 访问到。例如上例中，它绑定到` ng-container` 元素上，并且渲染为 HTML 注释，所以输出会是 `template bindings={}`。
 
 `ViewContainer` 提供了一些操作视图 API：
 
@@ -396,7 +394,7 @@ export class SampleComponent {}
 
 ### Renderer2
 
-上面的代码，设置 div 元素的背景，是默认的运行环境在是浏览器。我们要尽量减少应用层与渲染层之间强耦合关系，从而让我们应用能够灵活地运行在不同环境。
+上面的代码，设置 `div` 元素的背景，是默认的运行环境在是浏览器。我们要尽量减少应用层与渲染层之间强耦合关系，从而让我们应用能够灵活地运行在不同环境。
 
 为了能够支持跨平台，Angular 通过抽象层封装了不同平台的差异。比如定义了抽象类 `Renderer2` 、抽象类 `RootRenderer` 等。此外还定义了以下引用
 类型：`ElementRef`、`TemplateRef`、`ViewRef` 、`ComponentRef` 和 `ViewContainerRef` 等。通过 `模板变量`、`@ViewChild` 等方法获取 DOM 元素。
