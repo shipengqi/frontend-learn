@@ -1,0 +1,984 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="概述 # 操作符本质上是一个纯函数 (pure function)，它接收一个 Observable 作为输入，并生成一个新的 Observable 作为输出。并且前面的 Observable 保持不变。
+操作符有两类：
+Pipeable 操作符：是指可以使用 observable.pipe(operator) 或更常用的 observable.pipe(operatorFactory()) 语法将操作符管道化的操作符。操作符工厂函数包括 filter(...) 和 mergeMap(...) 等。 创建操作符可以作为独立函数调用，可以创建一个新的 Observable。例如：of(1, 2, 3)。 创建操作符 # range # range(start, length)，调用方法后返回 Observable 对象，被订阅后会发出指定范围的数值。
+import { range } from &#34;rxjs&#34; range(0, 5).subscribe(n => console.log(n)) // Output: // 0 // 1 // 2 // 3 // 4 of # 将参数列表作为数据流返回。
+of(&#34;a&#34;, &#34;b&#34;, [], {}, true, 20).subscribe(v => console.log(v)) // Output: // a // b // [] // {｝ // true // 20 from, fromEvent, fromPromise # // 将数组转为 Observable from([&#34;a&#34;, &#34;b&#34;, &#34;c&#34;])."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="操作符"><meta property="og:description" content="概述 # 操作符本质上是一个纯函数 (pure function)，它接收一个 Observable 作为输入，并生成一个新的 Observable 作为输出。并且前面的 Observable 保持不变。
+操作符有两类：
+Pipeable 操作符：是指可以使用 observable.pipe(operator) 或更常用的 observable.pipe(operatorFactory()) 语法将操作符管道化的操作符。操作符工厂函数包括 filter(...) 和 mergeMap(...) 等。 创建操作符可以作为独立函数调用，可以创建一个新的 Observable。例如：of(1, 2, 3)。 创建操作符 # range # range(start, length)，调用方法后返回 Observable 对象，被订阅后会发出指定范围的数值。
+import { range } from &#34;rxjs&#34; range(0, 5).subscribe(n => console.log(n)) // Output: // 0 // 1 // 2 // 3 // 4 of # 将参数列表作为数据流返回。
+of(&#34;a&#34;, &#34;b&#34;, [], {}, true, 20).subscribe(v => console.log(v)) // Output: // a // b // [] // {｝ // true // 20 from, fromEvent, fromPromise # // 将数组转为 Observable from([&#34;a&#34;, &#34;b&#34;, &#34;c&#34;])."><meta property="og:type" content="article"><meta property="og:url" content="http://shipengqi.github.io/frontend-learn/docs/rxjs/02_operators/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2024-12-08T16:28:03+08:00"><title>操作符 | Frontend Learning</title><link rel=manifest href=/frontend-learn/manifest.json><link rel=icon href=/frontend-learn/favicon.png type=image/x-icon><link rel=stylesheet href=/frontend-learn/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css integrity="sha256-gsXb0jRHzuC0wqo+0Izglh+qQOH6Nw7uT4yfAuDUa18=" crossorigin=anonymous><script defer src=/frontend-learn/flexsearch.min.js></script>
+<script defer src=/frontend-learn/en.search.min.e951707b992b289992b28d1d6454153d6dd8700a1487ceacb3f12740bee9c570.js integrity="sha256-6VFwe5krKJmSso0dZFQVPW3YcAoUh86ss/EnQL7pxXA=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/frontend-learn/><span>Frontend Learning</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=https://shipengqi.github.io/ target=_blank rel=noopener>Blog</a></li><li><a href=https://github.com/shipengqi/frontend-learn target=_blank rel=noopener>Github</a></li></ul><ul><li><a href=/frontend-learn/docs/html/>HTML 和 CSS</a><ul><li><a href=/frontend-learn/docs/html/01_tags/>HTML 标签</a></li><li><a href=/frontend-learn/docs/html/02_css/>CSS 常用属性</a></li><li><a href=/frontend-learn/docs/html/03_layout/>布局与定位</a></li><li><a href=/frontend-learn/docs/html/04_animation/>过渡和动画</a></li><li><a href=/frontend-learn/docs/html/05_other/>其他属性</a></li><li><a href=/frontend-learn/docs/html/06_selector/>CSS 选择器</a></li><li><a href=/frontend-learn/docs/html/07_responsive/>响应式</a></li><li><a href=/frontend-learn/docs/html/08_svg/>SVG</a></li><li><a href=/frontend-learn/docs/html/09_chrome/>Chrome 开发者工具</a></li></ul></li><li><span>RxJS</span><ul><li><a href=/frontend-learn/docs/rxjs/01_overview/>概念</a></li><li><a href=/frontend-learn/docs/rxjs/02_operators/ class=active>操作符</a></li><li><a href=/frontend-learn/docs/rxjs/03_subject/>Subject</a></li><li><a href=/frontend-learn/docs/rxjs/04_practice/>实践</a></li></ul></li><li><span>Angular</span><ul><li><a href=/frontend-learn/docs/angular/01_overview/>概述</a></li><li><a href=/frontend-learn/docs/angular/02_component/>组件模板</a></li><li><a href=/frontend-learn/docs/angular/03_communication/>组件通讯</a></li><li><a href=/frontend-learn/docs/angular/04_lifecycle/>组件生命周期</a></li><li><a href=/frontend-learn/docs/angular/05_directive/>指令</a></li><li><a href=/frontend-learn/docs/angular/06_pipe/>管道</a></li><li><a href=/frontend-learn/docs/angular/07_di/>依赖注入</a></li><li><a href=/frontend-learn/docs/angular/08_service/>服务</a></li><li><a href=/frontend-learn/docs/angular/09_form/>表单</a></li><li><a href=/frontend-learn/docs/angular/10_custom_form/>自定义表单控件</a></li><li><a href=/frontend-learn/docs/angular/11_router/>路由</a></li><li><a href=/frontend-learn/docs/angular/12_http/>HttpClient</a></li><li><a href=/frontend-learn/docs/angular/13_other/>Other</a></li></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/frontend-learn/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>操作符</strong>
+<label for=toc-control><img src=/frontend-learn/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#概述>概述</a></li><li><a href=#创建操作符>创建操作符</a><ul><li><a href=#range>range</a></li><li><a href=#of>of</a></li><li><a href=#from-fromevent-frompromise>from, fromEvent, fromPromise</a></li><li><a href=#intervaltimer>interval、timer</a></li><li><a href=#concat>concat</a></li><li><a href=#merge>merge</a></li><li><a href=#combinelatest>combineLatest</a></li><li><a href=#zip>zip</a></li><li><a href=#forkjoin>forkJoin</a></li><li><a href=#throwerror>throwError</a></li><li><a href=#race>race</a></li></ul></li><li><a href=#pipeable-操作符>Pipeable 操作符</a><ul><li><a href=#转换操作符>转换操作符</a><ul><li><a href=#map>map</a></li><li><a href=#reducescan>reduce、scan</a></li><li><a href=#groupby>groupBy</a></li></ul></li><li><a href=#过滤操作符>过滤操作符</a><ul><li><a href=#filter>filter</a></li><li><a href=#first>first</a></li><li><a href=#last>last</a></li><li><a href=#taketakewhiletakeutiltakelast>take、takeWhile、takeUtil、takeLast</a></li><li><a href=#skipskipwhileskipuntilskiplast>skip、skipWhile、skipUntil、skipLast</a></li><li><a href=#elementat>elementAt</a></li><li><a href=#ignoreelements>ignoreElements</a></li><li><a href=#debouncetime>debounceTime</a></li><li><a href=#distinctuntilchanged>distinctUntilChanged</a></li><li><a href=#throttletime>throttleTime</a></li></ul></li><li><a href=#连接操作符>连接操作符</a><ul><li><a href=#startwith>startWith</a></li><li><a href=#withlatestfrom>withLatestFrom</a></li></ul></li><li><a href=#工具操作符>工具操作符</a><ul><li><a href=#tap>tap</a></li><li><a href=#delaydelaywhen>delay、delayWhen</a></li><li><a href=#every>every</a></li></ul></li><li><a href=#错误处理>错误处理</a><ul><li><a href=#catcherror>catchError</a></li><li><a href=#retry>retry</a></li></ul></li><li><a href=#高阶操作符>高阶操作符</a><ul><li><a href=#concatallconcatmap>concatAll、concatMap</a></li><li><a href=#mergeallmergemap>mergeAll、mergeMap</a></li><li><a href=#switchmap>switchMap</a></li><li><a href=#exhaustall-exhaustmap>exhaustAll, exhaustMap</a></li></ul></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=概述>概述
+<a class=anchor href=#%e6%a6%82%e8%bf%b0>#</a></h1><p>操作符本质上是一个纯函数 (pure function)，它接收一个 <code>Observable</code> 作为输入，并生成一个新的 <code>Observable</code> 作为输出。并且前面的 <code>Observable</code> 保持不变。</p><p>操作符有两类：</p><ul><li><strong>Pipeable 操作符</strong>：是指可以使用 <code>observable.pipe(operator)</code> 或更常用的 <code>observable.pipe(operatorFactory())</code> 语法将操作符管道化的操作符。操作符工厂函数包括 <code>filter(...)</code> 和 <code>mergeMap(...)</code> 等。</li><li><strong>创建操作符</strong>可以作为独立函数调用，可以创建一个新的 <code>Observable</code>。例如：<code>of(1, 2, 3)</code>。</li></ul><h1 id=创建操作符>创建操作符
+<a class=anchor href=#%e5%88%9b%e5%bb%ba%e6%93%8d%e4%bd%9c%e7%ac%a6>#</a></h1><h2 id=range>range
+<a class=anchor href=#range>#</a></h2><p><code>range(start, length)</code>，调用方法后返回 <code>Observable</code> 对象，被订阅后会发出指定范围的数值。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>range</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>5</span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>n</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 0
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 3
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 4
+</span></span></span></code></pre></div><h2 id=of>of
+<a class=anchor href=#of>#</a></h2><p>将参数列表作为数据流返回。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#34;a&#34;</span>, <span style=color:#e6db74>&#34;b&#34;</span>, [], {}, <span style=color:#66d9ef>true</span>, <span style=color:#ae81ff>20</span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>v</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>v</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// a
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// b
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// []
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// {｝
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// true
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 20
+</span></span></span></code></pre></div><h2 id=from-fromevent-frompromise>from, fromEvent, fromPromise
+<a class=anchor href=#from-fromevent-frompromise>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#75715e>// 将数组转为 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>from</span>([<span style=color:#e6db74>&#34;a&#34;</span>, <span style=color:#e6db74>&#34;b&#34;</span>, <span style=color:#e6db74>&#34;c&#34;</span>]).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>v</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>v</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// a
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// b
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// c
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 将事件转为 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>fromEvent</span>(document.<span style=color:#a6e22e>querySelector</span>(<span style=color:#e6db74>&#39;button&#39;</span>), <span style=color:#e6db74>&#39;click&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 将 Promise 转为 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>p() {</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Promise</span>(<span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>resolve</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>resolve</span>([<span style=color:#ae81ff>100</span>, <span style=color:#ae81ff>200</span>])
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fromPromise</span>(<span style=color:#a6e22e>p</span>()).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>v</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>v</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// [100, 200]
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fromPromise</span>(<span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#39;/users&#39;</span>));
+</span></span></code></pre></div><h2 id=intervaltimer>interval、timer
+<a class=anchor href=#intervaltimer>#</a></h2><p><strong>interval</strong>每隔一段时间发出一个数值，数值递增。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>, <span style=color:#a6e22e>take</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>numbers</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>takeFourNumbers</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>numbers</span>.<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>4</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>takeFourNumbers</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>x</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Next: &#39;</span>, <span style=color:#a6e22e>x</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Next: 0
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Next: 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Next: 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Next: 3
+</span></span></span></code></pre></div><p><strong>timer</strong>间隔时间过去以后发出数值，行为终止，或间隔时间发出数值后，继续按第二个参数的时间间隔继续发出值</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>2000</span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>n</span>))
+</span></span><span style=display:flex><span><span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1000</span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>n</span>))
+</span></span></code></pre></div><h2 id=concat>concat
+<a class=anchor href=#concat>#</a></h2><p>合并数据流，先让第一个数据流发出值，结束后再让第二个数据流发出值，进行整体合并。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>, <span style=color:#a6e22e>take</span>, <span style=color:#a6e22e>range</span>, <span style=color:#a6e22e>concat</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>timer</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>4</span>), <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>x</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>x</span><span style=color:#e6db74>}</span><span style=color:#e6db74>s`</span>));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sequence</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>concat</span>(<span style=color:#a6e22e>timer</span>, <span style=color:#a6e22e>sequence</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>result</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>x</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 0s-&gt; 1s-&gt; 2s -&gt; 3s -&gt; 1 -&gt; 2 ... -&gt; 10
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>timer</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>2</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>concat</span>(<span style=color:#a6e22e>timer</span>, <span style=color:#a6e22e>timer</span>) <span style=color:#75715e>// concatenating the same Observable!
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    .<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;...and it is done!&#39;</span>)
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Logs:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 0 after 1s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 1 after 2s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 0 after 3s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 1 after 4s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// &#39;...and it is done!&#39; also after 4s
+</span></span></span></code></pre></div><h2 id=merge>merge
+<a class=anchor href=#merge>#</a></h2><p>合并数据流，多个参数一起发出数据流，按照时间线进行交叉合并。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>merge</span>, <span style=color:#a6e22e>interval</span>, <span style=color:#a6e22e>take</span>, <span style=color:#a6e22e>map</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>timer</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>3</span>), <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>v</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;timer1: &#39;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>v</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;s&#39;</span>));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>timer2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>3</span>), <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>v</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;timer2: &#39;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>v</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;s&#39;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>merge</span>(<span style=color:#a6e22e>timer</span>, <span style=color:#a6e22e>timer2</span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// timer1: 0s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// timer2: 0s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// timer1: 1s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// timer2: 1s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// timer1: 2s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// timer2: 2s
+</span></span></span></code></pre></div><h2 id=combinelatest>combineLatest
+<a class=anchor href=#combinelatest>#</a></h2><p>将两个 Observable 中最新发出的数据流进行组合成新的数据流，其值由每个输入观测值的最新值计算得出。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>combineLatest</span>, <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>firstTimer</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1000</span>) <span style=color:#75715e>// emit 0, 1, 2... after every second, starting from now
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>secondTimer</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>500</span>, <span style=color:#ae81ff>1000</span>) <span style=color:#75715e>// emit 0, 1, 2... after every second, starting 0,5s from now
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>combineLatest</span>(<span style=color:#a6e22e>firstTimer</span>, <span style=color:#a6e22e>secondTimer</span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// [0, 0] after 0.5s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// [1, 0] after 1s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// [1, 1] after 1.5s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// [2, 1] after 2s
+</span></span></span></code></pre></div><p>传入字典参数：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>delay</span>, <span style=color:#a6e22e>startWith</span>, <span style=color:#a6e22e>combineLatest</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>observables</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>a</span>: <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>1000</span>), <span style=color:#a6e22e>startWith</span>(<span style=color:#ae81ff>0</span>)),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>b</span>: <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>5</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>5000</span>), <span style=color:#a6e22e>startWith</span>(<span style=color:#ae81ff>0</span>)),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>c</span>: <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>10000</span>), <span style=color:#a6e22e>startWith</span>(<span style=color:#ae81ff>0</span>))
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>combined</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>combineLatest</span>(<span style=color:#a6e22e>observables</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>combined</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// { a: 0, b: 0, c: 0 } immediately
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// { a: 1, b: 0, c: 0 } after 1s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// { a: 1, b: 5, c: 0 } after 5s
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// { a: 1, b: 5, c: 10 } after 10s
+</span></span></span></code></pre></div><h2 id=zip>zip
+<a class=anchor href=#zip>#</a></h2><p>将多个 Observable 中的数据流进行组合。其值按顺序从每个输入 Observable 的值中计算得出。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>zip</span>, <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>27</span>, <span style=color:#ae81ff>25</span>, <span style=color:#ae81ff>29</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#34;Foo&#34;</span>, <span style=color:#e6db74>&#34;Bar&#34;</span>, <span style=color:#e6db74>&#34;Beer&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>isDev</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>zip</span>(<span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>isDev</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>map</span>(([<span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>isDev</span>]) <span style=color:#f92672>=&gt;</span> ({ <span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>isDev</span> })))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// { name: &#39;Foo&#39;, age: 27, isDev: true }
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// { name: &#39;Bar&#39;, age: 25, isDev: true }
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// { name: &#39;Beer&#39;, age: 29, isDev: false }
+</span></span></span></code></pre></div><h2 id=forkjoin>forkJoin
+<a class=anchor href=#forkjoin>#</a></h2><p><code>forkJoin</code> 是 RxJS 版本的 <code>Promise.all()</code>，即表示等到所有的 Observable 都完成后，才一次性返回值。</p><p>传入字典参数：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>forkJoin</span>, <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>timer</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>observable</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>forkJoin</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>foo</span>: <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>bar</span>: <span style=color:#66d9ef>Promise.resolve</span>(<span style=color:#ae81ff>8</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>baz</span>: <span style=color:#66d9ef>timer</span>(<span style=color:#ae81ff>4000</span>)
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span><span style=color:#a6e22e>observable</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;This is how it ends!&#39;</span>),
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Logs:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// { foo: 4, bar: 8, baz: 0 } after 4 seconds
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// &#39;This is how it ends!&#39; immediately after
+</span></span></span></code></pre></div><p>传入数组参数：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>observable</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>forkJoin</span>([
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>Promise</span>.<span style=color:#a6e22e>resolve</span>(<span style=color:#ae81ff>8</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>4000</span>)
+</span></span><span style=display:flex><span>]);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>observable</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;This is how it ends!&#39;</span>),
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Logs:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// [4, 8, 0] after 4 seconds
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// &#39;This is how it ends!&#39; immediately after
+</span></span></span></code></pre></div><h2 id=throwerror>throwError
+<a class=anchor href=#throwerror>#</a></h2><p>返回可观察对象并向订阅者抛出错误。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>throwError</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>throwError</span>(<span style=color:#e6db74>&#34;unknown error&#34;</span>).<span style=color:#a6e22e>subscribe</span>({ <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>console.log</span> })
+</span></span></code></pre></div><h2 id=race>race
+<a class=anchor href=#race>#</a></h2><p>接收并同时执行多个可观察对象，只将最快发出的数据流传递给订阅者。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>, <span style=color:#a6e22e>map</span>, <span style=color:#a6e22e>race</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>obs1</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>7000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>map</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;slow one&#39;</span>));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>obs2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>3000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>map</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;fast one&#39;</span>));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>obs3</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>5000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>map</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;medium one&#39;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>race</span>(<span style=color:#a6e22e>obs1</span>, <span style=color:#a6e22e>obs2</span>, <span style=color:#a6e22e>obs3</span>)
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>winner</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>winner</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Outputs
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// a series of &#39;fast one&#39;
+</span></span></span></code></pre></div><h1 id=pipeable-操作符>Pipeable 操作符
+<a class=anchor href=#pipeable-%e6%93%8d%e4%bd%9c%e7%ac%a6>#</a></h1><h2 id=转换操作符>转换操作符
+<a class=anchor href=#%e8%bd%ac%e6%8d%a2%e6%93%8d%e4%bd%9c%e7%ac%a6>#</a></h2><h3 id=map>map
+<a class=anchor href=#map>#</a></h3><p><strong>map</strong>：对数据流进行转换，基于原有值进行转换。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>interval</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>2</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>n</span>))
+</span></span></code></pre></div><h3 id=reducescan>reduce、scan
+<a class=anchor href=#reducescan>#</a></h3><p><strong>reduce</strong>: 用于将源 Observable 发出的所有的值累计成一个单一的结果。它类似于的数组 <code>reduce</code> 方法，但它是处理流的每个值，而不是数组。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>reduce</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 定义一个源 Observable 发出一些数字
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 reduce 操作符计算数字的总和
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>reduce</span>((<span style=color:#a6e22e>acc</span>, <span style=color:#a6e22e>value</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>acc</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>value</span>, <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>sum$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>result</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>result</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 15
+</span></span></span></code></pre></div><p><code>reduce(accumulator, [seed])</code> 接受两个参数：</p><ul><li><code>accumulator</code> 是一个函数，接受两个参数：<ul><li><code>acc</code>（累计值）：上一次迭代的结果，或者是初始值（如果提供了 <code>seed</code>）。</li><li><code>value</code>：当前发出的值。 该函数需要返回新的累计值。</li></ul></li><li><code>seed</code>：可选。<code>acc</code> 的初始值。如果未提供，<code>acc</code> 会默认是流中的第一个值，从第二个值开始累计。</li></ul><p>当 <code>reduce</code> 接收到源 Observable 的每个值时，会使用 <code>accumulator</code> 函数对当前值和累计值进行计算。 等到源 Observable 完成发射所有值时，<code>reduce</code> 会将最终的累计值作为结果发射出来。</p><p><strong>scan</strong>：类似 <code>reduce</code>，进行累计操作，但执行时机不同，数据源每次发出数据流 <code>scan</code> 都会执行。<code>reduce</code> 是发送出最终计算的结果，而 <code>scan</code> 是发出每次计算的结果。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>scan</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 定义一个源 Observable 发出一些数字
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 scan 操作符逐步计算总和
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sum$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scan</span>((<span style=color:#a6e22e>acc</span>, <span style=color:#a6e22e>value</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>acc</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>value</span>, <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>sum$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>result</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>result</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 3
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 6
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 10
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 15
+</span></span></span></code></pre></div><h3 id=groupby>groupBy
+<a class=anchor href=#groupby>#</a></h3><p>用于将源 Observable 发出的数据根据某个条件分组，并返回一个 <code>GroupedObservable</code>。<code>groupBy</code> 根据给定的键（通常是某个属性值）将数据分组（例如按用户 ID、地区、日期等对流中的数据进行分组），每个分组会返回一个新的 Observable，这些新的 Observable 会在后续操作符中被处理。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>groupBy</span>, <span style=color:#a6e22e>mergeMap</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>7</span>, <span style=color:#ae81ff>8</span>, <span style=color:#ae81ff>9</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>groupBy</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>value</span> <span style=color:#f92672>%</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>===</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;even&#39;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;odd&#39;</span>),  <span style=color:#75715e>// 按奇偶分组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#a6e22e>mergeMap</span>(<span style=color:#a6e22e>group</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>group</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>group</span>.<span style=color:#a6e22e>key</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>value</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>)  <span style=color:#75715e>// 为每个组的元素加上标识
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        ))
+</span></span><span style=display:flex><span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// odd: 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// odd: 3
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// odd: 5
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// odd: 7
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// odd: 9
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// even: 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// even: 4
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// even: 6
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// even: 8
+</span></span></span></code></pre></div><p>按对象属性分组：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>groupBy</span>, <span style=color:#a6e22e>mergeMap</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Apple&#39;</span>, <span style=color:#a6e22e>category</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Fruit&#39;</span> },
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Carrot&#39;</span>, <span style=color:#a6e22e>category</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Vegetable&#39;</span> },
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Banana&#39;</span>, <span style=color:#a6e22e>category</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Fruit&#39;</span> },
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Broccoli&#39;</span>, <span style=color:#a6e22e>category</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Vegetable&#39;</span> }
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>groupBy</span>(<span style=color:#a6e22e>item</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>category</span>),  <span style=color:#75715e>// 按类别分组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>mergeMap</span>(<span style=color:#a6e22e>group</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>group</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>item</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>group</span>.<span style=color:#a6e22e>key</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>name</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>)  <span style=color:#75715e>// 对每个组的项进行处理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  ))
+</span></span><span style=display:flex><span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Fruit: Apple
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Fruit: Banana
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Vegetable: Carrot
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Vegetable: Broccoli
+</span></span></span></code></pre></div><h2 id=过滤操作符>过滤操作符
+<a class=anchor href=#%e8%bf%87%e6%bb%a4%e6%93%8d%e4%bd%9c%e7%ac%a6>#</a></h2><h3 id=filter>filter
+<a class=anchor href=#filter>#</a></h3><p>对数据流进行过滤。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>range</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>filter</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>filter</span>((<span style=color:#a6e22e>n</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>5</span>))
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>subscribe</span>((<span style=color:#a6e22e>even</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>even</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Output:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 6
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 7
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 8
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 9
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 10
+</span></span></span></code></pre></div><h3 id=first>first
+<a class=anchor href=#first>#</a></h3><p>获取数据流中的第一个值或者查找数据流中第一个符合条件的值，类似数组中的 <code>find</code> 方法。获取到值以后终止行为。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>first</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>first</span>())
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>n</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>first</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>===</span> <span style=color:#ae81ff>3</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>n</span>))
+</span></span></code></pre></div><h3 id=last>last
+<a class=anchor href=#last>#</a></h3><p>获取数据流中的最后一个。<strong>不可以用于不会终止的流</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>range</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>last</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>last</span>()).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 10
+</span></span></span></code></pre></div><p>如果数据源不变成完成状态，则没有最后一个。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>last</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>last</span>()).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 不会有输出，程序会 hang 住
+</span></span></span></code></pre></div><h3 id=taketakewhiletakeutiltakelast>take、takeWhile、takeUtil、takeLast
+<a class=anchor href=#taketakewhiletakeutiltakelast>#</a></h3><p><strong>take</strong>：获取数据流中的前几个</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>range</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>take</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>3</span>)).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 3
+</span></span></span></code></pre></div><p><strong>takeWhile</strong>：只要数据源发出的值满足 <code>takeWhile</code> 中的条件，就发出该值，一旦不满足，就结束发射。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>range</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>takeWhile</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>takeWhile</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>5</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 3
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 4
+</span></span></span></code></pre></div><p><strong>takeUntil</strong>：接收一个可观察对象，当接收的可观察对象发出值时，终止主数据源。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>, <span style=color:#a6e22e>timer</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>takeUntil</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>)
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>takeUntil</span>(<span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>5000</span>)))
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 0
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 3
+</span></span></span></code></pre></div><p><strong>takeLast</strong>：获取数据流中最后的一个值，<code>takeLast</code> 会将值缓存在内存中，等到流结束时取最后的值。</p><p><strong>它不可以用于不会终止的流，在无尽的流上使用 <code>takeLast</code> 永远不会发出数据</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>100</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>takeLast</span>(<span style=color:#ae81ff>3</span>)).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>x</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>));
+</span></span></code></pre></div><h3 id=skipskipwhileskipuntilskiplast>skip、skipWhile、skipUntil、skipLast
+<a class=anchor href=#skipskipwhileskipuntilskiplast>#</a></h3><p><strong>skip</strong>：跳过前几个数据流。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>range</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>skip</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>10</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>skip</span>(<span style=color:#ae81ff>8</span>)).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 9
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 10
+</span></span></span></code></pre></div><p><strong>skipWhile</strong>：只要数据源发出的值满足 <code>skipWhile</code> 中的条件，就跳过该值。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>range</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>skipWhile</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>skipWhile</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>5</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 5
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 6
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 7
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 8
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 9
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 10
+</span></span></span></code></pre></div><p><strong>skipUntil</strong>：接收一个可观察对象，并跳过主数据源发出的值，直到接收的可观察对象发出值，主数据源的值才能发出。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>timer</span>, <span style=color:#a6e22e>interval</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>skipUntil</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>500</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>skipUntil</span>(<span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>2000</span>)))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 3
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 4
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 5
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// ...
+</span></span></span></code></pre></div><p><strong>skipLast</strong>：跳过后面几个值，它的实现和 <code>takeLast</code> 类似，当数据发送完成后跳过最后的值发出其他的值。<strong>不可以用于不会终止的流</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>skipLast</span>(<span style=color:#ae81ff>2</span>)).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>x</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 3
+</span></span></span></code></pre></div><h3 id=elementat>elementAt
+<a class=anchor href=#elementat>#</a></h3><p><code>elementAt</code> 类似数组的下标索引，获取源 Observable 中指定索引位置的元素。</p><p><code>elementAt(index, [defaultValue])</code> 接受两个参数：</p><ul><li><code>index</code>: 要获取的元素的索引。</li><li><code>defaultValue</code>（可选）：如果索引超出范围，可以指定一个默认值。在没有提供默认值时，默认行为是发出一个错误通知。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>elementAt</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 定义一个源 Observable 发出一些数字
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>20</span>, <span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>40</span>, <span style=color:#ae81ff>50</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 elementAt 获取索引为 2 的元素（即第三个元素，值为 30）
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>element$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>elementAt</span>(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>element$</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>err</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 30
+</span></span></span></code></pre></div><h3 id=ignoreelements>ignoreElements
+<a class=anchor href=#ignoreelements>#</a></h3><p>忽略源 Observable 发出的所有值，只传递异常和结束信息，可以用于不关注数据只关注异常的场景。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ignoreElements</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 定义一个源 Observable 发出一些数字
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 ignoreElements 操作符
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>ignored$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ignoreElements</span>()
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>ignored$</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Next:&#39;</span>, <span style=color:#a6e22e>value</span>),  <span style=color:#75715e>// 不会打印任何值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>err</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Error:&#39;</span>, <span style=color:#a6e22e>err</span>),  <span style=color:#75715e>// 如果有错误会打印
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Completed!&#39;</span>)   <span style=color:#75715e>// 会打印 &#34;Completed!&#34;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Completed!
+</span></span></span></code></pre></div><h3 id=debouncetime>debounceTime
+<a class=anchor href=#debouncetime>#</a></h3><p>常用于处理输入框等需要等待用户停止输入的场景。<code>debounceTime</code> 会延迟发出值，直到观察源 Observable 发出新的值后经过指定的时间，只有在这段时间内没有其他值发出时，它才会发出最新的值。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>fromEvent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>debounceTime</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fromEvent</span>(document, <span style=color:#e6db74>&#34;click&#34;</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>debounceTime</span>(<span style=color:#ae81ff>1000</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>x</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>))
+</span></span></code></pre></div><h3 id=distinctuntilchanged>distinctUntilChanged
+<a class=anchor href=#distinctuntilchanged>#</a></h3><p>用于过滤重复值。它会比较相邻的值，如果当前的值与上一个值不同，则允许这个值通过，否则会被忽略。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>distinctUntilChanged</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>distinctUntilChanged</span>())
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>x</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>)) <span style=color:#75715e>// 1, 2, 1, 2, 3, 4
+</span></span></span></code></pre></div><h4 id=自定义的比较函数>自定义的比较函数
+<a class=anchor href=#%e8%87%aa%e5%ae%9a%e4%b9%89%e7%9a%84%e6%af%94%e8%be%83%e5%87%bd%e6%95%b0>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>distinctUntilChanged</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>1</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;John&#39;</span> },
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>1</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;John&#39;</span> },
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>2</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Alice&#39;</span> },
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>2</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Alice&#39;</span> },
+</span></span><span style=display:flex><span>  { <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>3</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Bob&#39;</span> }
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>distinctUntilChanged</span>((<span style=color:#a6e22e>prev</span>, <span style=color:#a6e22e>curr</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>prev</span>.<span style=color:#a6e22e>id</span> <span style=color:#f92672>===</span> <span style=color:#a6e22e>curr</span>.<span style=color:#a6e22e>id</span>)  <span style=color:#75715e>// 自定义比较逻辑，比较 id 字段
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>);
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><h3 id=throttletime>throttleTime
+<a class=anchor href=#throttletime>#</a></h3><p>节流，它能够控制源 Observable 发出的值的频率。<code>throttleTime</code> 会在指定的时间间隔内只允许第一次发出的值通过，其他值会被丢弃，直到这个时间间隔过去，才允许下一个值通过。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>interval</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>throttleTime</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>100</span>);  <span style=color:#75715e>// 每 100ms 发出一个数值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>throttleTime</span>(<span style=color:#ae81ff>500</span>)  <span style=color:#75715e>// 只允许每 500ms 发出一个值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>);
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 0
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 5
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 10
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 15
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// ...
+</span></span></span></code></pre></div><h4 id=throttletime-与-debouncetime-的区别><code>throttleTime</code> 与 <code>debounceTime</code> 的区别
+<a class=anchor href=#throttletime-%e4%b8%8e-debouncetime-%e7%9a%84%e5%8c%ba%e5%88%ab>#</a></h4><ul><li><code>throttleTime</code>：每个时间窗口内发出第一个值，之后的值会被丢弃，直到时间窗口结束。</li><li><code>debounceTime</code>：在时间间隔结束之前，所有的值都会被丢弃，只有最后一个值会被发出。</li></ul><h2 id=连接操作符>连接操作符
+<a class=anchor href=#%e8%bf%9e%e6%8e%a5%e6%93%8d%e4%bd%9c%e7%ac%a6>#</a></h2><h3 id=startwith>startWith
+<a class=anchor href=#startwith>#</a></h3><p>创建一个新的 Observable 对象并将参数值发送出去，然后再发送源 Observable 对象发出的值。</p><p>在异步编程中提供默认值的时候非常有用。将 <code>startWith</code> 发出的值当做默认值。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>map</span>, <span style=color:#a6e22e>startWith</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>100</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>startWith</span>(<span style=color:#ae81ff>505</span>)
+</span></span><span style=display:flex><span>  )
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>n</span>))
+</span></span><span style=display:flex><span><span style=color:#75715e>// 505
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 100
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 101
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 102
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// ...
+</span></span></span></code></pre></div><h3 id=withlatestfrom>withLatestFrom
+<a class=anchor href=#withlatestfrom>#</a></h3><p><code>withLatestFrom</code> 适用于：</p><ul><li>你需要从另一个流（可能是一个状态流）获取最新的数据，并将其与源 Observable 的当前数据结合处理。</li><li>用于处理那些只关心最新状态的情况，而不需要每次都处理整个流的每个值。</li></ul><p>将点击事件与最新的计数结合：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>fromEvent</span>, <span style=color:#a6e22e>interval</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>withLatestFrom</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>button</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;button&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>counter$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>1000</span>); <span style=color:#75715e>// 每 1000 毫秒发出一个递增的计数值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fromEvent</span>(<span style=color:#a6e22e>button</span>, <span style=color:#e6db74>&#39;click&#39;</span>).<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>withLatestFrom</span>(<span style=color:#a6e22e>counter$</span>),  <span style=color:#75715e>// 将点击事件与当前计数值结合
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#a6e22e>map</span>(([<span style=color:#a6e22e>clickEvent</span>, <span style=color:#a6e22e>counterValue</span>]) <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>`Button clicked! Current counter: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>counterValue</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>)
+</span></span><span style=display:flex><span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Button clicked! Current counter: 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Button clicked! Current counter: 3
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Button clicked! Current counter: 4
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// ...
+</span></span></span></code></pre></div><h2 id=工具操作符>工具操作符
+<a class=anchor href=#%e5%b7%a5%e5%85%b7%e6%93%8d%e4%bd%9c%e7%ac%a6>#</a></h2><h3 id=tap>tap
+<a class=anchor href=#tap>#</a></h3><p><code>tap</code> 用来查看 Observable 流中的数据，同时不会对数据流产生任何影响。通常用来打印日志。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>tap</span>, <span style=color:#a6e22e>map</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>of</span>(Math.<span style=color:#a6e22e>random</span>()).<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>tap</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0.5</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;big&#39;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;small&#39;</span>)
+</span></span><span style=display:flex><span>).<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>);
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>tap</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>example</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source</span>
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>val</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>val</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>tap</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>val</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;on next&#39;</span>, <span style=color:#a6e22e>val</span>);
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>error</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;on error&#39;</span>, <span style=color:#a6e22e>error</span>.<span style=color:#a6e22e>message</span>);
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;on complete&#39;</span>)
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>  )
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>val</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>val</span>));
+</span></span><span style=display:flex><span><span style=color:#75715e>// 输出：
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// on next 11
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 11
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// on next 12
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 12
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// on next 13
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 13
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// on next 14
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 14
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// on next 15
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 15
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// on complete
+</span></span></span></code></pre></div><h3 id=delaydelaywhen>delay、delayWhen
+<a class=anchor href=#delaydelaywhen>#</a></h3><p><strong>delay</strong>：对 Observable 发出的值延迟指定的时间，只执行一次。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>interval</span>, <span style=color:#a6e22e>take</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>delay</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>start</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Date();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>interval</span>(<span style=color:#ae81ff>500</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>5</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>3000</span>)
+</span></span><span style=display:flex><span>  )
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>((<span style=color:#a6e22e>v</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;val&#39;</span>, <span style=color:#a6e22e>v</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#66d9ef>new</span> Date() <span style=color:#f92672>-</span> <span style=color:#a6e22e>start</span>);
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 3500ms 之后发出值，接下来每 500ms 发出一个值
+</span></span></span></code></pre></div><p><strong>delayWhen</strong>：将源 Observable 发出的值延迟一段时间，这个延迟时间由另一个 Observable 来决定。源 Observable 发出多少值，传入的回调函数就会执行多少次。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>delayWhen</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 定义一个源 Observable 发出一些数字
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>delayed$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>delayWhen</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 根据每个值决定延迟的时间
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// 比如这里是每个值的延迟时间都基于 1000ms + 当前数字 * 500ms
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>1000</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>value</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>500</span>);
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>delayed$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>);
+</span></span></code></pre></div><h3 id=every>every
+<a class=anchor href=#every>#</a></h3><p><code>every</code> 操作符用于判断源 Observable 发出的每个值是否都符合某个条件。返回布尔值。类似数组的 <code>every</code> 方法。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>range</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>every</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;rxjs/operators&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>9</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>every</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>  )
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// false，因为源 Observable 发出的值只有 6，7，8，9 大于 5
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>range</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>9</span>)
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>every</span>(<span style=color:#a6e22e>n</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>n</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// true
+</span></span></span></code></pre></div><h2 id=错误处理>错误处理
+<a class=anchor href=#%e9%94%99%e8%af%af%e5%a4%84%e7%90%86>#</a></h2><h3 id=catcherror>catchError
+<a class=anchor href=#catcherror>#</a></h3><p><code>catchError</code> 用于捕获 Observable 流中的错误，并返回一个新的 Observable 来替代原来的错误流。这个操作符<strong>允许你处理错误并继续执行流，而不是直接终止整个 Observable</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>throwError</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>catchError</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟一个会抛出错误的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>throwError</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>&#39;Something went wrong!&#39;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 catchError 捕获错误并返回替代的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>catchError</span>(<span style=color:#a6e22e>err</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Caught error:&#39;</span>, <span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>message</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;Fallback value&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 重新抛出一个新的错误
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// return throwError(() =&gt; new Error(&#39;Re-thrown error&#39;));
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>err</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Final error:&#39;</span>, <span style=color:#a6e22e>err</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Completed!&#39;</span>)
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Caught error: Something went wrong!
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Fallback value
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Completed!
+</span></span></span></code></pre></div><h3 id=retry>retry
+<a class=anchor href=#retry>#</a></h3><p><code>retry</code> 操作符用于自动重新订阅源 Observable，并重试失败的操作。当源 Observable 发出错误通知时，retry 会尝试重新发起新的订阅，直到达到指定的重试次数为止。如果重试次数超过了指定次数，则会将错误传递给观察者。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>throwError</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>retry</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟一个会发出错误的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>throwError</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>&#39;Something went wrong!&#39;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 retry 操作符，最多重试 3 次
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>retried$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>retry</span>(<span style=color:#ae81ff>3</span>)  <span style=color:#75715e>// 重试 3 次
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>retried$</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>err</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Error:&#39;</span>, <span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>message</span>), <span style=color:#75715e>// 在尝试了 3 次后，错误通知会被最终发出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Completed!&#39;</span>)
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Error: Something went wrong!
+</span></span></span></code></pre></div><p>如果 <code>count</code> 参数未指定，<code>retry</code> 会无限次重试，直到成功或手动取消订阅。</p><p>重试指定条件的错误：</p><p><code>retryWhen</code> 操作符已被弃用，使用 <code>retry({ delay: () => notify$ })</code> 来替代 <code>retryWhen(() => notify$)</code>。</p><p>通过传递一个带有 <code>delay</code> 选项的对象给 <code>retry</code>，来控制每次重试之间的延迟时间。</p><ul><li><code>delay</code>：可以是一个数字，表示延迟时间。</li><li><code>delay</code>：可以是一个函数 <code>delay: () => notify$</code>，返回一个 Observable。每次重试之前会等待 <code>notify$</code> 发出的值。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>throwError</span>, <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>retry</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟一个会发出错误的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>throwError</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>&#39;Network Error&#39;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 定义一个控制延迟的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>notify$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>1000</span>); <span style=color:#75715e>// 每次重试之前等待 1 秒
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 retry 操作符并指定 delay 属性
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>retried$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>retry</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>count</span>: <span style=color:#66d9ef>3</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>delay</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>notify$</span> <span style=color:#75715e>// 每次重试之间延迟 1 秒
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>retried$</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>err</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Error:&#39;</span>, <span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>message</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Completed!&#39;</span>)
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Error: Network Error
+</span></span></span></code></pre></div><p>动态延迟，指数退避：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>throwError</span>, <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>retry</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟一个会发出错误的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>throwError</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>&#39;Network Error&#39;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 动态计算每次重试的延迟：指数退避（Exponential Backoff）
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>retryDelay</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>attempt</span>: <span style=color:#66d9ef>number</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>timer</span>(Math.<span style=color:#a6e22e>pow</span>(<span style=color:#ae81ff>2</span>, <span style=color:#a6e22e>attempt</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>1000</span>);  <span style=color:#75715e>// 每次重试间隔 2^attempt 秒
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 retry 操作符并指定延迟策略
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>retried$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>retry</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>count</span>: <span style=color:#66d9ef>3</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>delay</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>error</span>, <span style=color:#a6e22e>attempt</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>retryDelay</span>(<span style=color:#a6e22e>attempt</span>)  <span style=color:#75715e>// 基于尝试次数来计算延迟
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>retried$</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>err</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Error:&#39;</span>, <span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>message</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Completed!&#39;</span>)
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Error: Network Error
+</span></span></span></code></pre></div><p>根据不同错误类型重试：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>throwError</span>, <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>retry</span>, <span style=color:#a6e22e>delay</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟一个会发出错误的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>throwError</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>&#39;Network Error&#39;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 条件重试
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>retryDelay</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>err</span>: <span style=color:#66d9ef>any</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>message</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;Network Error&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 如果是网络错误，延迟 1 秒
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Network Error: Retrying...&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#a6e22e>err</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>1000</span>));
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>message</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;Timeout Error&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 如果是超时错误，延迟 2 秒
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Timeout Error: Retrying...&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#a6e22e>err</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>2000</span>));
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 其他错误直接抛出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>throwError</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>err</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 retry 操作符并指定 delay 属性
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>retried$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>retry</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>count</span>: <span style=color:#66d9ef>3</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>delay</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>error</span>, <span style=color:#a6e22e>attempt</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>retryDelay</span>(<span style=color:#a6e22e>error</span>)
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>retried$</span>.<span style=color:#a6e22e>subscribe</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>next</span>: <span style=color:#66d9ef>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>error</span>: <span style=color:#66d9ef>err</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Error:&#39;</span>, <span style=color:#a6e22e>err</span>.<span style=color:#a6e22e>message</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>complete</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Completed!&#39;</span>)
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><h2 id=高阶操作符>高阶操作符
+<a class=anchor href=#%e9%ab%98%e9%98%b6%e6%93%8d%e4%bd%9c%e7%ac%a6>#</a></h2><p>所谓的高阶操作符（Higher Order Observable）就是指一个 Observable 发送出的值还是一个 Observable。</p><h3 id=concatallconcatmap>concatAll、concatMap
+<a class=anchor href=#concatallconcatmap>#</a></h3><p><strong>concatAll</strong>：用于将一个包含多个内部 Observables 的高阶 Observable（即 Observable 的 Observable）“展平”（flatten）为一个单一的 Observable，并按顺序依次合并这些内部 Observables。</p><ul><li><code>concatAll</code> 确保它按顺序执行每个内部 Observable，前一个 Observable 完成后才会处理下一个。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>concatAll</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建多个内部 Observables
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;A&#39;</span>, <span style=color:#e6db74>&#39;B&#39;</span>, <span style=color:#e6db74>&#39;C&#39;</span>), 
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;D&#39;</span>, <span style=color:#e6db74>&#39;E&#39;</span>),
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;F&#39;</span>, <span style=color:#e6db74>&#39;G&#39;</span>)
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 concatAll 将其展平为一个流
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>concatAll</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// A
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// B
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// C
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// D
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// E
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// F
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// G
+</span></span></span></code></pre></div><p>处理异步：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>concatAll</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟异步操作（例如：HTTP 请求）
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>simulateHttpRequest</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>id</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>1000</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>id</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>map</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>`Request </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>id</span><span style=color:#e6db74>}</span><span style=color:#e6db74> completed`</span>));
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建一个包含多个 HTTP 请求的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>).<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>id</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>simulateHttpRequest</span>(<span style=color:#a6e22e>id</span>)) <span style=color:#75715e>// 为每个请求返回一个内部 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 concatAll 依次处理这些 HTTP 请求
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>concatAll</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Request 1 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Request 2 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Request 3 completed
+</span></span></span></code></pre></div><p><strong>concatMap</strong>：用于将源 Observable 发出的每个值映射为一个内部 Observable，并按顺序依次处理这些内部 Observables。</p><ul><li>每次只会处理一个内部 Observable，前一个 Observable 完成后才会处理下一个。</li><li>保证了顺序，不会并发执行内部 Observables。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>timer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>concatMap</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟异步操作（例如 HTTP 请求）
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>simulateHttpRequest</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>id</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>timer</span>(<span style=color:#ae81ff>1000</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>id</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>map</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>`Request </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>id</span><span style=color:#e6db74>}</span><span style=color:#e6db74> completed`</span>));
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建一个 Observable 发出请求 ID
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 concatMap 按顺序执行 HTTP 请求
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>concatMap</span>(<span style=color:#a6e22e>id</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>simulateHttpRequest</span>(<span style=color:#a6e22e>id</span>))
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Request 1 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Request 2 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Request 3 completed
+</span></span></span></code></pre></div><h3 id=mergeallmergemap>mergeAll、mergeMap
+<a class=anchor href=#mergeallmergemap>#</a></h3><p><strong>mergeAll</strong>：用于将高阶 Observable（即一个发出多个内部 Observable 的 Observable）展平（flatten），并将所有内部 Observable 合并为一个单一的输出流。</p><ul><li><code>mergeAll</code> 会立即订阅所有内部 Observable，然后并发地发出它们的值，而不会按顺序等待每个内部 Observable 完成。</li></ul><p><code>mergeAll(concurrent: number = Infinity)</code> 有一个可选参数 <code>concurrent</code> 可以用来控制并发数量。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>mergeAll</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建一个包含多个内部 Observables 的高阶 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;A&#39;</span>, <span style=color:#e6db74>&#39;B&#39;</span>, <span style=color:#e6db74>&#39;C&#39;</span>),
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;D&#39;</span>, <span style=color:#e6db74>&#39;E&#39;</span>),
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;F&#39;</span>, <span style=color:#e6db74>&#39;G&#39;</span>)
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 mergeAll 将这些内部 Observables 合并为一个单一的流
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>mergeAll</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// A
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// B
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// C
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// D
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// E
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// F
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// G
+</span></span></span></code></pre></div><p><strong>mergeMap</strong>：允许将源 Observable 发出的每一个值映射为一个内部 Observable（或称为“内部流”），并将这些内部 Observable 合并到一个单一的输出流中。</p><ul><li>不同于 <code>concatMap</code>，<code>mergeMap</code> 会并发地处理多个内部 Observable，并不会等待前一个内部 Observable 完成后再处理下一个。</li></ul><p><code>mergeMap(project: (value: T) => ObservableInput, concurrent: number = Infinity)</code>，接受两个参数</p><ul><li><code>project</code>：一个函数，接收源 Observable 发出的每个值，并返回一个内部 Observable（或其他类型的值）。这个内部 Observable 会被合并到输出流中。</li><li><code>concurrent</code>（可选）：指定最多可以同时订阅多少个内部 Observable，默认为 <code>Infinity</code>，表示无限制并发。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>mergeMap</span>, <span style=color:#a6e22e>delay</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟异步操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>simulateAsyncTask</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>value</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>`Task </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>value</span><span style=color:#e6db74>}</span><span style=color:#e6db74> completed`</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>1000</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>value</span>)); <span style=color:#75715e>// 延时模拟异步操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建一个源 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 mergeMap 来并发处理多个异步任务
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 任务 Task 1, Task 2, 和 Task 3 会同时开始处理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mergeMap</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>simulateAsyncTask</span>(<span style=color:#a6e22e>value</span>))
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Task 1 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Task 2 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Task 3 completed
+</span></span></span></code></pre></div><p>限制并发数量：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>mergeMap</span>, <span style=color:#a6e22e>delay</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟异步操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>simulateAsyncTask</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>value</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>`Task </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>value</span><span style=color:#e6db74>}</span><span style=color:#e6db74> completed`</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>1000</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>value</span>)); <span style=color:#75715e>// 延时模拟异步操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建一个源 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 mergeMap 并限制并发数为 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mergeMap</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>simulateAsyncTask</span>(<span style=color:#a6e22e>value</span>), <span style=color:#ae81ff>2</span>) <span style=color:#75715e>// 这里限制并发数为 2
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Task 1 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Task 2 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Task 3 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Task 4 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Task 5 completed
+</span></span></span></code></pre></div><h3 id=switchmap>switchMap
+<a class=anchor href=#switchmap>#</a></h3><p>用于将源 Observable 发出的每个值映射为一个新的 Observable，并且在接收到新的值时，<strong>取消订阅</strong>当前的内部 Observable，并订阅新的内部 Observable。</p><p>这意味着只有最后一个内部 Observable 的值会被发出，其它之前的内部 Observable 会被自动取消订阅。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>fromEvent</span>, <span style=color:#a6e22e>fromPromise</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>switchMap</span>, <span style=color:#a6e22e>debounceTime</span>, <span style=color:#a6e22e>map</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟网络请求
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fakeApiRequest</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>query</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Promise</span>((<span style=color:#a6e22e>resolve</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>setTimeout</span>(() <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>resolve</span>(<span style=color:#e6db74>`Result for: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>query</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>), <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 获取搜索框元素
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>searchInput</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;search&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 用户输入事件流
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>search$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fromEvent</span>(<span style=color:#a6e22e>searchInput</span>, <span style=color:#e6db74>&#39;input&#39;</span>).<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>event</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>target</span>.<span style=color:#a6e22e>value</span>), <span style=color:#75715e>// 提取输入的值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>debounceTime</span>(<span style=color:#ae81ff>300</span>), <span style=color:#75715e>// 防抖，避免每次输入都发出请求
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>switchMap</span>(<span style=color:#a6e22e>query</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>query</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>fromPromise</span>(<span style=color:#a6e22e>fakeApiRequest</span>(<span style=color:#a6e22e>query</span>)); <span style=color:#75715e>// 返回一个新的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;&#39;</span>); <span style=color:#75715e>// 如果没有输入，返回一个空字符串
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印搜索结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>search$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>result</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>result</span>));
+</span></span></code></pre></div><p><code>fakeApiRequest(query)</code> 模拟一个异步请求，<code>switchMap</code> 会发出该请求，并在新的输入发生时取消之前的请求。</p><h3 id=exhaustall-exhaustmap>exhaustAll, exhaustMap
+<a class=anchor href=#exhaustall-exhaustmap>#</a></h3><p><strong>exhaustMap</strong>：映射源 Observable 发出的每个值为一个内部 Observable，并且忽略在内部 Observable 完成之前发出的所有新值。</p><ul><li><code>exhaustMap</code> 会等待当前的内部 Observable 完成。</li><li>在当前的内部 Observable 执行期间，任何新的源值都会被忽略。</li><li>只有在内部 Observable 完成后，才会处理源 Observable 中的下一个值。</li></ul><p>这种行为通常用于限制并发任务的数量，尤其是在处理需要等待的异步操作时，例如避免用户频繁点击按钮触发多个请求。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>fromEvent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>exhaustMap</span>, <span style=color:#a6e22e>map</span>, <span style=color:#a6e22e>debounceTime</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟异步搜索请求
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>simulateSearchRequest</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>query</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`Searching for: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>query</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Promise</span>(<span style=color:#a6e22e>resolve</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>setTimeout</span>(() <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>resolve</span>(<span style=color:#e6db74>`Search results for: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>query</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
+</span></span><span style=display:flex><span>    }, <span style=color:#ae81ff>1500</span>); <span style=color:#75715e>// 模拟请求延时
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  });
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 获取搜索框元素
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>searchInput</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;searchBox&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 用户输入事件流
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>search$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fromEvent</span>(<span style=color:#a6e22e>searchInput</span>, <span style=color:#e6db74>&#39;input&#39;</span>).<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>debounceTime</span>(<span style=color:#ae81ff>500</span>), <span style=color:#75715e>// 防抖，避免每次输入都发出请求
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>event</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>target</span>.<span style=color:#a6e22e>value</span>), <span style=color:#75715e>// 提取输入的值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>exhaustMap</span>(<span style=color:#a6e22e>query</span> <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>query</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>from</span>(<span style=color:#a6e22e>simulateSearchRequest</span>(<span style=color:#a6e22e>query</span>)); <span style=color:#75715e>// 返回一个新的 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>&#39;&#39;</span>); <span style=color:#75715e>// 如果没有输入，返回空字符串
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印搜索结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>search$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>result</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>result</span>));
+</span></span></code></pre></div><p><code>exhaustMap</code> 会确保每次用户输入时只处理最后一次的请求，而忽略在请求进行中产生的其他输入。</p><p><strong>exhaustAll</strong>：类似于 <code>exhaustMap</code>，但它的用途稍有不同。<code>exhaustAll</code> 用于将源 Observable 发出的每个值（这些值本身通常是 Observable）转换为内部 Observable，并且在当前内部 Observable 完成之前，会忽略所有新的值，直到当前内部 Observable 完成。</p><ul><li><code>exhaustAll</code> 监听源 Observable 中发出的每个值，这些值通常是 Observable。</li><li>当源 Observable 发出一个新的 Observable 时，<code>exhaustAll</code> 会订阅该内部 Observable。</li><li>如果当前的内部 Observable 还没有完成，<code>exhaustAll</code> 会忽略源 Observable 发出的所有后续值，直到当前的内部 Observable 完成。</li><li>一旦当前的内部 Observable 完成，<code>exhaustAll</code> 会继续处理源 Observable 中的下一个值（如果存在）。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#66d9ef>of</span>, <span style=color:#a6e22e>interval</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>exhaustAll</span>, <span style=color:#a6e22e>map</span>, <span style=color:#a6e22e>take</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟内部 Observable（例如 HTTP 请求）
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>simulateAsyncTask</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>id</span>) <span style=color:#f92672>=&gt;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#e6db74>`Request </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>id</span><span style=color:#e6db74>}</span><span style=color:#e6db74> completed`</span>).<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 模拟任务延迟
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>val</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>val</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>take</span>(<span style=color:#ae81ff>1</span>) <span style=color:#75715e>// 模拟每个请求只会发出一个值，然后完成
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  );
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建一个源 Observable，发出多个 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>source$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>of</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>simulateAsyncTask</span>(<span style=color:#ae81ff>1</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>simulateAsyncTask</span>(<span style=color:#ae81ff>2</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>simulateAsyncTask</span>(<span style=color:#ae81ff>3</span>),
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>simulateAsyncTask</span>(<span style=color:#ae81ff>4</span>)
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用 exhaustAll 来处理内部 Observable
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>result$</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>source$</span>.<span style=color:#a6e22e>pipe</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>exhaustAll</span>() <span style=color:#75715e>// 忽略当前任务未完成时的其他任务
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 订阅并打印输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>result$</span>.<span style=color:#a6e22e>subscribe</span>(<span style=color:#a6e22e>value</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>value</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Request 1 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Request 2 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Request 3 completed
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Request 4 completed
+</span></span></span></code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/shipengqi/frontend-learn/commit/3794de90b5da39af1a7e27a61a4b2da240d72900 title='Last modified by PengQi Shi | December 8, 2024' target=_blank rel=noopener><img src=/frontend-learn/svg/calendar.svg class=book-icon alt=Calendar>
+<span>December 8, 2024</span></a></div><div><a class="flex align-center" href=https://github.com/shipengqi/frontend-learn/edit/master/content/docs/rxjs/02_operators.md target=_blank rel=noopener><img src=/frontend-learn/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this page</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#概述>概述</a></li><li><a href=#创建操作符>创建操作符</a><ul><li><a href=#range>range</a></li><li><a href=#of>of</a></li><li><a href=#from-fromevent-frompromise>from, fromEvent, fromPromise</a></li><li><a href=#intervaltimer>interval、timer</a></li><li><a href=#concat>concat</a></li><li><a href=#merge>merge</a></li><li><a href=#combinelatest>combineLatest</a></li><li><a href=#zip>zip</a></li><li><a href=#forkjoin>forkJoin</a></li><li><a href=#throwerror>throwError</a></li><li><a href=#race>race</a></li></ul></li><li><a href=#pipeable-操作符>Pipeable 操作符</a><ul><li><a href=#转换操作符>转换操作符</a><ul><li><a href=#map>map</a></li><li><a href=#reducescan>reduce、scan</a></li><li><a href=#groupby>groupBy</a></li></ul></li><li><a href=#过滤操作符>过滤操作符</a><ul><li><a href=#filter>filter</a></li><li><a href=#first>first</a></li><li><a href=#last>last</a></li><li><a href=#taketakewhiletakeutiltakelast>take、takeWhile、takeUtil、takeLast</a></li><li><a href=#skipskipwhileskipuntilskiplast>skip、skipWhile、skipUntil、skipLast</a></li><li><a href=#elementat>elementAt</a></li><li><a href=#ignoreelements>ignoreElements</a></li><li><a href=#debouncetime>debounceTime</a></li><li><a href=#distinctuntilchanged>distinctUntilChanged</a></li><li><a href=#throttletime>throttleTime</a></li></ul></li><li><a href=#连接操作符>连接操作符</a><ul><li><a href=#startwith>startWith</a></li><li><a href=#withlatestfrom>withLatestFrom</a></li></ul></li><li><a href=#工具操作符>工具操作符</a><ul><li><a href=#tap>tap</a></li><li><a href=#delaydelaywhen>delay、delayWhen</a></li><li><a href=#every>every</a></li></ul></li><li><a href=#错误处理>错误处理</a><ul><li><a href=#catcherror>catchError</a></li><li><a href=#retry>retry</a></li></ul></li><li><a href=#高阶操作符>高阶操作符</a><ul><li><a href=#concatallconcatmap>concatAll、concatMap</a></li><li><a href=#mergeallmergemap>mergeAll、mergeMap</a></li><li><a href=#switchmap>switchMap</a></li><li><a href=#exhaustall-exhaustmap>exhaustAll, exhaustMap</a></li></ul></li></ul></li></ul></nav></div></aside></main></body></html>
