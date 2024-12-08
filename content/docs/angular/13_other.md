@@ -1,5 +1,5 @@
 ---
-title: Other
+title: 其他
 weight: 13
 ---
 
@@ -293,26 +293,30 @@ export class DocumentExampleComponent implements OnInit {
 
 # Location
 
-可以使用 `Location` 服务获取当前浏览器窗口的 URL。
+`Location` 是一个提供访问和操作浏览器 URL 的服务。它允许在不重新加载页面的情况下操作浏览器的历史记录和 URL。这使得你能够在单页面应用（SPA）中实现 URL 路由和导航，同时避免浏览器刷新。
 
-```typescript
-import { Location } from "@angular/common"
-@Component({
-    ...
-})
-export class AppComponent {
-    constructor(private location: Location) {}
-    navigatTo(url) {
-        this.location.go(url)
-    }
-    goBack() {
-        location.back()
-    }
-    goForward() {
-        location.forward()
-    }
-}
-```
+不要直接修改 `window.location`，使用 `Location` 或 `Router` 来保证跨平台兼容性。并且 `Location` 支持服务端渲染（SSR），可以在 Node.js 环境中模拟操作。
+
+## 与 window.location 的区别
+
+| 功能 | Angular `Location` | `window.location` |
+| --- |--------------------| --- |
+| 修改 URL | 可以修改 URL，不会刷新页面    | 修改 URL 时通常会导致页面刷新 |
+| 支持单页面应用（SPA） | 是专为单页面应用设计的工具                   | 通常用于传统的页面导航和跳转 |
+| 操作历史记录 | 提供 `back` 和 `forward` 方法 | 使用 `history.back()` 等实现 |
+| 获取和解析 URL | 提供 `path()` 等方法获取路径部分 | 提供 `window.location.pathname` 等 |
+| 不触发页面刷新 | 支持通过 `go()` 和 `replaceState()` 修改 URL 而不刷新页面 | 大部分操作都会导致页面刷新 |
+
+
+适用场景：
+
+| 场景 | Angular `Location` | `window.location` |
+| --- |--------------------| --- |
+| 单页面应用（SPA） | 推荐使用，用于导航和历史记录管理              | 不推荐，会导致页面刷新 |
+| 传统页面跳转 | 不适用 | 推荐使用 |
+| 操作浏览器历史记录 | 提供方便的方法，如 `back()`、`forward()` | 可以通过 `window.history` 操作 |
+| URL 操作与刷新行为 | 不刷新页面，适合动态导航 | 大多数情况下刷新页面 |
+
 
 # NgZone
 

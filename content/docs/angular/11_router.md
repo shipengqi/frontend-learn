@@ -164,6 +164,102 @@ export class AboutComponent implements OnInit {
 }
 ```
 
+## 配置路由数据
+
+Angular 可以在路由配置中使用 `data` 属性来定义数据。`data` 属性接受一个对象，可以在组件中通过 `ActivatedRoute` 获取这些数据。
+
+```typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    data: { title: 'Home Page' } // 配置数据
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    data: { title: 'About Us' } // 配置数据
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+```
+
+通过 `ActivatedRoute` 来访问路由数据：
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  template: `<h1>{{ title }}</h1>`
+})
+export class HomeComponent implements OnInit {
+  title: string = '';
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    // 获取路由配置中的数据
+    this.title = this.route.snapshot.data['title'];
+
+    // 也可以订阅数据变化
+    this.route.data.subscribe(data => {
+        this.title = data['title'];
+    });
+  }
+}
+
+```
+
+## snapshot
+
+`ActivatedRoute.snapshot` 是一个用于获取当前路由状态的快照对象。它包含了与当前路由相关的所有信息，包括路由参数、查询参数、数据等。`snapshot` 主要用于**同步**获取路由信息。
+
+- **当你需要在路由切换时读取静态的路由信息时**，而不需要响应路由变化。
+- **不需要监听路由变化**，而是只需要在组件初始化时获取一次路由参数和其他信息时使用。
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.css']
+})
+export class ProductDetailComponent implements OnInit {
+  productId: string;
+  category: string;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    // 获取路由参数
+    this.productId = this.route.snapshot.paramMap.get('id');
+    // 获取查询参数
+    this.category = this.route.snapshot.queryParamMap.get('category');
+    // 获取完整的 URL
+    console.log(this.route.snapshot.url); // 返回 URL 数组
+    console.log(this.route.snapshot.url.join('/')); // 返回 URL 字符串
+  }
+}
+
+```
+
+它适用于你只需要在组件加载时读取一次路由信息，并且不需要响应路由参数变化的场景。如果需要响应路由的变化（例如，路由参数的改变），则应该使用 `route.params` 或 `route.queryParams` 并订阅它们。
+
 # 路由嵌套
 
 路由嵌套指的是如何定义子级路由。
