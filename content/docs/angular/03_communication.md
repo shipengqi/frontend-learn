@@ -34,6 +34,79 @@ export class FavoriteComponent {
 }
 ```
 
+### 属性别名
+
+通过给 `@Input()` 装饰器传递参数，可以重命名属性。
+
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `<p>{{ myValue }}</p>`,
+})
+export class ChildComponent {
+  @Input('parentValue') myValue!: string; // 父组件使用 "parentValue" 绑定
+}
+
+```
+
+父组件：
+
+```html
+<app-child [parentValue]="'Hello'"></app-child>
+```
+
+使用别名可以避免某些属性名可能与 DOM 属性或全局对象名称冲突。例如：
+
+```typescript
+@Component({
+  selector: 'app-child',
+  template: `<p>{{ id }}</p>`,
+})
+export class ChildComponent {
+  @Input('customId') id!: string; // 避免与 DOM 的 id 属性冲突
+}
+```
+
+### booleanAttribute
+
+`@Input` 装饰器可以传入参数 `{transform: booleanAttribute}`，用于将字符串类型的布尔属性（HTML 属性中传递的布尔值通常是字符串）转换为真正的 JavaScript 布尔值的机制。
+
+用途：
+
+在 HTML 中，布尔属性（如 `disabled`, `checked`, `readonly`）如果存在，则会被解析为字符串，即使没有显式赋值。例如：
+
+```html
+<input disabled />
+```
+
+`disabled` 属性的值在 JavaScript 中是 `"true"`，而不是一个真正的布尔值 `true`。`{transform: booleanAttribute}` 可以自动将这种字符串值转换为布尔值。
+
+示例：
+
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-boolean-example',
+  template: `<p>The button is {{ disabled ? 'Disabled' : 'Enabled' }}</p>`,
+})
+export class BooleanExampleComponent {
+  @Input({ transform: booleanAttribute }) disabled = false; // 默认为 false
+}
+
+```
+
+父组件：
+
+```html
+<app-boolean-example disabled></app-boolean-example>
+```
+
+- 在父组件中传递 `disabled`，即使不显式赋值，它也会被识别为 `true`。
+- 如果未传递 `disabled` 属性，子组件中的 `disabled` 属性值会保留默认值 `false`。
+
 # 向组件外部传递数据
 
 ## Output 装饰器
