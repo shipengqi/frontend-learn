@@ -121,7 +121,7 @@ export class LoggingInterceptor implements HttpInterceptor {
         console.log('Request:', req);
 
         // 继续传递请求
-        return next.handle(req).pipe(
+        return next(req).pipe(
             tap(
                 event => console.log('Response:', event),
                 error => console.error('Error:', error)
@@ -158,11 +158,11 @@ export class AuthInterceptor implements HttpInterceptor {
       });
 
       // 将修改后的请求传递给下一个处理程序
-      return next.handle(clonedRequest);
+      return next(clonedRequest);
     }
 
     // 如果没有 token，直接传递原始请求
-    return next.handle(req);
+    return next(req);
   }
 }
 
@@ -180,7 +180,7 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).pipe(
+        return next(req).pipe(
             tap(event => {
                 if (event instanceof HttpResponse) {
                     // 在响应到达时修改响应数据
@@ -207,7 +207,7 @@ import { throwError } from 'rxjs';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
+    return next(req).pipe(
       catchError(error => {
         if (error.status === 401) {
           console.error('Unauthorized request. Redirecting to login...');
@@ -298,12 +298,10 @@ export class AppModule {}
          console.log('Context value:', customValue);
          // 可以基于 context 的值修改请求，例如添加自定义 header
          request = request.clone({
-           setHeaders: {
-             'X-Custom-Header': customValue
-           }
+           headers: req.headers.append('X-Custom-Header', customValue),
          });
        }
-       return next.handle(request);
+       return next(request);
      }
    }
    ```

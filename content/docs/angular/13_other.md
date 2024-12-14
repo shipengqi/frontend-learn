@@ -507,6 +507,7 @@ export class ExampleComponent {
 `APP_INITIALIZER`：初始化应用时执行的函数。如果这些函数中的任何一个返回一个 `Promise` 或 `Observable`，初始化就不会完成，直到 `Promise` 被解析或 `Observable` 被完成。
 
 只需要 `AppModule` 中添加 `APP_INITIALIZER` 即可：
+
 ```typescript
 
 function runSettingsOnInit() {
@@ -519,6 +520,9 @@ function runSettingsOnInit() {
     ]
 })
 ```
+
+Angular 支持多个 `APP_INITIALIZER`，多个 `APP_INITIALIZER` 是**并行执行**的。如果某些初始化逻辑是异步的（例如返回 `Promise` 
+或 `Observable`），Angular 会等待所有异步操作完成后，再继续引导（bootstrap）应用程序。
 
 # ENVIRONMENT_INITIALIZER
 
