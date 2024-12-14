@@ -237,3 +237,73 @@ export class ErrorInterceptor implements HttpInterceptor {
 export class AppModule {}
 
 ```
+
+## HttpContext
+
+在 Angular 中，`HttpInterceptor` 提供了拦截和修改 HTTP 请求的机制，从 Angular 15 开始，HttpClient 添加了 `context` 属性，可以携带额外的上下文信息供拦截器或服务使用。这为拦截器在不依赖全局状态或修改请求头的情况下提供了传递数据的方式。
+
+1. 定义 `HttpContextToken`
+   `HttpContextToken` 是用来定义和获取上下文值的工具：
+   
+   ```typescript
+   import { HttpContextToken } from '@angular/common/http';
+
+   // 定义一个上下文 Token
+   export const MY_CONTEXT_TOKEN = new HttpContextToken<string>(() => null); // 默认值为 null
+   ``` 
+
+2. 在请求中设置 `context`
+   在发起请求时，通过 HttpClient 的 `context` 属性设置值：
+   
+   ```typescript
+   import { HttpClient, HttpContext } from '@angular/common/http';
+   import { Component } from '@angular/core';
+   import { MY_CONTEXT_TOKEN } from './context-token';
+   
+   @Component({
+     selector: 'app-root',
+     template: `<p>Check Console</p>`
+   })
+   export class AppComponent {
+     constructor(private http: HttpClient) {
+       // 创建一个带有 context 的 HttpContext 对象
+       const context = new HttpContext().set(MY_CONTEXT_TOKEN, 'CustomHeaderValue');
+       // 发起请求时附加 context
+       this.http.get('/api/data', { context }).subscribe(response => {
+         console.log(response);
+       });
+     }
+   }
+   ```
+
+3. 拦截器设置
+   在拦截器中，可以使用 `request.context.get()` 获取 `HttpContext` 中的值：
+
+   ```typescript
+   import { Injectable } from '@angular/core';
+   import {
+     HttpInterceptor,
+     HttpRequest,
+     HttpHandler,
+     HttpEvent
+   } from '@angular/common/http';
+   import { Observable } from 'rxjs';
+   
+   @Injectable()
+   export class CustomInterceptor implements HttpInterceptor {
+     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+       // 获取 context 中的值
+       const customValue = request.context.get(MY_CONTEXT_TOKEN);
+       if (customValue) {
+         console.log('Context value:', customValue);
+         // 可以基于 context 的值修改请求，例如添加自定义 header
+         request = request.clone({
+           setHeaders: {
+             'X-Custom-Header': customValue
+           }
+         });
+       }
+       return next.handle(request);
+     }
+   }
+   ```
