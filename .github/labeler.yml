@@ -7,7 +7,7 @@ framework:
 
 basic:
   - changed-files:
-      - any-glob-to-any-file: content/docs/basic/*
+      - any-glob-to-any-file: content/docs/guide/*
 
 practice:
   - changed-files:

@@ -1,7 +1,4 @@
 ---
 title: Node.js
-weight: 9
-draft: true
+weight: 4
 ---
-
-# Node.js
