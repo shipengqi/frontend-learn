@@ -1,0 +1,8 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Frontend Learning –</title><link>https://shipengqi.github.io/frontend-learn/docs/guide/</link><description>Recent content on Frontend Learning</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://shipengqi.github.io/frontend-learn/docs/guide/index.xml" rel="self" type="application/rss+xml"/><item><title>HTML 和 CSS</title><link>https://shipengqi.github.io/frontend-learn/docs/guide/html/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/guide/html/</guid><description>
+&lt;p>HTML 超文本标记语言（HyperText Markup Language）：用来定义网页内容的标记语言。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>超文本&lt;/strong>：意思就是不止文本，还包括图片、音频、视频等。&lt;/li>
+&lt;li>&lt;strong>标记&lt;/strong>：标记语言，就是用标记符号（HTML 标签）来标记文本，计算机就可以识别这些标记符号，从而对文本进行处理。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>CSS 层叠样式表&lt;/strong>：用来定义 HTML 的显示样式。&lt;/p>
+&lt;p>&lt;strong>JavaScript&lt;/strong>： 脚本语言，用来定义与用户的交互。&lt;/p></description></item></channel></rss>
