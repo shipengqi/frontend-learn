@@ -1,39 +1,15 @@
 ---
-title: 主要内容
+title: Frontend Learning
 ---
-
-# Frontend Learning
 
 ## 主要内容
 
-{{< columns >}}
-
-### 🍚 前端基础
-
-HTML，CSS，Javasript，Typescript。
-
-<--->
-
-### ⚡ 前端框架
-
-Vue，Angular 等。
-
-{{< /columns >}}
-
-
-{{< columns >}}
-
-### 🛠️ 前端工程化实践
-
-记录了 webpack，vite 等工具的使用和原理。
-
-<--->
-
-### 🔍 Node.js 底层原理
-
-Node.js 底层内存管理，GC，调度器的实现原理。浏览器的原理。
-
-{{< /columns >}}
+{{< cards cols="2" >}}
+{{< card link="/frontend-learn/docs/guide" title="前端基础" icon="code" subtitle="HTML，CSS，Javascript，Typescript。" >}}
+{{< card link="/frontend-learn/docs/framework" title="前端框架" icon="color-swatch" subtitle="Vue，Angular 等。" >}}
+{{< card link="/frontend-learn/docs/practice" title="前端工程化实践" icon="cube" subtitle="记录 Vite，Cypress 等工具的使用和原理。" >}}
+{{< card link="/frontend-learn/docs/node" title="Node.js 底层原理" icon="beaker" subtitle="Node.js 底层原理、浏览器的原理。" >}}
+{{< /cards >}}
 
 ## 互动与勘误
 

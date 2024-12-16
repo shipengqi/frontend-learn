@@ -10,7 +10,7 @@
 node_modules
 
 # dist
-docs/.vuepress/dist
+docs2/.vuepress/dist
 
 public
 resources
