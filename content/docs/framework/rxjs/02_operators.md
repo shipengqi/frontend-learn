@@ -3,8 +3,6 @@ title: 操作符
 weight: 2
 ---
 
-## 概述
-
 操作符本质上是一个纯函数 (pure function)，它接收一个 `Observable` 作为输入，并生成一个新的 `Observable` 作为输出。并且前面的 `Observable` 保持不变。
 
 操作符有两类：

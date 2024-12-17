@@ -5,12 +5,12 @@ draft: true
 ---
 
 
-# CSS 常用库
+## CSS 常用库
 
 - [Animate CSS](https://github.com/animate-css/animate.css)
 - [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
 
-# 横线
+## 横线
 
 ```html
 <style>
@@ -24,7 +24,7 @@ draft: true
 <div class="line"></div>
 ```
 
-# 圆点
+## 圆点
 
 ```html
 <style>
@@ -39,7 +39,7 @@ draft: true
 <span class="dot"></span>
 ```
 
-# 圆角
+## 圆角
 
 给一个矩形设置圆角，如果宽高是已知的，那么可以使用较小的值的一半来设置圆角：
 
@@ -56,12 +56,12 @@ draft: true
 <div class="round"></div>
 ```
 
-# border-image
+## border-image
 
 对话框的背景边框的效果，用普通的 `border` 样式是很难实现的。这个时候可以考虑使用 `border-image`。
 
 
-# 渐变边框
+## 渐变边框
 
 ```html
 <style>
@@ -84,7 +84,7 @@ draft: true
 </div>
 ```
 
-# 利用背景图片去展示图片，避免出现右键保存图片
+## 利用背景图片去展示图片，避免出现右键保存图片
 
 
 ```html
@@ -108,25 +108,25 @@ draft: true
 </div>
 ```
 
-# 隐藏元素
+## 隐藏元素
 
 - `display: none`：隐藏元素，不占据空间。
 - `visibility: hidden`：隐藏元素，但是占据空间。
 - `opacity: 0`：隐藏元素，但是占据空间。
 
-# display: contents
+## display: contents
 
 设置了 `display: contents` 的元素，那么改元素的子元素可以参与该元素父元素的布局。
 
 
-# will-change
+## will-change
 
 `will-change: box-shadow`，相当于告知浏览器，`box-shadow` 属性将要变化，可以更高效的执行，可以解决一些页面渲染的性能问题。
 
 
-# 主题
+## 主题
 
-## 清明节全网灰色主题
+### 清明节全网灰色主题
 
 可以简单的在 `<body>` 上加上滤镜属性：
 
@@ -144,7 +144,7 @@ filter: url(data:image/svg+xml;utf8,#grayscale);         // 兼容 IE10、IE11
 filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); // 兼容 IE6～9
 ```
 
-## Dark 模式
+### Dark 模式
 
 Dark 模式一种简单的实现方式，适合偏展示性的网站，页面元素简单，没有复杂动效的网站：
 
@@ -155,7 +155,7 @@ filter: invert(1)    // 设置反相色，白底黑字变成黑底白字。
 filter: invert(1) hue-rotate(180deg);     // 反向后，再进行 180 度的色相旋转
 ```
 
-### 系统偏好
+#### 系统偏好
 
 获取系统的模式有两种方式：
 
@@ -194,7 +194,7 @@ filter: invert(1) hue-rotate(180deg);     // 反向后，再进行 180 度的色
 
 可以将用户选择的模式存储到 `localStorage` 中，再次访问可以通过 `localStorage` 来获取用户设置的主题。
 
-### 用户偏好
+#### 用户偏好
 
 ```javascript
 const toggleButton = document.querySelector('#toggle')
@@ -209,7 +209,7 @@ toggleButton.addEventListener('click', () => {
 
 ```
 
-### 闪烁问题
+#### 闪烁问题
 
 如果时通过 js 来获取系统的模式，那么在切换主题的时候，会有一个闪烁的问题。由于 js 是单线程，而通常为了不阻塞页面渲染一般是将 js 文件放置在 `body` 元素最下面，所以当 js 执行的时候，页面已经渲染完成，但是 dark 样式还没有添加上去，就会出现闪烁的问题。
 
@@ -233,7 +233,7 @@ toggleButton.addEventListener('click', () => {
 
 ```
 
-### 不支持深色模式的系统环境中
+#### 不支持深色模式的系统环境中
 
 不支持深色模式的系统环境中，可以判断当前系统时间是否处于夜间，是则返回深色模式。
 
@@ -245,7 +245,7 @@ finction getTheme(): boolean {
 }
 ```
 
-## 利用 `setProperty` 切换主题色
+### 利用 `setProperty` 切换主题色
 
 这个方案适用于由用户根据颜色面板自行设定各种颜色主题。参考 [vue-element-plus-admin](https://gitee.com/kailong110120130/vue-element-plus-admin)。
 
@@ -272,7 +272,7 @@ export function setCssVar(prop: string, val: any, dom = document.documentElement
 setCssVar('--theme-color', color);
 ```
 
-# 透明图片的阴影
+## 透明图片的阴影
 
 如果需要给某些带有透明部分的图片添加阴影，如过直接用 `box-shadow` 给图片添加阴影：
 
@@ -325,7 +325,7 @@ img {
 
 <img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-bg-shadow.png?raw=true" width="50%" alt="bg-shadow">
 
-# CSS 中 flex 布局最后一行左对齐
+## CSS 中 flex 布局最后一行左对齐
 
 使用足够的空白标签进行填充占位，具体的占位数量是由最多列数的个数决定的，例如这个布局最多 7 列，那就可以使用 7 个空白标签进行填充占位，最多 10 列，那就需要使用 10 个空白标签。
 

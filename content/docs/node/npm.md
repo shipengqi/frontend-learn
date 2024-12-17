@@ -4,8 +4,6 @@ weight: 1
 draft: true
 ---
 
-# NPM
-
 ## npm install
 
 `npm install` 的工作流:

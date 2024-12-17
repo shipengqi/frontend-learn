@@ -78,3 +78,10 @@ export class AppComponent {
      providers:  [CarListService]
    })
    ```
+
+{{< callout type="info" >}}
+`providedIn: 'root'` 只是指明服务是全局单例的，这意味着整个应用中只有一个服务实例，通常用于跨多个组件和服务共享的场景。
+但是，`providedIn: 'root'` 仍然可以在组件或模块的 `providers` 数组中重新提供该服务，这样它在该组件或模块中会有一个单独的实例，
+其他地方仍然会使用全局单例实例。
+{{< /callout >}}
+

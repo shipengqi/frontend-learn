@@ -4,8 +4,6 @@ weight: 3
 draft: true
 ---
 
-# Cypress
-
 启动 Cypress：
 ```bash
 ./node_modules/.bin/cypress open

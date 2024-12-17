@@ -46,7 +46,7 @@ menu:
   main:
     - identifier: documentation
       name: Documentation
-      pageRef: /docs
+      pageRef: /docs/guide
       weight: 1
     - identifier: blog
       name: Blog

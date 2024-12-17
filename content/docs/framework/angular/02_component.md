@@ -31,10 +31,9 @@ weight: 2
 
 2. 使用 `[attr.属性名称]` 为元素绑定 HTML 标记属性
 
-```html
-
-<td [attr.colspan]="colSpan"></td> 
-```
+   ```html
+   <td [attr.colspan]="colSpan"></td> 
+   ```
 
 在大多数情况下，DOM 对象属性和 HTML 标记属性是对应的关系，所以使用第一种情况。但是某些属性只有 HTML 标记存在，DOM
 对象中不存在，此时需要使用第二种情况，比如 `colspan` 属性，在 DOM 对象中就没有，或者自定义 HTML 属性也需要使用第二种情况。
@@ -42,7 +41,6 @@ weight: 2
 ### class 属性
 
 ```html
-
 <button class="btn btn-primary" [class.active]="isActive">按钮</button>
 <div [ngClass]="{'active': true, 'error': true}"></div>
 ```
@@ -52,7 +50,6 @@ weight: 2
 ### style 属性
 
 ```html
-
 <button [style.backgroundColor]="isActive ? 'blue': 'red'">按钮</button>
 <button [ngStyle]="{'backgroundColor': 'red'}">按钮</button>
 ```
@@ -62,7 +59,6 @@ weight: 2
 ## 事件绑定
 
 ```html
-
 <button (click)="onSave($event)">按钮</button>
 <!-- 当按下回车键抬起的时候执行函数 -->
 <input type="text" (keyup.enter)="onKeyUp()"/>
@@ -103,7 +99,6 @@ export class HomeComponent implements AfterViewInit {
 使用 `ViewChildren` 获取一组元素
 
 ```html
-
 <ul>
     <li #items>a</li>
     <li #items>b</li>
@@ -388,7 +383,6 @@ export class HighlightDirective {
 </div>
 <button (click)="highlight.toggleHighlight()">Toggle Highlight</button>
 <p>Highlight Status: {{ highlight.isHighlighted }}</p>
-
 ```
 
 ### host
@@ -448,7 +442,6 @@ export class ExampleComponent {
         console.log('Window resized', event);
     }
 }
-
 ```
 
 - 使用 `@HostBinding` 和 `@HostListener` 可以提供更灵活的宿主元素交互，适用于需要动态响应事件或更改宿主元素样式和属性的场景。
