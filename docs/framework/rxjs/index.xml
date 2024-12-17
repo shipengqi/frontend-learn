@@ -198,8 +198,7 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>&lt;code>Subscriptions&lt;/code> 还有一个 &lt;code>remove(otherSubscription)&lt;/code> 方法，用来撤销一个已添加的子 &lt;code>Subscription&lt;/code>。&lt;/p></description></item><item><title>操作符</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/02_operators/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/02_operators/</guid><description>
-&lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>操作符本质上是一个纯函数 (pure function)，它接收一个 &lt;code>Observable&lt;/code> 作为输入，并生成一个新的 &lt;code>Observable&lt;/code> 作为输出。并且前面的 &lt;code>Observable&lt;/code> 保持不变。&lt;/p>
+&lt;p>操作符本质上是一个纯函数 (pure function)，它接收一个 &lt;code>Observable&lt;/code> 作为输入，并生成一个新的 &lt;code>Observable&lt;/code> 作为输出。并且前面的 &lt;code>Observable&lt;/code> 保持不变。&lt;/p>
 &lt;p>操作符有两类：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>Pipeable 操作符&lt;/strong>：是指可以使用 &lt;code>observable.pipe(operator)&lt;/code> 或更常用的 &lt;code>observable.pipe(operatorFactory())&lt;/code> 语法将操作符管道化的操作符。操作符工厂函数包括 &lt;code>filter(...)&lt;/code> 和 &lt;code>mergeMap(...)&lt;/code> 等。&lt;/li>
@@ -1923,8 +1922,7 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div></description></item><item><title>Subject</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/03_subject/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/03_subject/</guid><description>
-&lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>RxJS &lt;code>Subject&lt;/code> 是一种特殊类型的 &lt;code>Observable&lt;/code>，它允许将值多播给多个观察者，所以 &lt;code>Subject&lt;/code> 是多播的，这意味着 &lt;code>Subject&lt;/code> 确保每个观察者之间共享 &lt;code>Observable&lt;/code> 的值。&lt;/p>
+&lt;p>RxJS &lt;code>Subject&lt;/code> 是一种特殊类型的 &lt;code>Observable&lt;/code>，它允许将值多播给多个观察者，所以 &lt;code>Subject&lt;/code> 是多播的，这意味着 &lt;code>Subject&lt;/code> 确保每个观察者之间共享 &lt;code>Observable&lt;/code> 的值。&lt;/p>
 &lt;p>&lt;strong>而普通的 &lt;code>Observable&lt;/code> 是单播的，它会为每一个观察者创建一次新的、独立的执行。当观察者进行订阅时，该可观察对象会连上一个事件处理器，并且向那个观察者发送一些值。当第二个观察者订阅时，这个可观察对象就会连上一个新的事件处理器，并独立执行一次，把这些值发送给第二个可观察对象&lt;/strong>。&lt;/p>
 &lt;p>在 RxJS 中有四种 Subject 分别是：&lt;code>Subject&lt;/code>，&lt;code>BehaviorSubject&lt;/code>，&lt;code>AsyncSubject&lt;/code>，&lt;code>ReplaySubject&lt;/code>；这四种 Subject 都是特殊的 &lt;code>Observable&lt;/code>。&lt;/p>
 &lt;p>&lt;code>Subject&lt;/code> 既是 &lt;code>Observable&lt;/code> 也是 &lt;code>Observer&lt;/code>。&lt;/p>

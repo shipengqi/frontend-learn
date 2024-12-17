@@ -137,11 +137,8 @@ title="Copy code"
 &lt;/li>
 &lt;li>
 &lt;p>使用 &lt;code>[attr.属性名称]&lt;/code> 为元素绑定 HTML 标记属性&lt;/p>
-&lt;/li>
-&lt;/ol>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">td&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">attr&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">colspan&lt;/span>&lt;span class="err">]=&amp;#34;&lt;/span>&lt;span class="na">colSpan&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">td&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">td&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">attr&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">colspan&lt;/span>&lt;span class="err">]=&amp;#34;&lt;/span>&lt;span class="na">colSpan&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">td&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
 &lt;button
 class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
 title="Copy code"
@@ -151,12 +148,13 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div>
+&lt;/li>
+&lt;/ol>
 &lt;p>在大多数情况下，DOM 对象属性和 HTML 标记属性是对应的关系，所以使用第一种情况。但是某些属性只有 HTML 标记存在，DOM
 对象中不存在，此时需要使用第二种情况，比如 &lt;code>colspan&lt;/code> 属性，在 DOM 对象中就没有，或者自定义 HTML 属性也需要使用第二种情况。&lt;/p>
 &lt;h3>class 属性&lt;span class="hx-absolute -hx-mt-20" id="class-属性">&lt;/span>
 &lt;a href="#class-%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;btn btn-primary&amp;#34;&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">class&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">active&lt;/span>&lt;span class="err">]=&amp;#34;&lt;/span>&lt;span class="na">isActive&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>按钮&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;btn btn-primary&amp;#34;&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">class&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">active&lt;/span>&lt;span class="err">]=&amp;#34;&lt;/span>&lt;span class="na">isActive&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>按钮&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">ngClass&lt;/span>&lt;span class="err">]=&amp;#34;{&amp;#39;&lt;/span>&lt;span class="na">active&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">:&lt;/span> &lt;span class="na">true&lt;/span>&lt;span class="err">,&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">error&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">:&lt;/span> &lt;span class="na">true&lt;/span>&lt;span class="err">}&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
 &lt;button
 class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
@@ -170,8 +168,7 @@ title="Copy code"
 &lt;p>&lt;code>ngClass&lt;/code> 可以绑定多个类名。&lt;/p>
 &lt;h3>style 属性&lt;span class="hx-absolute -hx-mt-20" id="style-属性">&lt;/span>
 &lt;a href="#style-%e5%b1%9e%e6%80%a7" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">style&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">backgroundColor&lt;/span>&lt;span class="err">]=&amp;#34;&lt;/span>&lt;span class="na">isActive&lt;/span> &lt;span class="err">?&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">blue&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">:&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">red&lt;/span>&lt;span class="err">&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>按钮&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">style&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">backgroundColor&lt;/span>&lt;span class="err">]=&amp;#34;&lt;/span>&lt;span class="na">isActive&lt;/span> &lt;span class="err">?&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">blue&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">:&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">red&lt;/span>&lt;span class="err">&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>按钮&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">ngStyle&lt;/span>&lt;span class="err">]=&amp;#34;{&amp;#39;&lt;/span>&lt;span class="na">backgroundColor&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">:&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">red&lt;/span>&lt;span class="err">&amp;#39;}&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>按钮&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
 &lt;button
 class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
@@ -185,8 +182,7 @@ title="Copy code"
 &lt;p>&lt;code>ngClass&lt;/code> 可以绑定多个样式属性。&lt;/p>
 &lt;h2>事件绑定&lt;span class="hx-absolute -hx-mt-20" id="事件绑定">&lt;/span>
 &lt;a href="#%e4%ba%8b%e4%bb%b6%e7%bb%91%e5%ae%9a" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="err">(&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="err">)=&amp;#34;&lt;/span>&lt;span class="na">onSave&lt;/span>&lt;span class="err">($&lt;/span>&lt;span class="na">event&lt;/span>&lt;span class="err">)&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>按钮&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="err">(&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="err">)=&amp;#34;&lt;/span>&lt;span class="na">onSave&lt;/span>&lt;span class="err">($&lt;/span>&lt;span class="na">event&lt;/span>&lt;span class="err">)&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>按钮&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!-- 当按下回车键抬起的时候执行函数 --&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span> &lt;span class="err">(&lt;/span>&lt;span class="na">keyup&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">enter&lt;/span>&lt;span class="err">)=&amp;#34;&lt;/span>&lt;span class="na">onKeyUp&lt;/span>&lt;span class="err">()&amp;#34;&lt;/span>&lt;span class="p">/&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
 &lt;button
@@ -247,8 +243,7 @@ title="Copy code"
 &lt;/div>
 &lt;p>使用 &lt;code>ViewChildren&lt;/code> 获取一组元素&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span> &lt;span class="err">#&lt;/span>&lt;span class="na">items&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>a&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span> &lt;span class="err">#&lt;/span>&lt;span class="na">items&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>b&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span> &lt;span class="err">#&lt;/span>&lt;span class="na">items&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>c&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
@@ -978,8 +973,7 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>父组件不能通过数据绑定使用子组件的 &lt;code>start&lt;/code> 和 &lt;code>stop&lt;/code> 方法，也不能访问子组件的 &lt;code>seconds&lt;/code> 属性。把本地变量(&lt;code>#timer&lt;/code>)放到(&lt;code>&amp;lt;countdown-timer&amp;gt;&lt;/code>)标签中，用来代表子组件。这样父组件的模板就得到了子组件的引用，可以在父组件的模板中访问子组件的属性和方法。&lt;/p></description></item><item><title>组件生命周期</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/04_lifecycle/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/04_lifecycle/</guid><description>
-&lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>生命周期钩子执行顺序：&lt;/p>
+&lt;p>生命周期钩子执行顺序：&lt;/p>
 &lt;ol>
 &lt;li>&lt;code>ngOnChanges&lt;/code>：当组件的&lt;strong>输入属性&lt;/strong>（&lt;code>@Input&lt;/code>）发生变化时会调用。&lt;/li>
 &lt;li>&lt;code>ngOnInit&lt;/code>：当组件初始化时被调用。这通常在 Angular 初始化组件并绑定所有输入属性后触发。&lt;/li>
@@ -1260,8 +1254,7 @@ title="Copy code"
 &lt;/div>
 &lt;/li>
 &lt;/ol></description></item><item><title>指令</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/05_directive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/05_directive/</guid><description>
-&lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>指令是 Angular 提供的操作 DOM 的途径。指令分为属性指令和结构指令。&lt;/p>
+&lt;p>指令是 Angular 提供的操作 DOM 的途径。指令分为属性指令和结构指令。&lt;/p>
 &lt;p>属性指令：修改现有元素的外观或行为，&lt;code>selector&lt;/code> 使用 &lt;code>[]&lt;/code> 包裹。&lt;/p>
 &lt;p>结构指令：增加、删除 DOM 节点以修改布局，使用 &lt;code>*&lt;/code> 作为指令前缀。&lt;/p>
 &lt;h2>内置指令&lt;span class="hx-absolute -hx-mt-20" id="内置指令">&lt;/span>
@@ -1433,8 +1426,7 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div></description></item><item><title>管道</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/06_pipe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/06_pipe/</guid><description>
-&lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>管道的作用是转换组件模板数据。要在 HTML 模板中指定值的转换方式，使用管道操作符 &lt;code>|&lt;/code>。&lt;/p>
+&lt;p>管道的作用是转换组件模板数据。要在 HTML 模板中指定值的转换方式，使用管道操作符 &lt;code>|&lt;/code>。&lt;/p>
 &lt;h2>内置管道&lt;span class="hx-absolute -hx-mt-20" id="内置管道">&lt;/span>
 &lt;a href="#%e5%86%85%e7%bd%ae%e7%ae%a1%e9%81%93" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;ul>
 &lt;li>&lt;code>date&lt;/code> 日期格式化&lt;/li>
@@ -1510,8 +1502,7 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>管道传参，使用 &lt;code>:&lt;/code> 分隔，如果有多个参数，每个参数之间用 &lt;code>:&lt;/code> 分隔（&lt;code>| summary: 100: 200&lt;/code>）。&lt;/p></description></item><item><title>依赖注入</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</guid><description>
-&lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>依赖注入 ( Dependency Injection ) 简称 DI，是面向对象编程中的一种设计原则，用来减少代码之间的&lt;strong>耦合度&lt;/strong>。&lt;/p>
+&lt;p>依赖注入 ( Dependency Injection ) 简称 DI，是面向对象编程中的一种设计原则，用来减少代码之间的&lt;strong>耦合度&lt;/strong>。&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">class&lt;/span> &lt;span class="nx">MailService&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">constructor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">APIKEY&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{}&lt;/span>
@@ -1761,7 +1752,7 @@ title="Copy code"
 &lt;a href="#injectiontoken" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>&lt;code>InjectionToken&lt;/code> 对象的使用场景：&lt;/p>
 &lt;ul>
 &lt;li>来为非类的依赖选择一个提供者令牌。&lt;/li>
-&lt;li>自定义注入行为或提供动态值。&lt;/li>
+&lt;li>自定义注入行为或提供&lt;strong>动态值&lt;/strong>。&lt;/li>
 &lt;/ul>
 &lt;p>语法：&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
@@ -1808,7 +1799,7 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div>
-&lt;p>现在，借助参数装饰器 &lt;code>@Inject()&lt;/code>，你可以把这个配置对象注入到构造函数中：&lt;/p>
+&lt;p>最后，借助参数装饰器 &lt;code>@Inject()&lt;/code>，你可以把这个配置对象注入到构造函数中：&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">constructor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">@Inject&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">APP_CONFIG&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">config&lt;/span>: &lt;span class="kt">AppConfig&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">title&lt;/span>&lt;span class="p">;&lt;/span>
@@ -1821,7 +1812,103 @@ title="Copy code"
 &lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
 &lt;/button>
 &lt;/div>
-&lt;/div></description></item><item><title>服务</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/08_service/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/08_service/</guid><description>
+&lt;/div>
+&lt;h3>@Inject 装饰器&lt;span class="hx-absolute -hx-mt-20" id="inject-装饰器">&lt;/span>
+&lt;a href="#inject-%e8%a3%85%e9%a5%b0%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>&lt;code>@Inject&lt;/code> 装饰器用于显式地指定要注入的依赖项。虽然 Angular 的依赖注入（DI）通常是通过构造函数注入来自动推断类型的，但是这是&lt;strong>基于类的类型进行注入&lt;/strong>的。
+在某些情况下，Angular 无法自动推断要注入的类型或参数（比如非类的依赖项，常量，值，接口等），这时就需要使用 &lt;code>@Inject&lt;/code> 装饰器。&lt;/p>
+&lt;p>注入值：&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">@NgModule&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">providers&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">provide&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;myValue&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">useValue&lt;/span>: &lt;span class="kt">28&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">class&lt;/span> &lt;span class="nx">AppModule&lt;/span> &lt;span class="p">{}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>这里注入的值是 hardcode 的，如果需要动态值可以使用 &lt;code>InjectionToken&lt;/code>。&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">@Injectable&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">class&lt;/span> &lt;span class="nx">MyService&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">constructor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">@Inject&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;myValue&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kr">private&lt;/span> &lt;span class="nx">value&lt;/span>: &lt;span class="kt">number&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 28
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>注入接口：&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">interface&lt;/span> &lt;span class="nx">User&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>: &lt;span class="kt">number&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">@Injectable&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">providedIn&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">class&lt;/span> &lt;span class="nx">MyService&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">constructor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">@Inject&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;user&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kr">private&lt;/span> &lt;span class="nx">user&lt;/span>: &lt;span class="kt">User&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>提供 &lt;code>user&lt;/code> 时可以使用 &lt;code>useValue&lt;/code> 或者其他方式提供接口类型：&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">user&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;John&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">age&lt;/span>: &lt;span class="kt">30&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">@NgModule&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">providers&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">provide&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;user&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">useValue&lt;/span>: &lt;span class="kt">user&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">class&lt;/span> &lt;span class="nx">AppModule&lt;/span> &lt;span class="p">{}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;h3>inject() 函数&lt;span class="hx-absolute -hx-mt-20" id="inject-函数">&lt;/span>
+&lt;a href="#inject-%e5%87%bd%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>在 Angular 中，依赖注入（DI）有两种常见的方式：&lt;/p>
+&lt;ul>
+&lt;li>通过构造函数注入依赖&lt;/li>
+&lt;li>通过 &lt;code>inject()&lt;/code> 函数来注入依赖&lt;/li>
+&lt;/ul>
+&lt;p>虽然两者都实现了依赖注入的目标，但它们在使用方式、场景和目的上有所不同。&lt;/p>
+&lt;h4>通过构造函数注入依赖&lt;span class="hx-absolute -hx-mt-20" id="通过构造函数注入依赖">&lt;/span>
+&lt;a href="#%e9%80%9a%e8%bf%87%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e6%b3%a8%e5%85%a5%e4%be%9d%e8%b5%96" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>构造函数注入是 Angular 中最常见的依赖注入方式。在类的构造函数中，Angular 会自动分析参数的类型，并从应用程序的依赖注入容器中查找并注入匹配的依赖项。&lt;/p>
+&lt;ul>
+&lt;li>更符合 Angular 的编程模型和规范。&lt;/li>
+&lt;li>这种方式&lt;strong>必须在类中使用&lt;/strong>：构造函数注入只能用于类（比如组件、服务等），不适用于其他类型（如普通函数）。&lt;/li>
+&lt;/ul>
+&lt;h4>inject()&lt;span class="hx-absolute -hx-mt-20" id="inject">&lt;/span>
+&lt;a href="#inject" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>&lt;code>inject()&lt;/code> 函数是 Angular 9 中引入的一个新的 API，通常用于不依赖类构造函数注入的场景中使用。例如某些功能函数、工厂函数或外部注入的场景。&lt;/p>
+&lt;p>&lt;strong>对于无法直接使用构造函数注入时，它非常有用&lt;/strong>。&lt;/p></description></item><item><title>服务</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/08_service/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/08_service/</guid><description>
 &lt;h2>创建服务&lt;span class="hx-absolute -hx-mt-20" id="创建服务">&lt;/span>
 &lt;a href="#%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a1" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Injectable&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;@angular/core&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
@@ -1940,12 +2027,19 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;/li>
-&lt;/ol></description></item><item><title>表单</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/09_form/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/09_form/</guid><description>
-&lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>在 Angular 中，表单有两种类型，分别为&lt;strong>模板驱动表单&lt;/strong>和&lt;strong>响应式表单&lt;/strong>。&lt;/p>
+&lt;/ol>
+&lt;div class="hx-overflow-x-auto hx-mt-6 hx-flex hx-rounded-lg hx-border hx-py-2 ltr:hx-pr-4 rtl:hx-pl-4 contrast-more:hx-border-current contrast-more:dark:hx-border-current hx-border-blue-200 hx-bg-blue-100 hx-text-blue-900 dark:hx-border-blue-200/30 dark:hx-bg-blue-900/30 dark:hx-text-blue-200">
+&lt;div class="ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pr-3 rtl:hx-pl-2">&lt;div class="hx-select-none hx-text-xl" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">ℹ️&lt;/div>&lt;/div>
+&lt;div class="hx-w-full hx-min-w-0 hx-leading-7">
+&lt;div class="hx-mt-6 hx-leading-7 first:hx-mt-0">&lt;code>providedIn: 'root'&lt;/code> 只是指明服务是全局单例的，这意味着整个应用中只有一个服务实例，通常用于跨多个组件和服务共享的场景。
+但是，&lt;code>providedIn: 'root'&lt;/code> 仍然可以在组件或模块的 &lt;code>providers&lt;/code> 数组中重新提供该服务，这样它在该组件或模块中会有一个单独的实例，
+其他地方仍然会使用全局单例实例。&lt;/div>
+&lt;/div>
+&lt;/div></description></item><item><title>表单</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/09_form/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/09_form/</guid><description>
+&lt;p>在 Angular 中，表单有两种类型，分别为&lt;strong>模板驱动表单&lt;/strong>和&lt;strong>响应式表单&lt;/strong>。&lt;/p>
 &lt;h2>模板驱动表单&lt;span class="hx-absolute -hx-mt-20" id="模板驱动表单">&lt;/span>
-&lt;a href="#%e6%a8%a1%e6%9d%bf%e9%a9%b1%e5%8a%a8%e8%a1%a8%e5%8d%95" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;h3>概述&lt;span class="hx-absolute -hx-mt-20" id="概述-1">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0-1" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>表单的控制逻辑写在组件模板中，适合简单的表单类型。&lt;/p>
+&lt;a href="#%e6%a8%a1%e6%9d%bf%e9%a9%b1%e5%8a%a8%e8%a1%a8%e5%8d%95" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;h3>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
+&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>表单的控制逻辑写在组件模板中，适合简单的表单类型。&lt;/p>
 &lt;h3>快速上手&lt;span class="hx-absolute -hx-mt-20" id="快速上手">&lt;/span>
 &lt;a href="#%e5%bf%ab%e9%80%9f%e4%b8%8a%e6%89%8b" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;ol>
 &lt;li>
@@ -2131,8 +2225,8 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;h2>响应式表单&lt;span class="hx-absolute -hx-mt-20" id="响应式表单">&lt;/span>
-&lt;a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%a1%a8%e5%8d%95" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;h3>概述&lt;span class="hx-absolute -hx-mt-20" id="概述-2">&lt;/span>
-&lt;a href="#%e6%a6%82%e8%bf%b0-2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>表单的控制逻辑写在组件类中，对验证逻辑拥有更多的控制权，适合复杂的表单的类型。&lt;/p>
+&lt;a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%a1%a8%e5%8d%95" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;h3>概述&lt;span class="hx-absolute -hx-mt-20" id="概述-1">&lt;/span>
+&lt;a href="#%e6%a6%82%e8%bf%b0-1" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>表单的控制逻辑写在组件类中，对验证逻辑拥有更多的控制权，适合复杂的表单的类型。&lt;/p>
 &lt;p>在响应式表单中，表单字段需要是 &lt;code>FormControl&lt;/code> 类的实例，实例对象可以验证表单字段中的值，值是否被修改过等等。&lt;/p>
 &lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/e8def83ca9a8a06a545b68d99f871e1b32f15a34/frontend-learn/angular/form-control.jpg?raw=true" alt="form-control" loading="lazy" />&lt;/p>
 &lt;p>一组表单字段构成整个表单，整个表单需要是 &lt;code>FormGroup&lt;/code> 类的实例，它可以对表单进行整体验证。&lt;/p>
