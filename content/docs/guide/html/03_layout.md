@@ -299,7 +299,7 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 
 网格布局，是看不到网格线的，开发过程中，可以在浏览器中查看元素，选择 `grid` 标签，如下图：
 
-![grid-debug](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-debug.png?raw=true)
+![grid-debug](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-debug.png)
 
 ### 划分网格
 
@@ -350,7 +350,7 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 
 上面的示例，效果如下图：
 
-![gird-auto](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/gird-auto.png?raw=true)
+![gird-auto](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/gird-auto.png)
 
 `child3` 元素的宽度是 `100px`，但是这个元素所在的单元格的宽度是 `auto`，`auto` 忽略了子元素的宽度，占满了剩余空间。但是如果新增一例 `1fr`：
 
@@ -364,11 +364,11 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 
 `auto` 会自动收缩，正好等于子元素的宽度，如下图：
 
-![grid-auto-fr](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-auto-fr.png?raw=true)
+![grid-auto-fr](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-auto-fr.png)
 
 如果有多个 `auto`，例如 `grid-template-columns: 60px 60px auto auto;` 包含了两列 `auto`，这两列会把剩余空间平分，如下图：
 
-![grid-multi-auto](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-multi-auto.png?raw=true)
+![grid-multi-auto](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-multi-auto.png)
 
 但是一旦有了一列 `fr`，例如 `grid-template-columns: 60px 60px auto auto 1fr;`，所有的 `auto` 都会自动收缩。
 
@@ -481,13 +481,13 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 
 显示效果：
 
-![grid-sort-default](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-default.png?raw=true)
+![grid-sort-default](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-default.png)
 
 元素先从第一行开始，从左到右排列。
 
 使用 `grid-auto-flow: column` 设置为**先列后行**。
 
-![grid-sort-column](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-column.png?raw=true)
+![grid-sort-column](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-column.png)
 
 `grid-auto-flow` 属性除了设置成 `row` 和 `column`，还可以设成 `row dense` 和 `column dense`。这两个值主要用于，某些项目指定位置以后，剩下的项目怎么自动放置。
 
@@ -510,7 +510,7 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 
 网格边缘上的数字就是网格线的编号。列和行的网格线都是从 1 开始编号。下图中的负数，是反向编号，方便从后开始查找网格线。
 
-![grid-lines](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-default.png?raw=true)
+![grid-lines](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-default.png)
 
 每个网格都是由四根网格线包围的，例如上图中的元素 1，它是有行的 1 号、2 号，列的 1 号、2 号网格线包围的。可以通过指定元素上下左右的 4 根网格线来设置元素在网格中的位置。
 
@@ -526,7 +526,7 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 }
 ```
 
-![grid-sort-lines](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-lines.png?raw=true)
+![grid-sort-lines](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-lines.png)
 
 也可以占据多格，例如：
 
@@ -540,7 +540,7 @@ margin: 0 auto; /* auto 设置水平居中，必须是块元素 */
 }
 ```
 
-![grid-sort-lines2](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-lines2.png?raw=true)
+![grid-sort-lines2](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-lines2.png)
 
 - `grid-column-start: 2;` 和 `grid-column-end: 4;` 可以简写成 `grid-column: 2 / 4;`
 - `grid-row-start: 1;` 和 `grid-row-end: 3;` 可以简写成 `grid-row: 1 / 3;`
@@ -691,15 +691,15 @@ div {
 
 弹性容器设置了 `justify-content: start;`：
 
-![position-absolute-flex-start](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-start.png?raw=true)
+![position-absolute-flex-start](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute-flex-start.png)
 
 弹性容器设置了 `justify-content: end;`：
 
-![position-absolute-flex-end](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-end.png?raw=true)
+![position-absolute-flex-end](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute-flex-end.png)
 
 弹性容器设置了 `justify-content: center;`：
 
-![position-absolute-flex-center](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-center.png?raw=true)
+![position-absolute-flex-center](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute-flex-center.png)
 
 
 2. 设置了定位偏移属性的情况
@@ -708,7 +708,7 @@ div {
 
 元素设置 `position: absolute;bottom: 20px;left: 20px;`：
 
-![position-absolute](https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute.png?raw=true)
+![position-absolute](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute.png)
 
 ### 固定定位
 
@@ -751,7 +751,7 @@ div {
 
 设置 `z-index` 只在元素所在的堆叠上下文中有效。一个堆叠上下文中子元素，无论设置的 `z-index` 是多少，都不会影响其他堆叠上下文的堆叠顺序。如下图：
 
-![z-index](https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/z-index.png?raw=true)
+![z-index](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/z-index.png)
 
 元素 `A` 产生了堆叠上下文，并且 `z-index` 为 1，元素 `B` 是 `A` 的子元素，`z-index` 为 20。但是元素 `B` 的是无法覆盖的元素 `C` 的。
 

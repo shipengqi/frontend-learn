@@ -130,11 +130,11 @@ input.ng-touched.ng-invalid {
 
 在响应式表单中，表单字段需要是 `FormControl` 类的实例，实例对象可以验证表单字段中的值，值是否被修改过等等。
 
-![form-control](https://github.com/shipengqi/illustrations/blob/e8def83ca9a8a06a545b68d99f871e1b32f15a34/frontend-learn/angular/form-control.jpg?raw=true)
+![form-control](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/angular/form-control.jpg)
 
 一组表单字段构成整个表单，整个表单需要是 `FormGroup` 类的实例，它可以对表单进行整体验证。
 
-![form-group](https://github.com/shipengqi/illustrations/blob/e8def83ca9a8a06a545b68d99f871e1b32f15a34/frontend-learn/angular/form-group.jpg?raw=true)
+![form-group](https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/angular/form-group.jpg)
 
 1. `FormControl`：表单组中的一个表单项
 2. `FormGroup`：表单组，表单至少是一个 `FormGroup`
