@@ -3781,7 +3781,7 @@ title="Copy code"
 &lt;li>&lt;code>grid-template-rows&lt;/code>：设置网格容器的行高和行的数量，例如 &lt;code>grid-template-rows: 100px 200px;&lt;/code> 表示网格容器有两行，行高分别是 &lt;code>100px&lt;/code>、&lt;code>200px&lt;/code>。&lt;/li>
 &lt;/ul>
 &lt;p>网格布局，是看不到网格线的，开发过程中，可以在浏览器中查看元素，选择 &lt;code>grid&lt;/code> 标签，如下图：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-debug.png?raw=true" alt="grid-debug" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-debug.png" alt="grid-debug" loading="lazy" />&lt;/p>
 &lt;h3>划分网格&lt;span class="hx-absolute -hx-mt-20" id="划分网格">&lt;/span>
 &lt;a href="#%e5%88%92%e5%88%86%e7%bd%91%e6%a0%bc" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;h4>fr、auto、minmax&lt;span class="hx-absolute -hx-mt-20" id="frautominmax">&lt;/span>
 &lt;a href="#frautominmax" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>&lt;code>fr&lt;/code>、&lt;code>auto&lt;/code>、&lt;code>minmax&lt;/code> 是网格布局的三个关键字，用来设置网格容器的列宽和行高。都是具有一定收缩性和扩展性的。&lt;/p>
@@ -3828,7 +3828,7 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>上面的示例，效果如下图：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/gird-auto.png?raw=true" alt="gird-auto" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/gird-auto.png" alt="gird-auto" loading="lazy" />&lt;/p>
 &lt;p>&lt;code>child3&lt;/code> 元素的宽度是 &lt;code>100px&lt;/code>，但是这个元素所在的单元格的宽度是 &lt;code>auto&lt;/code>，&lt;code>auto&lt;/code> 忽略了子元素的宽度，占满了剩余空间。但是如果新增一例 &lt;code>1fr&lt;/code>：&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">grid-container&lt;/span> &lt;span class="p">{&lt;/span>
@@ -3846,9 +3846,9 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>&lt;code>auto&lt;/code> 会自动收缩，正好等于子元素的宽度，如下图：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-auto-fr.png?raw=true" alt="grid-auto-fr" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-auto-fr.png" alt="grid-auto-fr" loading="lazy" />&lt;/p>
 &lt;p>如果有多个 &lt;code>auto&lt;/code>，例如 &lt;code>grid-template-columns: 60px 60px auto auto;&lt;/code> 包含了两列 &lt;code>auto&lt;/code>，这两列会把剩余空间平分，如下图：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-multi-auto.png?raw=true" alt="grid-multi-auto" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-multi-auto.png" alt="grid-multi-auto" loading="lazy" />&lt;/p>
 &lt;p>但是一旦有了一列 &lt;code>fr&lt;/code>，例如 &lt;code>grid-template-columns: 60px 60px auto auto 1fr;&lt;/code>，所有的 &lt;code>auto&lt;/code> 都会自动收缩。&lt;/p>
 &lt;h5>minmax()&lt;span class="hx-absolute -hx-mt-20" id="minmax">&lt;/span>
 &lt;a href="#minmax" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h5>&lt;p>&lt;code>minmax({min}, {max})&lt;/code>：用来设置一个范围，例如 &lt;code>grid-template-columns: minmax(100px, 200px);&lt;/code> 表示网格容器的第一列的宽度在 &lt;code>100px&lt;/code> 到 &lt;code>200px&lt;/code> 之间。&lt;/p>
@@ -3959,10 +3959,10 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>显示效果：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-default.png?raw=true" alt="grid-sort-default" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-default.png" alt="grid-sort-default" loading="lazy" />&lt;/p>
 &lt;p>元素先从第一行开始，从左到右排列。&lt;/p>
 &lt;p>使用 &lt;code>grid-auto-flow: column&lt;/code> 设置为&lt;strong>先列后行&lt;/strong>。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-column.png?raw=true" alt="grid-sort-column" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-column.png" alt="grid-sort-column" loading="lazy" />&lt;/p>
 &lt;p>&lt;code>grid-auto-flow&lt;/code> 属性除了设置成 &lt;code>row&lt;/code> 和 &lt;code>column&lt;/code>，还可以设成 &lt;code>row dense&lt;/code> 和 &lt;code>column dense&lt;/code>。这两个值主要用于，某些项目指定位置以后，剩下的项目怎么自动放置。&lt;/p>
 &lt;p>例如 &lt;code>row dense&lt;/code>，表示&amp;quot;先行后列&amp;quot;，并且尽可能紧密填满，尽量不出现空格。&lt;/p>
 &lt;h4>网格元素的尺寸&lt;span class="hx-absolute -hx-mt-20" id="网格元素的尺寸">&lt;/span>
@@ -3976,7 +3976,7 @@ title="Copy code"
 &lt;a href="#order" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>网格子元素和弹性子元素一样也可以设置 &lt;code>order&lt;/code> 属性来排序。网格子元素的 &lt;code>order&lt;/code> 属性默认是 0.&lt;/p>
 &lt;h4>按网格线设置元素位置&lt;span class="hx-absolute -hx-mt-20" id="按网格线设置元素位置">&lt;/span>
 &lt;a href="#%e6%8c%89%e7%bd%91%e6%a0%bc%e7%ba%bf%e8%ae%be%e7%bd%ae%e5%85%83%e7%b4%a0%e4%bd%8d%e7%bd%ae" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>网格边缘上的数字就是网格线的编号。列和行的网格线都是从 1 开始编号。下图中的负数，是反向编号，方便从后开始查找网格线。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-default.png?raw=true" alt="grid-lines" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-default.png" alt="grid-lines" loading="lazy" />&lt;/p>
 &lt;p>每个网格都是由四根网格线包围的，例如上图中的元素 1，它是有行的 1 号、2 号，列的 1 号、2 号网格线包围的。可以通过指定元素上下左右的 4 根网格线来设置元素在网格中的位置。&lt;/p>
 &lt;p>例如上图，如果要把 7 号元素放到 2 号元素的位置：&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
@@ -3996,7 +3996,7 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-lines.png?raw=true" alt="grid-sort-lines" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-lines.png" alt="grid-sort-lines" loading="lazy" />&lt;/p>
 &lt;p>也可以占据多格，例如：&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">child7&lt;/span> &lt;span class="p">{&lt;/span>
@@ -4015,7 +4015,7 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/grid-sort-lines2.png?raw=true" alt="grid-sort-lines2" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/grid-sort-lines2.png" alt="grid-sort-lines2" loading="lazy" />&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>grid-column-start: 2;&lt;/code> 和 &lt;code>grid-column-end: 4;&lt;/code> 可以简写成 &lt;code>grid-column: 2 / 4;&lt;/code>&lt;/li>
 &lt;li>&lt;code>grid-row-start: 1;&lt;/code> 和 &lt;code>grid-row-end: 3;&lt;/code> 可以简写成 &lt;code>grid-row: 1 / 3;&lt;/code>&lt;/li>
@@ -4156,17 +4156,17 @@ title="Copy code"
 &lt;/ol>
 &lt;p>要根据父元素的文档流模式来确定位置，例如 &lt;code>flex&lt;/code> 布局：&lt;/p>
 &lt;p>弹性容器设置了 &lt;code>justify-content: start;&lt;/code>：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-start.png?raw=true" alt="position-absolute-flex-start" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute-flex-start.png" alt="position-absolute-flex-start" loading="lazy" />&lt;/p>
 &lt;p>弹性容器设置了 &lt;code>justify-content: end;&lt;/code>：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-end.png?raw=true" alt="position-absolute-flex-end" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute-flex-end.png" alt="position-absolute-flex-end" loading="lazy" />&lt;/p>
 &lt;p>弹性容器设置了 &lt;code>justify-content: center;&lt;/code>：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute-flex-center.png?raw=true" alt="position-absolute-flex-center" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute-flex-center.png" alt="position-absolute-flex-center" loading="lazy" />&lt;/p>
 &lt;ol start="2">
 &lt;li>设置了定位偏移属性的情况&lt;/li>
 &lt;/ol>
 &lt;p>元素的定位基点是设置了非 &lt;code>static&lt;/code> 定位的最近的父元素或者祖先元素，如果没有非 &lt;code>static&lt;/code> 定位的祖先元素，那么会以浏览器显示区域边界来进行定位。&lt;/p>
 &lt;p>元素设置 &lt;code>position: absolute;bottom: 20px;left: 20px;&lt;/code>：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/position-absolute.png?raw=true" alt="position-absolute" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/position-absolute.png" alt="position-absolute" loading="lazy" />&lt;/p>
 &lt;h3>固定定位&lt;span class="hx-absolute -hx-mt-20" id="固定定位">&lt;/span>
 &lt;a href="#%e5%9b%ba%e5%ae%9a%e5%ae%9a%e4%bd%8d" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>&lt;code>position: fixed&lt;/code>：固定在浏览器窗口中的某个位置，相对于浏览器窗口定位。配合 &lt;code>left/right/top/bottom&lt;/code> 属性使用。&lt;/p>
 &lt;p>&lt;strong>设置了固定定位的元素，会脱离文档流&lt;/strong>，不会占据空间。&lt;/p>
@@ -4195,7 +4195,7 @@ title="Copy code"
 &lt;li>同一个堆叠上下文中，&lt;code>z-index&lt;/code> 相同，那么元素的堆叠顺序就按照元素在 DOM 中的先后顺序。&lt;/li>
 &lt;/ol>
 &lt;p>设置 &lt;code>z-index&lt;/code> 只在元素所在的堆叠上下文中有效。一个堆叠上下文中子元素，无论设置的 &lt;code>z-index&lt;/code> 是多少，都不会影响其他堆叠上下文的堆叠顺序。如下图：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/z-index.png?raw=true" alt="z-index" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/z-index.png" alt="z-index" loading="lazy" />&lt;/p>
 &lt;p>元素 &lt;code>A&lt;/code> 产生了堆叠上下文，并且 &lt;code>z-index&lt;/code> 为 1，元素 &lt;code>B&lt;/code> 是 &lt;code>A&lt;/code> 的子元素，&lt;code>z-index&lt;/code> 为 20。但是元素 &lt;code>B&lt;/code> 的是无法覆盖的元素 &lt;code>C&lt;/code> 的。&lt;/p>
 &lt;p>也就是说，&lt;strong>任意元素的堆叠顺序是会被自己的祖先元素的堆叠上下文限制的&lt;/strong>，只有那些&lt;strong>不存在祖先元素有堆叠上下文的元素，才能参与到根堆叠上下文的堆叠顺序中&lt;/strong>。所以碰到 &lt;code>z-index&lt;/code> 层级高却无法覆盖层级低的元素，就要先去检查一下祖先元素是否有堆叠上下文，然后再设置 &lt;code>z-index&lt;/code>。&lt;/p>
 &lt;p>上图中，非 &lt;code>static&lt;/code> 元素是介于 0 和 1 之间的，只要元素设置了 &lt;code>position&lt;/code> 并且不是 &lt;code>static&lt;/code>，那么元素就会跳到红色层级。&lt;/p></description></item><item><title>组件通讯</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/03_communication/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/03_communication/</guid><description>
@@ -4534,7 +4534,7 @@ title="Copy code"
 &lt;h3>steps&lt;span class="hx-absolute -hx-mt-20" id="steps">&lt;/span>
 &lt;a href="#steps" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>&lt;code>steps(count, start|end)&lt;/code> 是一个特殊的时间函数，它和其他关键字 &lt;code>linear&lt;/code> 等最大的区别就是，它不是一个连贯的变化，是一步一步的硬切换。&lt;/p>
 &lt;p>例如 &lt;code>steps(3, start|end)&lt;/code>，设置了 3 步，也就是会有 4 个状态，如下图：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/a944ca701b2f441746e8bbbf111873d8b9e0b910/frontend-learn/basic/steps.png?raw=true" alt="steps" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/steps.png" alt="steps" loading="lazy" />&lt;/p>
 &lt;ol>
 &lt;li>第一步切换由&lt;code>初始状态&lt;/code>到&lt;code>过程状态1&lt;/code>。&lt;/li>
 &lt;li>第二步由&lt;code>过程状态1&lt;/code>到&lt;code>过程状态2&lt;/code>。&lt;/li>
@@ -6539,10 +6539,10 @@ title="Copy code"
 &lt;a href="#%e7%89%a9%e7%90%86%e5%88%86%e8%be%a8%e7%8e%87%e5%92%8c%e9%80%bb%e8%be%91%e5%88%86%e8%be%a8%e7%8e%87" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>屏幕的发展，最初是以像素为单位，像素越多，屏幕尺寸也越大，这是一种物理性的变大。但是物理的变大时有限制的，不能过大，所以后来出现了在同样尺寸下放入更多的像素的技术，例如苹果的 Retina 显示屏（高倍屏），5K 的显示屏分辨率是 &lt;code>5120*2880&lt;/code>，而普通屏幕的在同样的尺寸下分辨率是 &lt;code>2560*1440&lt;/code>。&lt;/p>
 &lt;p>如果我们用高倍屏去显示内容，那么就会出现一个问题，就是内容会变小。&lt;/p>
 &lt;p>例如下图，如果按照 &lt;code>1:1&lt;/code> 的比例去显示，在普通屏幕上占 6 个像素的图片，放到高倍屏还是占据 6 个像素，按照这个逻辑，同样的内容，在高倍屏上显示差不多就是 &lt;code>1/4&lt;/code>。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/physical-resolution.png?raw=true" alt="physical-resolution" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/physical-resolution.png" alt="physical-resolution" loading="lazy" />&lt;/p>
 &lt;p>那么这显然是不合理的，所以操作系统层面就出现了&lt;strong>逻辑分辨率&lt;/strong>，就是一个虚拟的分辨率。对应屏幕的&lt;strong>物理分辨率&lt;/strong>。逻辑分辨率就是为了让高倍屏和普通屏在显示内容时能显示出一样的大小。&lt;/p>
 &lt;p>如下图，如果一张图片占 6 个像素，那么在高倍屏时，操作系统会根据高倍屏的逻辑分辨率，把这张图片放大到 24 个像素，这样就不会出现内容变小的情况。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/logical-resolution.png?raw=true" alt="logical-resolution" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/logical-resolution.png" alt="logical-resolution" loading="lazy" />&lt;/p>
 &lt;p>&lt;strong>设备像素比&lt;/strong>就是逻辑分辨率的宽度（高度）除以物理分辨率的宽度（高度）。对于移动端设备，设备像素比可能更高。设备像素比可以在浏览器的控制台查看，输入 &lt;code>devicePixelRatio&lt;/code> 回车即可。&lt;/p>
 &lt;h3>移动端适配&lt;span class="hx-absolute -hx-mt-20" id="移动端适配">&lt;/span>
 &lt;a href="#%e7%a7%bb%e5%8a%a8%e7%ab%af%e9%80%82%e9%85%8d" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>不同的移动端设备分辨率，尺寸都不同，可以先针对一种设备，以 iphone6 为例，设计好页面的样式之后，设置 &lt;code>content=&amp;quot;width=375,user-scalable=no&amp;quot;&lt;/code>，禁止用户缩放，指定宽度为 iphone6 的宽度，那么不同分辨率的设备（移动端）都会自适应这个宽度。&lt;/p></description></item><item><title>依赖注入</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</guid><description>
@@ -7090,7 +7090,7 @@ title="Copy code"
 &lt;/div></description></item><item><title>Chrome 开发者工具</title><link>https://shipengqi.github.io/frontend-learn/docs/guide/html/09_chrome/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/guide/html/09_chrome/</guid><description>
 &lt;h2>Chrome 开发者工具&lt;span class="hx-absolute -hx-mt-20" id="chrome-开发者工具">&lt;/span>
 &lt;a href="#chrome-%e5%bc%80%e5%8f%91%e8%80%85%e5%b7%a5%e5%85%b7" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>Chrome 的开发者工具查看元素的样式如下图：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/chrome-style.png?raw=true" alt="chrome-style" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-style.png" alt="chrome-style" loading="lazy" />&lt;/p>
 &lt;p>右侧样式的排序，选择器的优先级高的会在上面。&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>use agent stylesheet&lt;/code> 是浏览器给元素的默认样式。&lt;/li>
@@ -7098,13 +7098,13 @@ title="Copy code"
 &lt;li>&lt;code>:cls&lt;/code> 给元素添加 &lt;code>class&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>切换页面的深色模式：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/chrome-scheme.png?raw=true" alt="chrome-scheme" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-scheme.png" alt="chrome-scheme" loading="lazy" />&lt;/p>
 &lt;p>&lt;code>Computed&lt;/code> 包含盒子模型和元素最终显示出来的样式的值。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/c0efa82375c756099df82a5c948cb093c3f2014b/frontend-learn/basic/chrome-computed.png?raw=true" alt="chrome-computed" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-computed.png" alt="chrome-computed" loading="lazy" />&lt;/p>
 &lt;p>如果在修改一些元素的样式，发现不生效时，就可以在列表中，点击对应属性。它会把这个属性相关的所有设置都列出来。列表中的第一个就是最终生效的那个，下面的就是被覆盖的。&lt;/p>
 &lt;p>上面的盒子模型的值都是可以修改的。&lt;/p>
 &lt;h2>Device ToolBar&lt;span class="hx-absolute -hx-mt-20" id="device-toolbar">&lt;/span>
-&lt;a href="#device-toolbar" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/96977c045d05bdc5cac7878bf23baa77f43558c3/frontend-learn/basic/device-toolbar.png?raw=true" alt="device-toolbar" loading="lazy" />&lt;/p>
+&lt;a href="#device-toolbar" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/device-toolbar.png" alt="device-toolbar" loading="lazy" />&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>1&lt;/code>：切换移动端模式。&lt;/li>
 &lt;li>&lt;code>2&lt;/code>：添加更多的移动端设备，并且可以添加自定义尺寸的设备。&lt;/li>
@@ -7115,11 +7115,11 @@ title="Copy code"
 &lt;/ul>
 &lt;h3>媒体查询&lt;span class="hx-absolute -hx-mt-20" id="媒体查询">&lt;/span>
 &lt;a href="#%e5%aa%92%e4%bd%93%e6%9f%a5%e8%af%a2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>打开媒体查询工具：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/219420382199da4b0c0fc08158dc2fabcbb7cb36/frontend-learn/basic/show-media-query.png?raw=true" alt="show-media-query" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/show-media-query.png" alt="show-media-query" loading="lazy" />&lt;/p>
 &lt;p>打开之后，尺寸下面多了一栏，鼠标悬浮上去会显示，当前的宽度是什么设备的尺寸。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/219420382199da4b0c0fc08158dc2fabcbb7cb36/frontend-learn/basic/media-query-tool.png?raw=true" alt="media-query-tool" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/media-query-tool.png" alt="media-query-tool" loading="lazy" />&lt;/p>
 &lt;p>如果设置了媒体查询，会出现对应的一行，鼠标悬浮上去会显示匹配的规则。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/219420382199da4b0c0fc08158dc2fabcbb7cb36/frontend-learn/basic/media-queries.png?raw=true" alt="media-queries.png" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/media-queries.png" alt="media-queries.png" loading="lazy" />&lt;/p>
 &lt;p>上图中有三条媒体查询的规则：&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">parent&lt;/span> &lt;span class="p">{&lt;/span>
@@ -7155,12 +7155,12 @@ title="Copy code"
 &lt;h2>Animations&lt;span class="hx-absolute -hx-mt-20" id="animations">&lt;/span>
 &lt;a href="#animations" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>Chrome 开发者工具的动画面板，可以查看元素动画效果的细节。&lt;/p>
 &lt;p>打开动画面板：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-animations.png?raw=true" alt="chrome-animations" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-animations.png" alt="chrome-animations" loading="lazy" />&lt;/p>
 &lt;p>面板中有三个百分比，选择 &lt;code>10%&lt;/code>，动画效果就会变得非常慢，面板中还记录了元素属性发生变化的过程，并且可以手动调节：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-animation-detail.png?raw=true" alt="chrome-animation-detail" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-animation-detail.png" alt="chrome-animation-detail" loading="lazy" />&lt;/p>
 &lt;h2>网页截图&lt;span class="hx-absolute -hx-mt-20" id="网页截图">&lt;/span>
 &lt;a href="#%e7%bd%91%e9%a1%b5%e6%88%aa%e5%9b%be" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>Chrome 提供了网页截图的工具，可以将网页截图保存到本地。打开命令行面板，输入 &lt;code>screenshot&lt;/code> 命令，然后回车，会出现四个 &lt;code>screenshot&lt;/code> 相关的命令：&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-screenshot.png?raw=true" alt="chrome-screenshot" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-screenshot.png" alt="chrome-screenshot" loading="lazy" />&lt;/p>
 &lt;ol>
 &lt;li>capture full size screenshot：截图整个页面。&lt;/li>
 &lt;li>capture node screenshot：截图元素。先使用选择页面元素工具在页面中选择某个需要截图的元素，再使用 &lt;code>capture node screenshot&lt;/code> 命令，这个元素就会被截图。&lt;/li>
@@ -7359,9 +7359,9 @@ title="Copy code"
 &lt;a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%a1%a8%e5%8d%95" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;h3>概述&lt;span class="hx-absolute -hx-mt-20" id="概述-1">&lt;/span>
 &lt;a href="#%e6%a6%82%e8%bf%b0-1" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>表单的控制逻辑写在组件类中，对验证逻辑拥有更多的控制权，适合复杂的表单的类型。&lt;/p>
 &lt;p>在响应式表单中，表单字段需要是 &lt;code>FormControl&lt;/code> 类的实例，实例对象可以验证表单字段中的值，值是否被修改过等等。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/e8def83ca9a8a06a545b68d99f871e1b32f15a34/frontend-learn/angular/form-control.jpg?raw=true" alt="form-control" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/angular/form-control.jpg" alt="form-control" loading="lazy" />&lt;/p>
 &lt;p>一组表单字段构成整个表单，整个表单需要是 &lt;code>FormGroup&lt;/code> 类的实例，它可以对表单进行整体验证。&lt;/p>
-&lt;p>&lt;img src="https://github.com/shipengqi/illustrations/blob/e8def83ca9a8a06a545b68d99f871e1b32f15a34/frontend-learn/angular/form-group.jpg?raw=true" alt="form-group" loading="lazy" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/angular/form-group.jpg" alt="form-group" loading="lazy" />&lt;/p>
 &lt;ol>
 &lt;li>&lt;code>FormControl&lt;/code>：表单组中的一个表单项&lt;/li>
 &lt;li>&lt;code>FormGroup&lt;/code>：表单组，表单至少是一个 &lt;code>FormGroup&lt;/code>&lt;/li>
@@ -8642,6 +8642,60 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>它适用于你只需要在组件加载时读取一次路由信息，并且不需要响应路由参数变化的场景。如果需要响应路由的变化（例如，路由参数的改变），则应该使用 &lt;code>route.params&lt;/code> 或 &lt;code>route.queryParams&lt;/code> 并订阅它们。&lt;/p>
+&lt;h3>route.parent&lt;span class="hx-absolute -hx-mt-20" id="routeparent">&lt;/span>
+&lt;a href="#routeparent" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>多层嵌套的路由配置，其中 &lt;code>parent&lt;/code> 路由包含一个 &lt;code>id&lt;/code> 参数，&lt;code>child&lt;/code> 路由是 &lt;code>parent&lt;/code> 路由的子路由，&lt;code>grandchild&lt;/code> 是 &lt;code>child&lt;/code> 路由的孙子级路由。&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">routes&lt;/span>: &lt;span class="kt">Routes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">path&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;parent&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">component&lt;/span>: &lt;span class="kt">ParentComponent&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">children&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">path&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;:id&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 父路由的参数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">component&lt;/span>: &lt;span class="kt">ChildComponent&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">children&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">path&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;:subId&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 孙子路由的参数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">component&lt;/span>: &lt;span class="kt">GrandchildComponent&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">];&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>使用 &lt;code>route.parent&lt;/code> 可以获取到父路由的参数。&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">ActivatedRoute&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s1">&amp;#39;@angular/router&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">class&lt;/span> &lt;span class="nx">GrandchildComponent&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">constructor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kr">private&lt;/span> &lt;span class="nx">route&lt;/span>: &lt;span class="kt">ActivatedRoute&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 获取父路由的参数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">parentId&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">route&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">parent&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">snapshot&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">paramMap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;id&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Parent id:&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parentId&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 获取孙子路由的参数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">subId&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">route&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">snapshot&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">paramMap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="kr">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;subId&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Sub id:&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">subId&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
 &lt;h2>路由嵌套&lt;span class="hx-absolute -hx-mt-20" id="路由嵌套">&lt;/span>
 &lt;a href="#%e8%b7%af%e7%94%b1%e5%b5%8c%e5%a5%97" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>路由嵌套指的是如何定义子级路由。&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
