@@ -58,8 +58,54 @@ draft: true
 
 ## border-image
 
-对话框的背景边框的效果，用普通的 `border` 样式是很难实现的。这个时候可以考虑使用 `border-image`。
+对话框的背景边框的效果，用普通的 `border` 样式是很难实现的。这个时候可以考虑使用 `border-image`。它可以用图像代替传统的纯色边框，增加了更多的视觉效果和灵活性。
+非常适合需要边框图案化的设计，尤其是在 UI 设计中。
 
+```css
+border-image: <source> <slice> <width> <outset> <repeat>;
+```
+
+- `source`：定义边框图像的来源，可以是图片 URL 或者一个内联的图像（例如：`border-image: url('border-image.png')`）。
+- `slice`：指定图像如何被分割来创建边框区域。
+- `width`：设置边框的宽度。
+- `outset`：定义边框图像是否会在元素的边框外延伸。
+- `repeat`：定义图像如何重复，常用的值有 `stretch`、`repeat`、`round` 和 `space`。
+
+给元素的边框设置一个图像边框，并让图像拉伸来适应边框的大小：
+
+```css
+div {
+    border: 10px solid transparent;  /* 定义边框的宽度 */
+    border-image: url('border-image.png') 30 stretch;
+}
+```
+
+将边框图像切割为九个区域，并设置每个区域的尺寸为 `30px`：
+
+```css
+div {
+    border: 20px solid transparent;  /* 设置透明边框，确保边框图像显示 */
+    border-image: url('border-image.png') 30;
+}
+```
+
+让边框图像沿着边框重复：
+
+```css
+div {
+    border: 20px solid transparent;
+    border-image: url('border-image.png') 30 repeat;
+}
+```
+
+在边框外扩展图像：
+
+```css
+div {
+    border: 20px solid transparent;
+    border-image: url('border-image.png') 30 outset 10px;
+}
+```
 
 ## 渐变边框
 
@@ -284,7 +330,7 @@ img {
 
 效果如下图：
 
-<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-shadow.png?raw=true" width="50%" alt="box-shadow">
+<img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-shadow.png" width="50%" alt="box-shadow">
 
 如果只想给图片内容区域设置阴影，可以使用 `filter` 属性。
 
@@ -296,7 +342,7 @@ img {
 
 效果如下图：
 
-<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-filter-shadow.png?raw=true" width="50%" alt="filter-shadow">
+<img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-filter-shadow.png" width="50%" alt="filter-shadow">
 
 还有另一种方式可以是阴影的效果更好，就是在加一个一摸一样的图片元素：
 
@@ -323,7 +369,7 @@ img {
 
 效果如下图：
 
-<img src="https://github.com/shipengqi/illustrations/blob/7c807a8f6563c7dc56aaf3675bf37f21e393494a/frontend-learn/basic/chrome-bg-shadow.png?raw=true" width="50%" alt="bg-shadow">
+<img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/chrome-bg-shadow.png" width="50%" alt="bg-shadow">
 
 ## CSS 中 flex 布局最后一行左对齐
 

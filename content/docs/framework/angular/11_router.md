@@ -260,6 +260,50 @@ export class ProductDetailComponent implements OnInit {
 
 它适用于你只需要在组件加载时读取一次路由信息，并且不需要响应路由参数变化的场景。如果需要响应路由的变化（例如，路由参数的改变），则应该使用 `route.params` 或 `route.queryParams` 并订阅它们。
 
+### route.parent
+
+多层嵌套的路由配置，其中 `parent` 路由包含一个 `id` 参数，`child` 路由是 `parent` 路由的子路由，`grandchild` 是 `child` 路由的孙子级路由。
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'parent',
+    component: ParentComponent,
+    children: [
+      {
+        path: ':id',  // 父路由的参数
+        component: ChildComponent,
+        children: [
+          {
+            path: ':subId',  // 孙子路由的参数
+            component: GrandchildComponent
+          }
+        ]
+      }
+    ]
+  }
+];
+
+```
+
+使用 `route.parent` 可以获取到父路由的参数。
+
+```typescript
+import { ActivatedRoute } from '@angular/router';
+
+export class GrandchildComponent {
+  constructor(private route: ActivatedRoute) {
+    // 获取父路由的参数
+    const parentId = this.route.parent?.snapshot.paramMap.get('id');
+    console.log('Parent id:', parentId);
+
+    // 获取孙子路由的参数
+    const subId = this.route.snapshot.paramMap.get('subId');
+    console.log('Sub id:', subId);
+  }
+}
+```
+
 ## 路由嵌套
 
 路由嵌套指的是如何定义子级路由。
