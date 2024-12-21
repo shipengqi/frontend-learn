@@ -238,6 +238,60 @@ export class AppModule {}
 
 ```
 
+### 拦截器的顺序
+
+在 Angular 中，`HttpInterceptor` 的执行顺序是由它们在应用中提供的顺序来决定的。
+
+- 请求拦截器：按照它们在 `HTTP_INTERCEPTORS` 数组中的提供顺序执行。
+- 响应拦截器：按照提供顺序的**倒序**执行。
+
+示例：
+
+```typescript
+@Injectable()
+export class InterceptorA implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('Interceptor A - Request');
+    return next.handle(req);
+  }
+}
+
+@Injectable()
+export class InterceptorB implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('Interceptor B - Request');
+    return next.handle(req);
+  }
+}
+
+@Injectable()
+export class InterceptorC implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('Interceptor C - Request');
+    return next.handle(req);
+  }
+}
+```
+
+提供这些拦截器：
+
+```typescript
+provideHttpClient(
+    withInterceptors([
+        InterceptorA, 
+        InterceptorB, 
+        InterceptorC
+    ])
+)
+```
+
+执行顺序：
+
+- 请求发送时，顺序为：`A → B → C`（根据它们在 providers 中的顺序）。
+- 响应返回时，顺序为：`C → B → A`（顺序是反向的）。
+
+这种顺序安排可以灵活地控制拦截器的执行逻辑，比如先进行认证验证，再进行日志记录，或者先进行某种处理，最后做错误处理等。
+
 ### HttpContext
 
 在 Angular 中，`HttpInterceptor` 提供了拦截和修改 HTTP 请求的机制，从 Angular 15 开始，HttpClient 添加了 `context` 属性，可以携带额外的上下文信息供拦截器或服务使用。这为拦截器在不依赖全局状态或修改请求头的情况下提供了传递数据的方式。
