@@ -210,6 +210,62 @@ export class AppComponent {
 }
 ```
 
+### 双向绑定工作原理
+
+为了使双向数据绑定生效，子组件必须包含：
+
+- 一个 `@Input()` 属性。
+- 一个对应的 `@Output()` 事件发射器，其**名称必须与输入属性相同**，并在结尾加上 **Change**。该发射器还必须发射与输入属性相同类型的值。
+  例如，如果 `@Input()` 属性是 `size`，则 `@Output()` 属性必须是 `sizeChange`。
+- 一个方法，该方法通过事件发射器发射更新后的 `@Input()` 值。
+
+子组件：
+
+```typescript
+// './counter/counter.component.ts';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+@Component({ // Omitted for brevity })
+export class CounterComponent {
+  @Input() count: number;
+  @Output() countChange = new EventEmitter<number>();
+  
+  updateCount(amount: number): void {
+    this.count += amount;
+    this.countChange.emit(this.count);
+  }
+}
+```
+
+父组件，使用双向绑定语法 `[()]` 包裹 `@Input()` 属性名称：
+
+```typescript
+// ./app.component.ts
+import { Component } from '@angular/core';
+import { CounterComponent } from './counter/counter.component';
+
+@Component({
+    selector: 'app-root',
+    imports: [CounterComponent],
+    template: `
+    <main>
+      <app-counter [(count)]="initialCount"></app-counter>
+    </main>
+  `,
+})
+export class AppComponent {
+    initialCount = 18;
+}
+```
+
+`ngModel` 指令也是类似的原理来实现双向绑定的，底层是结合了属性绑定和事件绑定的机制：
+
+- 属性绑定 `[ngModel]`
+- 事件绑定 `(ngModelChange)`
+
+Angular 内置的表单控件（如 `<input>`、`<textarea>`）支持直接使用 `ngModel`。而自定义控件需要显式地实现与 `ngModel` 的交互机制。
+
+
 ## 数据绑定容错处理
 
 当绑定的对象数据层级比较深，并且对象中的某些属性是可选的。如果不做容错处理，当访问的属性不存在时，就会报错。
