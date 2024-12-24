@@ -528,7 +528,7 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;h3>作用域&lt;span class="hx-absolute -hx-mt-20" id="作用域">&lt;/span>
-&lt;a href="#%e4%bd%9c%e7%94%a8%e5%9f%9f" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>同一个 CSS 变量，可以在多个选择器内声明。读取的时候，优先级最高的声明生效。这与 CSS 的&amp;quot;层叠&amp;quot;（cascade）规则是一致的。&lt;/p>
+&lt;a href="#%e4%bd%9c%e7%94%a8%e5%9f%9f" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>同一个 CSS 变量，可以在多个选择器内声明。读取的时候，&lt;strong>优先级最高的声明生效&lt;/strong>。这与 CSS 的&amp;quot;层叠&amp;quot;（cascade）规则是一致的。&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
