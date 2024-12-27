@@ -304,6 +304,33 @@ export class GrandchildComponent {
 }
 ```
 
+### 设置页面标题
+
+应用中的每个页面都应该有一个唯一的标题，以便在浏览器历史记录中识别它们。可以配置 `Route` 的 `title` 属性来设置页面标题：
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'first-component',
+    title: 'First component',
+    component: FirstComponent,  // this is the component with the <router-outlet> in the template
+    children: [
+      {
+        path: 'child-a',  // child route path
+        title: resolvedChildATitle,
+        component: ChildAComponent,  // child route component that the router renders
+      },
+      {
+        path: 'child-b',
+        title: 'child b',
+        component: ChildBComponent,  // another child route component that the router renders
+      },
+    ],
+  },
+];
+const resolvedChildATitle: ResolveFn<string> = () => Promise.resolve('child a');
+```
+
 ## 路由嵌套
 
 路由嵌套指的是如何定义子级路由。

@@ -303,9 +303,7 @@ export class AppComponent {
 
 ```javascript
 // 第三种方式 在 angular.json 文件中
-"styles"
-:
-[
+"styles": [
     "./node_modules/bootstrap/dist/css/bootstrap.min.css",
     "src/styles.css"
 ]
