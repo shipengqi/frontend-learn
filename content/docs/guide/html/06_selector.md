@@ -129,6 +129,22 @@ p:first-child i
 }
 ```
 
+### `:lang()`
+
+`:lang()` 是一个功能强大的伪类，用于根据 HTML 元素的 `lang` 属性匹配特定语言的内容。
+
+```css
+:lang(en) {
+  font-family: 'Arial', sans-serif;
+  color: blue;
+}
+
+:lang(zh) {
+  font-family: 'Noto Sans SC', sans-serif;
+  color: red;
+}
+```
+
 ## 伪元素选择器
 
 伪元素用于创建一些不在 DOM 树中的元素，‌并为其添加样式。‌虽然用户可以看到这些元素，但是这些文本实际上不在 DOM 树中。
