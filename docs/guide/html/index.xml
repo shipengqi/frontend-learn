@@ -144,7 +144,17 @@ title="Copy code"
 &lt;li>&lt;code>border&lt;/code> 定义边框。&lt;/li>
 &lt;li>&lt;code>margin&lt;/code> 外边距，定义边框和其他元素的间距。&lt;/li>
 &lt;/ul>
-&lt;p>&lt;code>box-sizing&lt;/code>：盒子模型默认是 &lt;code>box-sizing: content-box&lt;/code>。&lt;/p>
+&lt;h4>padding-inline, margin-inline, padding-block, 和 margin-block&lt;span class="hx-absolute -hx-mt-20" id="padding-inline-margin-inline-padding-block-和-margin-block">&lt;/span>
+&lt;a href="#padding-inline-margin-inline-padding-block-%e5%92%8c-margin-block" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>&lt;code>padding-inline&lt;/code>, &lt;code>margin-inline&lt;/code>, &lt;code>padding-block&lt;/code> 和 &lt;code>margin-block&lt;/code> 都是 CSS 中的逻辑属性，这些属性相对于物理属性（如 &lt;code>padding-left&lt;/code>,
+&lt;code>padding-right&lt;/code>, &lt;code>margin-left&lt;/code>, &lt;code>margin-right&lt;/code> 等）更具灵活性，能够适应不同的文本方向。这些逻辑属性根据元素的书写模式（例如从左到右 LTR 或从右到左
+RTL）来设置内边距和外边距。&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;ul>
+&lt;li>在从左到右（LTR）语言中，&lt;code>padding-inline-start&lt;/code> 与 &lt;code>padding-left&lt;/code> 的效果相同，表示元素的左侧内边距。&lt;/li>
+&lt;li>但是在从右到左（RTL）语言中，&lt;code>padding-inline-start&lt;/code> 会对右侧内边距产生影响，因为它总是指向开始边（即对用户书写模式的&amp;quot;起始&amp;quot;位置），这意味着它能够自适应语言的方向性变化。&lt;/li>
+&lt;/ul>
+&lt;h4>box-sizing&lt;span class="hx-absolute -hx-mt-20" id="box-sizing">&lt;/span>
+&lt;a href="#box-sizing" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>&lt;code>box-sizing&lt;/code>：盒子模型默认是 &lt;code>box-sizing: content-box&lt;/code>。&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>border-box&lt;/code>：不会因为 &lt;code>border&lt;/code>、&lt;code>padding&lt;/code> 而改变元素的大小，会改变内容的大小。例如定义了元素的宽高都为 &lt;code>300px&lt;/code>，那么 &lt;code>内容&lt;/code> + &lt;code>内边距&lt;/code> + &lt;code>边框&lt;/code> 就是 &lt;code>300px&lt;/code>。&lt;/li>
 &lt;li>&lt;code>content-box&lt;/code>：默认值，会因为 &lt;code>border&lt;/code> 和 &lt;code>padding&lt;/code> 而改变大小，但是不会改变内容的大小。例如定义了元素的宽高都为 &lt;code>300px&lt;/code>，内容的宽高就是 &lt;code>300px&lt;/code>，不包含 &lt;code>内边距&lt;/code> 和 &lt;code>边框&lt;/code>。&lt;/li>
