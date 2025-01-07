@@ -14,6 +14,19 @@ weight: 2
 - `border` 定义边框。
 - `margin` 外边距，定义边框和其他元素的间距。
 
+#### padding-inline, margin-inline, padding-block, 和 margin-block
+
+`padding-inline`, `margin-inline`, `padding-block` 和 `margin-block` 都是 CSS 中的逻辑属性，这些属性相对于物理属性（如 `padding-left`, 
+`padding-right`, `margin-left`, `margin-right` 等）更具灵活性，能够适应不同的文本方向。这些逻辑属性根据元素的书写模式（例如从左到右 LTR 或从右到左 
+RTL）来设置内边距和外边距。
+
+例如：
+
+- 在从左到右（LTR）语言中，`padding-inline-start` 与 `padding-left` 的效果相同，表示元素的左侧内边距。
+- 但是在从右到左（RTL）语言中，`padding-inline-start` 会对右侧内边距产生影响，因为它总是指向开始边（即对用户书写模式的"起始"位置），这意味着它能够自适应语言的方向性变化。
+
+#### box-sizing
+
 `box-sizing`：盒子模型默认是 `box-sizing: content-box`。
   - `border-box`：不会因为 `border`、`padding` 而改变元素的大小，会改变内容的大小。例如定义了元素的宽高都为 `300px`，那么 `内容` + `内边距` + `边框` 就是 `300px`。
   - `content-box`：默认值，会因为 `border` 和 `padding` 而改变大小，但是不会改变内容的大小。例如定义了元素的宽高都为 `300px`，内容的宽高就是 `300px`，不包含 `内边距` 和 `边框`。
