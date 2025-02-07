@@ -223,6 +223,45 @@ export class HomeComponent implements OnInit {
 
 ```
 
+### state
+
+路由状态对象 `state` 适用于不希望数据出现在 URL 中的情况。
+
+传递数据：
+
+```typescript
+import { Router } from '@angular/router';
+
+constructor(private router: Router) {}
+
+navigateWithState() {
+  this.router.navigateByUrl('/details', { state: { productId: 123, name: 'Laptop' } });
+}
+```
+
+接收数据：
+
+```typescript
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-details',
+  template: `<h1>Product: {{ product?.name }}</h1>`
+})
+export class DetailsComponent {
+  product: any;
+
+  constructor(private router: Router) {
+    this.product = this.router.getCurrentNavigation()?.extras.state;
+  }
+}
+```
+
+{{< callout type="warning" >}}
+`state` 数据仅在**当前会话的导航**过程中有效。如果用户刷新页面 (F5)、直接访问该 URL，或者在新的浏览器标签页打开该链接，`state` 数据就会丢失。
+{{< /callout >}}
+
 ### snapshot
 
 `ActivatedRoute.snapshot` 是一个用于获取当前路由状态的快照对象。它包含了与当前路由相关的所有信息，包括路由参数、查询参数、数据等。`snapshot` 主要用于**同步**获取路由信息。
