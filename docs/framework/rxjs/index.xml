@@ -523,6 +523,15 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div>
+&lt;div class="hx-overflow-x-auto hx-mt-6 hx-flex hx-rounded-lg hx-border hx-py-2 ltr:hx-pr-4 rtl:hx-pl-4 contrast-more:hx-border-current contrast-more:dark:hx-border-current hx-border-blue-200 hx-bg-blue-100 hx-text-blue-900 dark:hx-border-blue-200/30 dark:hx-bg-blue-900/30 dark:hx-text-blue-200">
+&lt;div class="ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pr-3 rtl:hx-pl-2">&lt;div class="hx-select-none hx-text-xl" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">ℹ️&lt;/div>&lt;/div>
+&lt;div class="hx-w-full hx-min-w-0 hx-leading-7">
+&lt;div class="hx-mt-6 hx-leading-7 first:hx-mt-0">&lt;p>&lt;code>forkJoin&lt;/code> 是用于等待多个 &lt;code>Observable&lt;/code> 完成，并且&lt;strong>只会在所有 &lt;code>Observable&lt;/code> 都完成后&lt;/strong>发出最后的值。意味着有一些操作符是不可以
+和 &lt;code>forkJoin&lt;/code> 一起使用。&lt;/p>
+&lt;p>例如 &lt;code>fromEvent&lt;/code>，它返回的是一个 &lt;code>Observable&lt;/code>，该对象会持续监听某个事件（例如鼠标点击、键盘输入等），也就是说 &lt;code>fromEvent&lt;/code> 是不会“完成”的，所以 &lt;code>forkJoin&lt;/code> 永远不会触发。&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;/div>
 &lt;h3>throwError&lt;span class="hx-absolute -hx-mt-20" id="throwerror">&lt;/span>
 &lt;a href="#throwerror" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>返回可观察对象并向订阅者抛出错误。&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">

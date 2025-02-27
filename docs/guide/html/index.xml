@@ -144,6 +144,50 @@ title="Copy code"
 &lt;li>&lt;code>border&lt;/code> 定义边框。&lt;/li>
 &lt;li>&lt;code>margin&lt;/code> 外边距，定义边框和其他元素的间距。&lt;/li>
 &lt;/ul>
+&lt;h4>outline 和 border&lt;span class="hx-absolute -hx-mt-20" id="outline-和-border">&lt;/span>
+&lt;a href="#outline-%e5%92%8c-border" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>&lt;code>outline&lt;/code> 和 &lt;code>border&lt;/code> 在 CSS 中都可以用于给元素添加边框，但它们有几个关键的区别：&lt;/p>
+&lt;ol>
+&lt;li>位置不同
+&lt;ul>
+&lt;li>&lt;code>border&lt;/code> 占据空间，是元素的一部分，会影响元素的尺寸。&lt;/li>
+&lt;li>&lt;code>outline&lt;/code> 不占据空间，不会影响元素的尺寸，绘制在元素外部。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>单独设置某一边
+&lt;ul>
+&lt;li>&lt;code>border&lt;/code> 可以分别设置四条边，如 &lt;code>border-top&lt;/code>、&lt;code>border-right&lt;/code> 等。&lt;/li>
+&lt;li>&lt;code>outline&lt;/code> 只能整体应用，没有 &lt;code>outline-top&lt;/code> 之类的属性。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>圆角
+&lt;ul>
+&lt;li>&lt;code>border&lt;/code> 可以与 &lt;code>border-radius&lt;/code> 配合使用，形成圆角。&lt;/li>
+&lt;li>&lt;code>outline&lt;/code> 不支持 &lt;code>border-radius&lt;/code>，它始终是矩形的。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>受 &lt;code>overflow: hidden&lt;/code> 影响
+&lt;ul>
+&lt;li>&lt;code>border&lt;/code> 受 &lt;code>overflow: hidden&lt;/code> 限制，如果 &lt;code>overflow: hidden&lt;/code>，溢出的 &lt;code>border&lt;/code> 会被裁剪掉。&lt;/li>
+&lt;li>&lt;code>outline&lt;/code> 不会被裁剪，即使 &lt;code>overflow: hidden&lt;/code> 也会显示。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>outline-offset&lt;/code> 用于控制 &lt;code>outline&lt;/code> 与元素的距离。例如使 &lt;code>outline&lt;/code> 在元素外&lt;strong>额外偏移 &lt;code>5px&lt;/code>&lt;/strong>，不会紧贴元素。&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">box&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">outline&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="kc">green&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">outline-offset&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;code>outline-offset&lt;/code> 如果是负值，就是向元素内偏移。&lt;/p>
 &lt;h4>padding-inline, margin-inline, padding-block, 和 margin-block&lt;span class="hx-absolute -hx-mt-20" id="padding-inline-margin-inline-padding-block-和-margin-block">&lt;/span>
 &lt;a href="#padding-inline-margin-inline-padding-block-%e5%92%8c-margin-block" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>&lt;code>padding-inline&lt;/code>, &lt;code>margin-inline&lt;/code>, &lt;code>padding-block&lt;/code> 和 &lt;code>margin-block&lt;/code> 都是 CSS 中的逻辑属性，这些属性相对于物理属性（如 &lt;code>padding-left&lt;/code>,
 &lt;code>padding-right&lt;/code>, &lt;code>margin-left&lt;/code>, &lt;code>margin-right&lt;/code> 等）更具灵活性，能够适应不同的文本方向。这些逻辑属性根据元素的书写模式（例如从左到右 LTR 或从右到左
