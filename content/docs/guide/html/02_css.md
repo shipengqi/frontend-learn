@@ -14,6 +14,34 @@ weight: 2
 - `border` 定义边框。
 - `margin` 外边距，定义边框和其他元素的间距。
 
+#### outline 和 border
+
+`outline` 和 `border` 在 CSS 中都可以用于给元素添加边框，但它们有几个关键的区别：
+
+1. 位置不同
+   - `border` 占据空间，是元素的一部分，会影响元素的尺寸。
+   - `outline` 不占据空间，不会影响元素的尺寸，绘制在元素外部。
+2. 单独设置某一边
+   - `border` 可以分别设置四条边，如 `border-top`、`border-right` 等。
+   - `outline` 只能整体应用，没有 `outline-top` 之类的属性。
+3. 圆角
+   - `border` 可以与 `border-radius` 配合使用，形成圆角。
+   - `outline` 不支持 `border-radius`，它始终是矩形的。 
+4. 受 `overflow: hidden` 影响
+   - `border` 受 `overflow: hidden` 限制，如果 `overflow: hidden`，溢出的 `border` 会被裁剪掉。
+   - `outline` 不会被裁剪，即使 `overflow: hidden` 也会显示。
+
+`outline-offset` 用于控制 `outline` 与元素的距离。例如使 `outline` 在元素外**额外偏移 `5px`**，不会紧贴元素。
+
+```css
+.box {
+  outline: 3px solid green;
+  outline-offset: 5px;
+}
+```
+
+`outline-offset` 如果是负值，就是向元素内偏移。
+
 #### padding-inline, margin-inline, padding-block, 和 margin-block
 
 `padding-inline`, `margin-inline`, `padding-block` 和 `margin-block` 都是 CSS 中的逻辑属性，这些属性相对于物理属性（如 `padding-left`, 

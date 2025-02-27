@@ -257,6 +257,13 @@ observable.subscribe({
 // 'This is how it ends!' immediately after
 ```
 
+{{< callout type="info" >}}
+`forkJoin` 是用于等待多个 `Observable` 完成，并且**只会在所有 `Observable` 都完成后**发出最后的值。意味着有一些操作符是不可以
+和 `forkJoin` 一起使用。
+
+例如 `fromEvent`，它返回的是一个 `Observable`，该对象会持续监听某个事件（例如鼠标点击、键盘输入等），也就是说 `fromEvent` 是不会“完成”的，所以 `forkJoin` 永远不会触发。
+{{< /callout >}}
+
 ### throwError
 
 返回可观察对象并向订阅者抛出错误。
