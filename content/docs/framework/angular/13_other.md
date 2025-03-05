@@ -627,3 +627,77 @@ Angular 支持多个 `APP_INITIALIZER`，多个 `APP_INITIALIZER` 是**并行执
 ```
 
 即使 `app-child` 有自己的封装样式，父组件仍然可以通过 `::ng-deep` 来修改 `app-child` 内部的 `.child-element` 元素的样式。
+
+## computed
+
+在 Angular 17+ 版本中，`@angular/core` 提供了 `computed()` 方法，它是 Angular Signals 系统的一部分，用于创建计算属性（类似 Vue 的 `computed`）。
+
+```typescript
+import { Component, computed, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent {
+  // 创建信号
+  firstName = signal('John');
+  lastName = signal('Doe');
+
+  // 使用 computed 创建计算属性
+  fullName = computed(() => `${this.firstName()} ${this.lastName()}`);
+
+  updateFirstName(value: string) {
+    this.firstName.set(value);
+  }
+
+  updateLastName(value: string) {
+    this.lastName.set(value);
+  }
+}
+
+```
+
+使用：
+
+```html
+<p>Full Name: {{ fullName() }}</p>
+<input (input)="updateFirstName($event.target.value)" placeholder="First Name">
+<input (input)="updateLastName($event.target.value)" placeholder="Last Name">
+```
+
+**只有当依赖项发生变化时，`computed()` 才会重新计算**，从而提高性能。
+
+
+### 与 getter 的区别
+
+在传统 Angular 变更检测中，每次变更检测都会重新执行 `getter`，即使数据没有变化。而 `computed()` 只会在**依赖项变化**时重新计算，这样能显著提高性能。
+
+### 结合 effect() 监听 computed 值
+
+如果需要在 `computed()` 值变化时执行某些副作用（比如日志记录、调用 API 等），可以使用 `effect()`。
+
+```typescript
+import { Component, computed, effect, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent {
+  firstName = signal('John');
+  lastName = signal('Doe');
+
+  fullName = computed(() => `${this.firstName()} ${this.lastName()}`);
+
+  constructor() {
+    // 监听 fullName 变化
+    effect(() => {
+      console.log('Full name updated:', this.fullName());
+    });
+  }
+}
+
+```
+
+**`effect()` 会自动追踪 `computed()` 的变化，无需手动订阅**。
