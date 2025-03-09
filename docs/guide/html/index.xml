@@ -2788,7 +2788,112 @@ title="Copy code"
 &lt;p>&lt;img src="https://gitee.com/shipengqi/illustrations/raw/main/frontend-learn/basic/logical-resolution.png" alt="logical-resolution" loading="lazy" />&lt;/p>
 &lt;p>&lt;strong>设备像素比&lt;/strong>就是逻辑分辨率的宽度（高度）除以物理分辨率的宽度（高度）。对于移动端设备，设备像素比可能更高。设备像素比可以在浏览器的控制台查看，输入 &lt;code>devicePixelRatio&lt;/code> 回车即可。&lt;/p>
 &lt;h3>移动端适配&lt;span class="hx-absolute -hx-mt-20" id="移动端适配">&lt;/span>
-&lt;a href="#%e7%a7%bb%e5%8a%a8%e7%ab%af%e9%80%82%e9%85%8d" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>不同的移动端设备分辨率，尺寸都不同，可以先针对一种设备，以 iphone6 为例，设计好页面的样式之后，设置 &lt;code>content=&amp;quot;width=375,user-scalable=no&amp;quot;&lt;/code>，禁止用户缩放，指定宽度为 iphone6 的宽度，那么不同分辨率的设备（移动端）都会自适应这个宽度。&lt;/p></description></item><item><title>SVG</title><link>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</guid><description>
+&lt;a href="#%e7%a7%bb%e5%8a%a8%e7%ab%af%e9%80%82%e9%85%8d" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>不同的移动端设备分辨率，尺寸都不同，可以先针对一种设备，以 iphone6 为例，设计好页面的样式之后，设置 &lt;code>content=&amp;quot;width=375,user-scalable=no&amp;quot;&lt;/code>，禁止用户缩放，指定宽度为 iphone6 的宽度，那么不同分辨率的设备（移动端）都会自适应这个宽度。&lt;/p>
+&lt;h2>@supports&lt;span class="hx-absolute -hx-mt-20" id="supports">&lt;/span>
+&lt;a href="#supports" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>&lt;code>@supports&lt;/code> 规则用于检查浏览器是否支持某个 CSS 属性或属性值，从而实现&lt;strong>特性检测&lt;/strong>（Feature Detection）。如果支持该属性，则应用 &lt;code>@supports&lt;/code> 内部的 CSS 规则，否则忽略。&lt;/p>
+&lt;p>基本用法：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>@supports&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">supports&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">display&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">grid&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">grid&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">grid-template-columns&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="n">fr&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="n">fr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>如果浏览器支持 &lt;code>display: grid&lt;/code>，则 &lt;code>.container&lt;/code> 使用网格布局，否则不生效。&lt;/p>
+&lt;ol start="2">
+&lt;li>&lt;code>@supports not&lt;/code>（检测不支持的属性）：&lt;/li>
+&lt;/ol>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">supports&lt;/span> &lt;span class="nt">not&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">display&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">grid&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">flex-direction&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">column&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>如果浏览器不支持 &lt;code>display: grid&lt;/code>，则 &lt;code>.container&lt;/code> 使用 &lt;code>flex&lt;/code> 布局。&lt;/p>
+&lt;ol start="3">
+&lt;li>&lt;code>@supports and&lt;/code>（同时满足多个条件）：&lt;/li>
+&lt;/ol>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">supports&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">display&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">grid&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">and&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">gap&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">10px&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">grid&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">gap&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;strong>同时&lt;/strong>支持 &lt;code>display: grid&lt;/code> 和 &lt;code>gap: 10px&lt;/code> 时，才会应用此规则。&lt;/p>
+&lt;ol start="4">
+&lt;li>&lt;code>@supports or&lt;/code>（至少满足一个条件）：&lt;/li>
+&lt;/ol>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">supports&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">display&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">grid&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">or&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">display&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">flex&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>如果浏览器支持 &lt;code>grid&lt;/code> 或 &lt;code>flex&lt;/code> 之一，则 &lt;code>.container&lt;/code> 使用 &lt;code>flex&lt;/code> 布局。&lt;/p>
+&lt;ol start="5">
+&lt;li>复杂逻辑（组合 &lt;code>and&lt;/code>、&lt;code>or&lt;/code>、&lt;code>not&lt;/code>）：&lt;/li>
+&lt;/ol>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">supports&lt;/span> &lt;span class="o">((&lt;/span>&lt;span class="nt">display&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">grid&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">and&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">gap&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">10px&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="nt">or&lt;/span> &lt;span class="o">((&lt;/span>&lt;span class="nt">display&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">flex&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">and&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">justify-content&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nt">space-between&lt;/span>&lt;span class="o">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">red&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;ul>
+&lt;li>如果支持 &lt;code>grid&lt;/code> 且 &lt;code>gap&lt;/code>，或&lt;/li>
+&lt;li>如果支持 &lt;code>flex&lt;/code> 且 &lt;code>justify-content: space-between&lt;/code>&lt;/li>
+&lt;li>那么 &lt;code>.container&lt;/code> 文字颜色变红。&lt;/li>
+&lt;/ul></description></item><item><title>SVG</title><link>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</guid><description>
 &lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
 &lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>SVG (Scalable Vector Graphics) 可伸缩矢量图形，也即是说不管怎么放大，图形都不会失真。适合在响应式的网站中使用。&lt;/p>
 &lt;p>与矢量图相对应的是&lt;strong>位图&lt;/strong>，位图放的比较大的时候就会失真。常见的位图格式如：png、jpg、gif。只要是有图片分辨率的都是位图。位图本质上，它是由一个个像素点组成的。图片文件里保存的是每个像素点的颜色值。所以它一旦放大了之后，相当于让多个像素点显示同一个颜色，这样就会造成模糊的效果。&lt;/p>
