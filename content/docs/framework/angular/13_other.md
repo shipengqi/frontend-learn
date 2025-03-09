@@ -701,3 +701,170 @@ export class AppComponent {
 ```
 
 **`effect()` 会自动追踪 `computed()` 的变化，无需手动订阅**。
+
+## cdk
+
+### @angular/cdk/dialog
+
+`@angular/cdk/dialog` 提供了一种轻量级的方式来创建对话框。
+
+基本用法：
+
+1. 在 `app.module.ts` 或 `feature module` 中导入 `DialogModule`，`imports: [BrowserModule, DialogModule]`。
+2. 创建对话框组件
+   
+   ```typescript
+   import { Component, Inject } from '@angular/core';
+   import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
+   
+   @Component({
+     selector: 'app-my-dialog',
+     template: `
+       <h2>对话框</h2>
+       <p>传递的数据: {{ data }}</p>
+       <button (click)="close()">关闭</button>
+     `,
+   })
+   export class MyDialogComponent {
+     constructor(
+       public dialogRef: DialogRef<MyDialogComponent>, // DialogRef 允许控制对话框（如关闭）
+       @Inject(DIALOG_DATA) public data: any // IALOG_DATA 用于接收打开对话框时传递的数据。
+     ) {}
+   
+     close() {
+       this.dialogRef.close('Dialog 关闭了');
+     }
+   }
+   ```
+
+3. 打开对话框
+
+   ```typescript
+   import { Component } from '@angular/core';
+   import { Dialog } from '@angular/cdk/dialog';
+   import { MyDialogComponent } from './my-dialog.component';
+   
+   @Component({
+     selector: 'app-root',
+     template: `<button (click)="openDialog()">打开对话框</button>`,
+   })
+   export class AppComponent {
+     constructor(private dialog: Dialog) {}
+   
+     openDialog() {
+       const dialogRef = this.dialog.open(MyDialogComponent, {
+         data: 'Hello from parent component!',
+       });
+   
+       // 监听对话框关闭事件
+       dialogRef.closed.subscribe(result => {
+         console.log('对话框关闭:', result);
+       });
+     }
+   }
+   ```
+
+### @angular/cdk/overlay
+
+`@angular/cdk/overlay` 是 Angular CDK 提供的一个强大的工具，用于创建浮动层（overlay），它可以用于构建自定义的模态框、下拉菜单、工具提示（tooltip）等。
+
+基本用法:
+
+1. 在 `app.module.ts` 或 `feature module` 中导入 `OverlayModule`，`imports: [BrowserModule, OverlayModule]`。
+2. 创建浮层组件：
+
+   ```typescript
+   import { Component } from '@angular/core';
+   
+   @Component({
+     selector: 'app-tooltip',
+     template: `<div class="tooltip-content">这是一个浮层</div>`,
+     styles: [
+       `
+         .tooltip-content {
+           background: black;
+           color: white;
+           padding: 8px;
+           border-radius: 4px;
+         }
+       `,
+     ],
+   })
+   export class TooltipComponent {}
+   ```
+
+3. 在 AppComponent（或任何组件）中使用 Overlay：
+
+```typescript
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <button #trigger (click)="openOverlay()">打开浮层</button>
+  `,
+})
+export class AppComponent {
+  @ViewChild('trigger') trigger!: ElementRef;
+  private overlayRef!: OverlayRef;
+
+  constructor(private overlay: Overlay) {}
+
+  openOverlay() {
+    // 获取按钮的位置信息
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(this.trigger)
+      .withPositions([{ originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' }]);
+
+    // 创建 OverlayRef
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+      hasBackdrop: true, // 添加背景（点击外部关闭）
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+    });
+
+    // 监听背景点击事件，关闭浮层
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.dispose());
+
+    // 将浮层附加到 Overlay
+    const tooltipPortal = new ComponentPortal(TooltipComponent);
+    this.overlayRef.attach(tooltipPortal);
+
+    // 使用 TemplatePortal 将 ng-template 渲染到 Overlay
+    // const portal = new TemplatePortal(template, this.viewContainerRef);
+    // this.overlayRef.attach(portal);
+  }
+}
+```
+
+高级用法：
+
+1. 添加 `scroll` 和 `resize` 监听。默认情况下，Overlay 不会监听滚动事件。如果需要在滚动或窗口大小变化时关闭浮层，可以使用 `closeOnScroll()`：
+
+   ```typescript
+   this.overlayRef = this.overlay.create({
+     positionStrategy,
+     scrollStrategy: this.overlay.scrollStrategies.close(),
+   });   
+   ```
+
+2. 如果希望浮层始终跟随目标元素（如 Dropdown），可以使用 `RepositionScrollStrategy`：
+
+   ```typescript
+   this.overlayRef = this.overlay.create({
+     positionStrategy,
+     scrollStrategy: this.overlay.scrollStrategies.reposition(),
+   });
+   ```
+   
+   这样，在滚动时浮层不会消失，而是重新计算位置。
+
+3. 如果需要浮层固定在屏幕中央（如 Modal），可以使用 `GlobalPositionStrategy`：
+
+   ```typescript
+   const positionStrategy = this.overlay.position().global().centerHorizontally().centerVertically();
+   this.overlayRef = this.overlay.create({ positionStrategy });
+   ```

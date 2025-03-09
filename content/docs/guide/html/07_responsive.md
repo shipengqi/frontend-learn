@@ -472,3 +472,73 @@ CSS 媒体查询，CSS 样式只针对背景图片。
 
 不同的移动端设备分辨率，尺寸都不同，可以先针对一种设备，以 iphone6 为例，设计好页面的样式之后，设置 `content="width=375,user-scalable=no"`，禁止用户缩放，指定宽度为 iphone6 的宽度，那么不同分辨率的设备（移动端）都会自适应这个宽度。
 
+## @supports
+
+`@supports` 规则用于检查浏览器是否支持某个 CSS 属性或属性值，从而实现**特性检测**（Feature Detection）。如果支持该属性，则应用 `@supports` 内部的 CSS 规则，否则忽略。
+
+基本用法：
+
+1. `@supports`
+
+```css
+@supports (display: grid) {
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+```
+
+如果浏览器支持 `display: grid`，则 `.container` 使用网格布局，否则不生效。
+
+2. `@supports not`（检测不支持的属性）：
+
+```css
+@supports not (display: grid) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+}
+```
+
+如果浏览器不支持 `display: grid`，则 `.container` 使用 `flex` 布局。
+
+3. `@supports and`（同时满足多个条件）：
+
+```css
+@supports (display: grid) and (gap: 10px) {
+    .container {
+        display: grid;
+        gap: 10px;
+    }
+}
+```
+
+**同时**支持 `display: grid` 和 `gap: 10px` 时，才会应用此规则。
+
+4. `@supports or`（至少满足一个条件）：
+
+```css
+@supports (display: grid) or (display: flex) {
+    .container {
+        display: flex;
+    }
+}
+```
+
+如果浏览器支持 `grid` 或 `flex` 之一，则 `.container` 使用 `flex` 布局。
+
+5. 复杂逻辑（组合 `and`、`or`、`not`）：
+
+```css
+@supports ((display: grid) and (gap: 10px)) or ((display: flex) and (justify-content: space-between)) {
+    .container {
+        color: red;
+    }
+}
+```
+
+- 如果支持 `grid` 且 `gap`，或
+- 如果支持 `flex` 且 `justify-content: space-between`
+- 那么 `.container` 文字颜色变红。
