@@ -542,3 +542,18 @@ CSS 媒体查询，CSS 样式只针对背景图片。
 - 如果支持 `grid` 且 `gap`，或
 - 如果支持 `flex` 且 `justify-content: space-between`
 - 那么 `.container` 文字颜色变红。
+
+6. `selector()` 函数：
+
+`selector()` 函数可以用来检测某个选择器是否有效。
+
+```css
+@supports not selector(::-webkit-scrollbar) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+}
+```
+
+如果浏览器不支持 `::-webkit-scrollbar` 伪类选择器，则应用此规则。
