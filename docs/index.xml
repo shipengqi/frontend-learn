@@ -6797,7 +6797,28 @@ title="Copy code"
 &lt;li>如果支持 &lt;code>grid&lt;/code> 且 &lt;code>gap&lt;/code>，或&lt;/li>
 &lt;li>如果支持 &lt;code>flex&lt;/code> 且 &lt;code>justify-content: space-between&lt;/code>&lt;/li>
 &lt;li>那么 &lt;code>.container&lt;/code> 文字颜色变红。&lt;/li>
-&lt;/ul></description></item><item><title>依赖注入</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</guid><description>
+&lt;/ul>
+&lt;ol start="6">
+&lt;li>&lt;code>selector()&lt;/code> 函数：&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>selector()&lt;/code> 函数可以用来检测某个选择器是否有效。&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">supports&lt;/span> &lt;span class="nt">not&lt;/span> &lt;span class="nt">selector&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="p">::&lt;/span>&lt;span class="nd">-webkit-scrollbar&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">scrollbar-width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">thin&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">scrollbar-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nf">var&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="n">scrollbar&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">thumb&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">var&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="n">scrollbar&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">track&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>如果浏览器不支持 &lt;code>::-webkit-scrollbar&lt;/code> 伪类选择器，则应用此规则。&lt;/p></description></item><item><title>依赖注入</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/angular/07_di/</guid><description>
 &lt;p>依赖注入 ( Dependency Injection ) 简称 DI，是面向对象编程中的一种设计原则，用来减少代码之间的&lt;strong>耦合度&lt;/strong>。&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">class&lt;/span> &lt;span class="nx">MailService&lt;/span> &lt;span class="p">{&lt;/span>

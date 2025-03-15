@@ -2893,7 +2893,28 @@ title="Copy code"
 &lt;li>如果支持 &lt;code>grid&lt;/code> 且 &lt;code>gap&lt;/code>，或&lt;/li>
 &lt;li>如果支持 &lt;code>flex&lt;/code> 且 &lt;code>justify-content: space-between&lt;/code>&lt;/li>
 &lt;li>那么 &lt;code>.container&lt;/code> 文字颜色变红。&lt;/li>
-&lt;/ul></description></item><item><title>SVG</title><link>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</guid><description>
+&lt;/ul>
+&lt;ol start="6">
+&lt;li>&lt;code>selector()&lt;/code> 函数：&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>selector()&lt;/code> 函数可以用来检测某个选择器是否有效。&lt;/p>
+&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+&lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">supports&lt;/span> &lt;span class="nt">not&lt;/span> &lt;span class="nt">selector&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="p">::&lt;/span>&lt;span class="nd">-webkit-scrollbar&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">scrollbar-width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">thin&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">scrollbar-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nf">var&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="n">scrollbar&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">thumb&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">var&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="n">scrollbar&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">track&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+&lt;button
+class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+title="Copy code"
+>
+&lt;div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4">&lt;/div>
+&lt;/button>
+&lt;/div>
+&lt;/div>
+&lt;p>如果浏览器不支持 &lt;code>::-webkit-scrollbar&lt;/code> 伪类选择器，则应用此规则。&lt;/p></description></item><item><title>SVG</title><link>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/guide/html/08_svg/</guid><description>
 &lt;h2>概述&lt;span class="hx-absolute -hx-mt-20" id="概述">&lt;/span>
 &lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>SVG (Scalable Vector Graphics) 可伸缩矢量图形，也即是说不管怎么放大，图形都不会失真。适合在响应式的网站中使用。&lt;/p>
 &lt;p>与矢量图相对应的是&lt;strong>位图&lt;/strong>，位图放的比较大的时候就会失真。常见的位图格式如：png、jpg、gif。只要是有图片分辨率的都是位图。位图本质上，它是由一个个像素点组成的。图片文件里保存的是每个像素点的颜色值。所以它一旦放大了之后，相当于让多个像素点显示同一个颜色，这样就会造成模糊的效果。&lt;/p>
