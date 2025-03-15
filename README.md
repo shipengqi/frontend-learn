@@ -2,49 +2,23 @@
 
 Frontend learning ...
 
-## Usage
+## 主要内容
 
-Initialize project as a Hugo Module using the `hugo mod init` command:
+### 🍚 前端基础
 
-```sh
-hugo mod init github.com/shipengqi/frontend-learn
-```
+HTML，CSS，Javasript，Typescript。
 
-Adding the [Hextra](https://github.com/imfing/hextra) theme:
+### ⚡ 前端框架
 
-```yaml
-baseURL: "https://shipengqi.github.io/frontend-learn"
-title: "Frontend Learning"
+Vue，Angular 等。
 
-module:
-  imports:
-    - path: github.com/imfing/hextra
-```
+### 🛠️ 前端工程化实践
 
-Start server:
+记录了 webpack，vite 等工具的使用和原理。
 
-```sh
-hugo server -D
-```
+### 🔍 Node.js 底层原理
+Node.js 底层内存管理，GC，调度器的实现原理。浏览器的原理。
 
-Manually deploy:
+## 开始阅读
 
-```sh
-./deploy.sh
-```
-
-> Any changes in the `content` directory will automatically trigger a deployment.
-
-## Update Theme
-
-To update all Hugo modules in your project to their latest versions, run the following command:
-
-```
-hugo mod get -u
-```
-
-To update Hextra to the latest released version, run the following command:
-
-```
-hugo mod get -u github.com/imfing/hextra
-```
+- [GitHub 在线](https://shipengqi.github.io/frontend-learn)

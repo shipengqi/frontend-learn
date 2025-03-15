@@ -2,6 +2,7 @@
 
 ## Basic
 
+- [SVG](https://www.youtube.com/watch?v=plvn3hw4uGQ&list=PLtKLDYAuxSmPKGycCOafdmK73iM8pqlx-&index=64)
 - <https://wangdoc.com/>
 - <https://github.com/qianguyihao/Web>
 - 极客时间 重学前端
