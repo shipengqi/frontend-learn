@@ -309,34 +309,6 @@ export class AppComponent {
 ]
 ```
 
-## 变化检测
-
-Angular 的 变更检测（Change Detection）是 Angular 用来检查组件及其视图是否需要更新的一种机制。每当组件的状态变化时，Angular
-会遍历组件树并检查哪些组件需要更新视图。变更检测是 Angular 中的核心功能之一，它决定了应用的响应性和性能。
-
-### 变更检测的触发时机
-
-变更检测是由 Angular 的 变更检测机制触发的，主要触发时机包括：
-
-- 用户事件：如按钮点击、输入框文本变化等，都会触发变更检测。
-- 异步操作：如 HTTP 请求返回数据，或者 `setTimeout()`、`Promise` 解决等，都可能触发变更检测。
-- 手动触发：通过 `ChangeDetectorRef.detectChanges()` 或 `ChangeDetectorRef.markForCheck()`，手动通知 Angular 检查某个组件或视图。
-
-### 变更检测策略
-
-`ChangeDetectionStrategy` 是一个控制组件变更检测机制的策略，它决定了 Angular 如何检查组件的变化。默认情况下，Angular 使用
-`ChangeDetectionStrategy.Default`，即每次检测时会检查所有组件。使用不同的变更检测策略可以提高性能，尤其是在大型应用中。
-
-常见的 `ChangeDetectionStrategy` 有两种：
-
-- `ChangeDetectionStrategy.Default`：Angular 会在每次检测周期中检查所有的组件，包括它的子组件，直到变化被检测到并更新视图。在应用复杂度较高时可能导致性能问题。
-- `ChangeDetectionStrategy.OnPush`：使用 `OnPush` 策略时，只会在以下几种情况之一时检查组件的变化：
-    - 输入属性（`@Input()`）的值发生变化。
-    - 事件处理器被触发（如点击、输入等）。
-    - 手动调用 `ChangeDetectorRef.detectChanges()` 或 `ChangeDetectorRef.markForCheck()`。
-
-  当**组件依赖于外部输入数据，且数据变化不频繁时**，使用 `OnPush` 可以优化性能。
-
 ## Component 装饰器
 
 ```typescript
@@ -501,3 +473,52 @@ export class ExampleComponent {
 - 使用 `@HostBinding` 和 `@HostListener` 可以提供更灵活的宿主元素交互，适用于需要动态响应事件或更改宿主元素样式和属性的场景。
 - 使用 `host` 属性则更适合为宿主元素配置一些初始行为，如设置类、属性或事件监听器，但这些行为一旦定义就不会再变化。
 
+## 变更检测机制
+
+Angular 的**变更检测**（Change Detection）机制用于检测组件的状态变化，并更新视图，使数据与 UI 保持同步。Angular 通过 Zone.js 监听异步任务（如事件、XHR、setTimeout等）来触发变更检测，并通过 View Hierarchy（视图层次结构）遍历组件树来检查数据变更。变更检测是 Angular 中的核心功能之一，它决定了应用的响应性和性能。
+
+### 变更检测的触发时机
+
+变更检测是由 Angular 的**变更检测机制**触发的，主要触发时机包括：
+
+- 用户事件：如按钮点击、输入框文本变化等，都会触发变更检测。
+- 异步操作：如 HTTP 请求返回数据，或者 `setTimeout()`、`Promise` 解决等，都可能触发变更检测。
+- 手动触发：通过 `ChangeDetectorRef.detectChanges()` 或 `ChangeDetectorRef.markForCheck()`，手动通知 Angular 检查某个组件或视图。
+
+### 变更检测策略
+
+`ChangeDetectionStrategy` 提供了两种变更检测策略：
+
+- `ChangeDetectionStrategy.Default`：每次变更检测都会遍历组件树的所有组件（即使数据未变）。
+- `ChangeDetectionStrategy.OnPush`：使用 `OnPush` 策略时，只会在以下几种情况之一时检查组件的变化：
+    - 输入属性（`@Input()`）的值发生变化。
+    - 事件处理器被触发（如点击、输入等）。
+    - 手动调用 `ChangeDetectorRef.detectChanges()` 或 `ChangeDetectorRef.markForCheck()`。
+
+#### ChangeDetectorRef 的使用
+
+`ChangeDetectorRef` 提供了更精细的变更检测控制：
+
+- `detectChanges()` 方法用于手动触发变更检测。它会**立即检查当前组件及其子组件的变更，并更新视图**。
+- `markForCheck()` 方法用于标记当前组件或视图需要进行变更检测。它**不会立即触发变更检测，而是将标记添加到变更检测队列中**。在使用 `OnPush` 变更检测策略时，组件只会在特定条件下进行检测。如果希望在某些情况下让组件在下一次变更检测周期中被检查，可以使用 `markForCheck()` 。这样可以避免不必要的检测，提高应用性能。
+- `detach()`：停止当前组件的变更检测，提升性能（适用于高频率变化的组件，如股票数据）。
+- `reattach()`：恢复变更检测。
+
+#### 变更检测的执行流程
+
+1. 应用状态更新（事件、HTTP 响应等）。
+2. 触发 Zone.js，通知 Angular 运行变更检测。
+3. 遍历组件树，检查每个组件的 @Input 或本地状态。
+4. 更新视图，若检测到变化，则渲染 UI。
+
+### 变更检测的性能优化
+
+- 减少不必要的变更检测：使用 `ChangeDetectionStrategy.OnPush` 策略。
+- 不可变数据结构：推荐使用不可变数据结构。当数据发生变化时，创建一个新的数据对象，而不是修改现有对象。这样，Angular 可以通过比较对象的引用，快速判断数据是否发生了变化。
+- 避免在模板中使用复杂的表达式：在模板中使用复杂的表达式可能会导致变更检测的性能下降。尽量将复杂的逻辑移到组件类中进行处理。
+- 使用 `*ngIf` 或 `*ngFor` 时，确保正确设置 `trackBy` 函数：提供 `trackBy` 函数可以帮助 Angular 跟踪每个列表项的身份，避免不必要的 DOM 操作。
+- 减少不必要的事件绑定：在模板中使用事件绑定时，确保只绑定必要的事件。避免在模板中绑定不必要的事件，以减少变更检测的次数。
+
+{{< callout type="info" >}}
+`@Input()` 修饰的**对象如果其某个属性发生变化，不会自动触发变更检测，除非该对象的引用发生变化**。这是因为 Angular 的变更检测机制在比较数据时，使用引用比较。这意味着当数据发生变化时，Angular 会检查对象的引用是否改变，而不是对象的内容。如果对象的引用没有改变，Angular 会认为数据没有发生变化，从而避免不必要的变更检测。
+{{< /callout >}}
