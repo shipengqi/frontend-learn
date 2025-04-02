@@ -3112,34 +3112,6 @@ title="Copy code"
 &lt;/button>
 &lt;/div>
 &lt;/div>
-&lt;h2>变化检测&lt;span class="hx-absolute -hx-mt-20" id="变化检测">&lt;/span>
-&lt;a href="#%e5%8f%98%e5%8c%96%e6%a3%80%e6%b5%8b" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>Angular 的 变更检测（Change Detection）是 Angular 用来检查组件及其视图是否需要更新的一种机制。每当组件的状态变化时，Angular
-会遍历组件树并检查哪些组件需要更新视图。变更检测是 Angular 中的核心功能之一，它决定了应用的响应性和性能。&lt;/p>
-&lt;h3>变更检测的触发时机&lt;span class="hx-absolute -hx-mt-20" id="变更检测的触发时机">&lt;/span>
-&lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%9a%84%e8%a7%a6%e5%8f%91%e6%97%b6%e6%9c%ba" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>变更检测是由 Angular 的 变更检测机制触发的，主要触发时机包括：&lt;/p>
-&lt;ul>
-&lt;li>用户事件：如按钮点击、输入框文本变化等，都会触发变更检测。&lt;/li>
-&lt;li>异步操作：如 HTTP 请求返回数据，或者 &lt;code>setTimeout()&lt;/code>、&lt;code>Promise&lt;/code> 解决等，都可能触发变更检测。&lt;/li>
-&lt;li>手动触发：通过 &lt;code>ChangeDetectorRef.detectChanges()&lt;/code> 或 &lt;code>ChangeDetectorRef.markForCheck()&lt;/code>，手动通知 Angular 检查某个组件或视图。&lt;/li>
-&lt;/ul>
-&lt;h3>变更检测策略&lt;span class="hx-absolute -hx-mt-20" id="变更检测策略">&lt;/span>
-&lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%ad%96%e7%95%a5" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>&lt;code>ChangeDetectionStrategy&lt;/code> 是一个控制组件变更检测机制的策略，它决定了 Angular 如何检查组件的变化。默认情况下，Angular 使用
-&lt;code>ChangeDetectionStrategy.Default&lt;/code>，即每次检测时会检查所有组件。使用不同的变更检测策略可以提高性能，尤其是在大型应用中。&lt;/p>
-&lt;p>常见的 &lt;code>ChangeDetectionStrategy&lt;/code> 有两种：&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;code>ChangeDetectionStrategy.Default&lt;/code>：Angular 会在每次检测周期中检查所有的组件，包括它的子组件，直到变化被检测到并更新视图。在应用复杂度较高时可能导致性能问题。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;code>ChangeDetectionStrategy.OnPush&lt;/code>：使用 &lt;code>OnPush&lt;/code> 策略时，只会在以下几种情况之一时检查组件的变化：&lt;/p>
-&lt;ul>
-&lt;li>输入属性（&lt;code>@Input()&lt;/code>）的值发生变化。&lt;/li>
-&lt;li>事件处理器被触发（如点击、输入等）。&lt;/li>
-&lt;li>手动调用 &lt;code>ChangeDetectorRef.detectChanges()&lt;/code> 或 &lt;code>ChangeDetectorRef.markForCheck()&lt;/code>。&lt;/li>
-&lt;/ul>
-&lt;p>当&lt;strong>组件依赖于外部输入数据，且数据变化不频繁时&lt;/strong>，使用 &lt;code>OnPush&lt;/code> 可以优化性能。&lt;/p>
-&lt;/li>
-&lt;/ul>
 &lt;h2>Component 装饰器&lt;span class="hx-absolute -hx-mt-20" id="component-装饰器">&lt;/span>
 &lt;a href="#component-%e8%a3%85%e9%a5%b0%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">@Component&lt;/span>&lt;span class="p">({&lt;/span>
@@ -3325,7 +3297,57 @@ title="Copy code"
 &lt;ul>
 &lt;li>使用 &lt;code>@HostBinding&lt;/code> 和 &lt;code>@HostListener&lt;/code> 可以提供更灵活的宿主元素交互，适用于需要动态响应事件或更改宿主元素样式和属性的场景。&lt;/li>
 &lt;li>使用 &lt;code>host&lt;/code> 属性则更适合为宿主元素配置一些初始行为，如设置类、属性或事件监听器，但这些行为一旦定义就不会再变化。&lt;/li>
-&lt;/ul></description></item><item><title>Subject</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/03_subject/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/03_subject/</guid><description>
+&lt;/ul>
+&lt;h2>变更检测机制&lt;span class="hx-absolute -hx-mt-20" id="变更检测机制">&lt;/span>
+&lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e6%9c%ba%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>Angular 的&lt;strong>变更检测&lt;/strong>（Change Detection）机制用于检测组件的状态变化，并更新视图，使数据与 UI 保持同步。Angular 通过 Zone.js 监听异步任务（如事件、XHR、setTimeout等）来触发变更检测，并通过 View Hierarchy（视图层次结构）遍历组件树来检查数据变更。变更检测是 Angular 中的核心功能之一，它决定了应用的响应性和性能。&lt;/p>
+&lt;h3>变更检测的触发时机&lt;span class="hx-absolute -hx-mt-20" id="变更检测的触发时机">&lt;/span>
+&lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%9a%84%e8%a7%a6%e5%8f%91%e6%97%b6%e6%9c%ba" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>变更检测是由 Angular 的&lt;strong>变更检测机制&lt;/strong>触发的，主要触发时机包括：&lt;/p>
+&lt;ul>
+&lt;li>用户事件：如按钮点击、输入框文本变化等，都会触发变更检测。&lt;/li>
+&lt;li>异步操作：如 HTTP 请求返回数据，或者 &lt;code>setTimeout()&lt;/code>、&lt;code>Promise&lt;/code> 解决等，都可能触发变更检测。&lt;/li>
+&lt;li>手动触发：通过 &lt;code>ChangeDetectorRef.detectChanges()&lt;/code> 或 &lt;code>ChangeDetectorRef.markForCheck()&lt;/code>，手动通知 Angular 检查某个组件或视图。&lt;/li>
+&lt;/ul>
+&lt;h3>变更检测策略&lt;span class="hx-absolute -hx-mt-20" id="变更检测策略">&lt;/span>
+&lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%ad%96%e7%95%a5" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>&lt;code>ChangeDetectionStrategy&lt;/code> 提供了两种变更检测策略：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>ChangeDetectionStrategy.Default&lt;/code>：每次变更检测都会遍历组件树的所有组件（即使数据未变）。&lt;/li>
+&lt;li>&lt;code>ChangeDetectionStrategy.OnPush&lt;/code>：使用 &lt;code>OnPush&lt;/code> 策略时，只会在以下几种情况之一时检查组件的变化：
+&lt;ul>
+&lt;li>输入属性（&lt;code>@Input()&lt;/code>）的值发生变化。&lt;/li>
+&lt;li>事件处理器被触发（如点击、输入等）。&lt;/li>
+&lt;li>手动调用 &lt;code>ChangeDetectorRef.detectChanges()&lt;/code> 或 &lt;code>ChangeDetectorRef.markForCheck()&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4>ChangeDetectorRef 的使用&lt;span class="hx-absolute -hx-mt-20" id="changedetectorref-的使用">&lt;/span>
+&lt;a href="#changedetectorref-%e7%9a%84%e4%bd%bf%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;p>&lt;code>ChangeDetectorRef&lt;/code> 提供了更精细的变更检测控制：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>detectChanges()&lt;/code> 方法用于手动触发变更检测。它会&lt;strong>立即检查当前组件及其子组件的变更，并更新视图&lt;/strong>。&lt;/li>
+&lt;li>&lt;code>markForCheck()&lt;/code> 方法用于标记当前组件或视图需要进行变更检测。它&lt;strong>不会立即触发变更检测，而是将标记添加到变更检测队列中&lt;/strong>。在使用 &lt;code>OnPush&lt;/code> 变更检测策略时，组件只会在特定条件下进行检测。如果希望在某些情况下让组件在下一次变更检测周期中被检查，可以使用 &lt;code>markForCheck()&lt;/code> 。这样可以避免不必要的检测，提高应用性能。&lt;/li>
+&lt;li>&lt;code>detach()&lt;/code>：停止当前组件的变更检测，提升性能（适用于高频率变化的组件，如股票数据）。&lt;/li>
+&lt;li>&lt;code>reattach()&lt;/code>：恢复变更检测。&lt;/li>
+&lt;/ul>
+&lt;h4>变更检测的执行流程&lt;span class="hx-absolute -hx-mt-20" id="变更检测的执行流程">&lt;/span>
+&lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%9a%84%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;ol>
+&lt;li>应用状态更新（事件、HTTP 响应等）。&lt;/li>
+&lt;li>触发 Zone.js，通知 Angular 运行变更检测。&lt;/li>
+&lt;li>遍历组件树，检查每个组件的 @Input 或本地状态。&lt;/li>
+&lt;li>更新视图，若检测到变化，则渲染 UI。&lt;/li>
+&lt;/ol>
+&lt;h3>变更检测的性能优化&lt;span class="hx-absolute -hx-mt-20" id="变更检测的性能优化">&lt;/span>
+&lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%9a%84%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;ul>
+&lt;li>减少不必要的变更检测：使用 &lt;code>ChangeDetectionStrategy.OnPush&lt;/code> 策略。&lt;/li>
+&lt;li>不可变数据结构：推荐使用不可变数据结构。当数据发生变化时，创建一个新的数据对象，而不是修改现有对象。这样，Angular 可以通过比较对象的引用，快速判断数据是否发生了变化。&lt;/li>
+&lt;li>避免在模板中使用复杂的表达式：在模板中使用复杂的表达式可能会导致变更检测的性能下降。尽量将复杂的逻辑移到组件类中进行处理。&lt;/li>
+&lt;li>使用 &lt;code>*ngIf&lt;/code> 或 &lt;code>*ngFor&lt;/code> 时，确保正确设置 &lt;code>trackBy&lt;/code> 函数：提供 &lt;code>trackBy&lt;/code> 函数可以帮助 Angular 跟踪每个列表项的身份，避免不必要的 DOM 操作。&lt;/li>
+&lt;li>减少不必要的事件绑定：在模板中使用事件绑定时，确保只绑定必要的事件。避免在模板中绑定不必要的事件，以减少变更检测的次数。&lt;/li>
+&lt;/ul>
+&lt;div class="hx-overflow-x-auto hx-mt-6 hx-flex hx-rounded-lg hx-border hx-py-2 ltr:hx-pr-4 rtl:hx-pl-4 contrast-more:hx-border-current contrast-more:dark:hx-border-current hx-border-blue-200 hx-bg-blue-100 hx-text-blue-900 dark:hx-border-blue-200/30 dark:hx-bg-blue-900/30 dark:hx-text-blue-200">
+&lt;div class="ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pr-3 rtl:hx-pl-2">&lt;div class="hx-select-none hx-text-xl" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">ℹ️&lt;/div>&lt;/div>
+&lt;div class="hx-w-full hx-min-w-0 hx-leading-7">
+&lt;div class="hx-mt-6 hx-leading-7 first:hx-mt-0">&lt;code>@Input()&lt;/code> 修饰的&lt;strong>对象如果其某个属性发生变化，不会自动触发变更检测，除非该对象的引用发生变化&lt;/strong>。这是因为 Angular 的变更检测机制在比较数据时，使用引用比较。这意味着当数据发生变化时，Angular 会检查对象的引用是否改变，而不是对象的内容。如果对象的引用没有改变，Angular 会认为数据没有发生变化，从而避免不必要的变更检测。&lt;/div>
+&lt;/div>
+&lt;/div></description></item><item><title>Subject</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/03_subject/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/03_subject/</guid><description>
 &lt;p>RxJS &lt;code>Subject&lt;/code> 是一种特殊类型的 &lt;code>Observable&lt;/code>，它允许将值多播给多个观察者，所以 &lt;code>Subject&lt;/code> 是多播的，这意味着 &lt;code>Subject&lt;/code> 确保每个观察者之间共享 &lt;code>Observable&lt;/code> 的值。&lt;/p>
 &lt;p>&lt;strong>而普通的 &lt;code>Observable&lt;/code> 是单播的，它会为每一个观察者创建一次新的、独立的执行。当观察者进行订阅时，该可观察对象会连上一个事件处理器，并且向那个观察者发送一些值。当第二个观察者订阅时，这个可观察对象就会连上一个新的事件处理器，并独立执行一次，把这些值发送给第二个可观察对象&lt;/strong>。&lt;/p>
 &lt;p>在 RxJS 中有四种 Subject 分别是：&lt;code>Subject&lt;/code>，&lt;code>BehaviorSubject&lt;/code>，&lt;code>AsyncSubject&lt;/code>，&lt;code>ReplaySubject&lt;/code>；这四种 Subject 都是特殊的 &lt;code>Observable&lt;/code>。&lt;/p>
