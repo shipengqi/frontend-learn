@@ -5607,11 +5607,11 @@ title="Copy code"
 &lt;p>默认情况下，在使用 Tab 键聚焦元素时，聚焦顺序等于元素在源当前 DOM 中的先后顺序。&lt;/p>
 &lt;h3>tabindex 的值&lt;span class="hx-absolute -hx-mt-20" id="tabindex-的值">&lt;/span>
 &lt;a href="#tabindex-%e7%9a%84%e5%80%bc" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;ul>
-&lt;li>&lt;code>tabindex=负值&lt;/code> (例如 &lt;code>tabindex=&amp;quot;-1&amp;quot;&lt;/code>)，表示元素是可聚焦的，但是不能通过键盘导航来访问到该元素，用 JS 做页面小组件内部键盘导航的时候非常有用。&lt;/li>
-&lt;li>&lt;code>tabindex=&amp;quot;0&amp;quot;&lt;/code>，表示元素是可聚焦的，并且可以通过键盘导航来聚焦到该元素，它的相对顺序是当前处于的 DOM 结构来决定的。&lt;/li>
-&lt;li>&lt;code>tabindex=正值&lt;/code>，表示元素是可聚焦的，并且可以通过键盘导航来访问到该元素；它的相对顺序是 &lt;code>tabindex&lt;/code> 的数值越大顺序越靠后。如果多个元素拥有相同的 &lt;code>tabindex&lt;/code>，它们的相对顺序按照他们在当前 DOM 中的先后顺序决定。&lt;code>tabindex=0&lt;/code> 的顺序会被放到最后。 例如：&lt;code>1,1,2,2,2,2,3,4,5,0,0,0 ...&lt;/code>。&lt;code>tabindex&lt;/code> 是非法值、或者没有 &lt;code>tabindex&lt;/code> 值的元素，也是放到最后。&lt;/li>
+&lt;li>&lt;code>tabindex=负值&lt;/code> (例如 &lt;code>tabindex=&amp;quot;-1&amp;quot;&lt;/code>)，表示元素不会被 Tab 键选中，但可以通过 JavaScript 聚焦。&lt;/li>
+&lt;li>&lt;code>tabindex=&amp;quot;0&amp;quot;&lt;/code>，将元素添加到正常的 Tab 顺序中，它的相对顺序是当前处于的 DOM 结构来决定的。&lt;/li>
+&lt;li>&lt;code>tabindex=正值&lt;/code>，可以指定元素的 Tab 顺序，数值越小，越先被选中。如果多个元素拥有相同的 &lt;code>tabindex&lt;/code>，它们的相对顺序按照他们在当前 DOM 中的先后顺序决定。&lt;code>tabindex=0&lt;/code> 的顺序会被放到最后。 例如：&lt;code>1,1,2,2,2,2,3,4,5,0,0,0 ...&lt;/code>。&lt;code>tabindex&lt;/code> 的值是&lt;strong>非法值&lt;/strong>或者**没有设置 &lt;code>tabindex&lt;/code>**的元素，也是放到最后。&lt;/li>
 &lt;/ul>
-&lt;p>&lt;code>div&lt;/code> 默认情况下是不会被聚焦的，就可以添加属性 &lt;code>tabindex&lt;/code>，让 &lt;code>div&lt;/code> 元素可以被聚焦。如果在 &lt;code>div&lt;/code> 上设置了 &lt;code>tabindex&lt;/code> 属性，它的子元素内容不能使用箭头键来滚动，除非在内容上也设置 &lt;code>tabindex&lt;/code>。&lt;/p>
+&lt;p>&lt;strong>&lt;code>div&lt;/code> 默认情况下是不会被聚焦的&lt;/strong>，就可以添加属性 &lt;code>tabindex&lt;/code>，让 &lt;code>div&lt;/code> 元素可以被聚焦。如果在 &lt;code>div&lt;/code> 上设置了 &lt;code>tabindex&lt;/code> 属性，它的子元素内容不能使用箭头键来滚动，除非在内容上也设置 &lt;code>tabindex&lt;/code>。&lt;/p>
 &lt;h2>user-select&lt;span class="hx-absolute -hx-mt-20" id="user-select">&lt;/span>
 &lt;a href="#user-select" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;ul>
 &lt;li>&lt;code>user-select&lt;/code>：设置文本是否可以被选中。默认值 &lt;code>auto&lt;/code>。
