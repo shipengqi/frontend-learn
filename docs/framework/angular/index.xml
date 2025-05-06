@@ -744,8 +744,9 @@ title="Copy code"
 &lt;li>&lt;code>ChangeDetectionStrategy.OnPush&lt;/code>：使用 &lt;code>OnPush&lt;/code> 策略时，只会在以下几种情况之一时检查组件的变化：
 &lt;ul>
 &lt;li>输入属性（&lt;code>@Input()&lt;/code>）的值发生变化。&lt;/li>
-&lt;li>事件处理器被触发（如点击、输入等）。&lt;/li>
+&lt;li>组件或其子组件内部事件处理器被触发（如点击、输入等）。&lt;/li>
 &lt;li>手动调用 &lt;code>ChangeDetectorRef.detectChanges()&lt;/code> 或 &lt;code>ChangeDetectorRef.markForCheck()&lt;/code>。&lt;/li>
+&lt;li>如果在组件中订阅了 &lt;code>Observable&lt;/code> 对象，并且使用了 Async Pipe 来处理异步数据，那么当 &lt;code>Observable&lt;/code> 发出新的值时，也会触发变更检测。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -761,13 +762,13 @@ title="Copy code"
 &lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%9a%84%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h4>&lt;ol>
 &lt;li>应用状态更新（事件、HTTP 响应等）。&lt;/li>
 &lt;li>触发 Zone.js，通知 Angular 运行变更检测。&lt;/li>
-&lt;li>遍历组件树，检查每个组件的 @Input 或本地状态。&lt;/li>
+&lt;li>遍历组件树，检查每个组件的 &lt;code>@Input&lt;/code> 或本地状态。&lt;/li>
 &lt;li>更新视图，若检测到变化，则渲染 UI。&lt;/li>
 &lt;/ol>
 &lt;h3>变更检测的性能优化&lt;span class="hx-absolute -hx-mt-20" id="变更检测的性能优化">&lt;/span>
 &lt;a href="#%e5%8f%98%e6%9b%b4%e6%a3%80%e6%b5%8b%e7%9a%84%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;ul>
 &lt;li>减少不必要的变更检测：使用 &lt;code>ChangeDetectionStrategy.OnPush&lt;/code> 策略。&lt;/li>
-&lt;li>不可变数据结构：推荐使用不可变数据结构。当数据发生变化时，创建一个新的数据对象，而不是修改现有对象。这样，Angular 可以通过比较对象的引用，快速判断数据是否发生了变化。&lt;/li>
+&lt;li>不可变数据结构：推荐使用不可变数据结构。当数据发生变化时，创建一个新的数据对象，而不是修改现有对象。这样，Angular 可以&lt;strong>通过比较对象的引用，快速判断数据是否发生了变化&lt;/strong>。&lt;/li>
 &lt;li>避免在模板中使用复杂的表达式：在模板中使用复杂的表达式可能会导致变更检测的性能下降。尽量将复杂的逻辑移到组件类中进行处理。&lt;/li>
 &lt;li>使用 &lt;code>*ngIf&lt;/code> 或 &lt;code>*ngFor&lt;/code> 时，确保正确设置 &lt;code>trackBy&lt;/code> 函数：提供 &lt;code>trackBy&lt;/code> 函数可以帮助 Angular 跟踪每个列表项的身份，避免不必要的 DOM 操作。&lt;/li>
 &lt;li>减少不必要的事件绑定：在模板中使用事件绑定时，确保只绑定必要的事件。避免在模板中绑定不必要的事件，以减少变更检测的次数。&lt;/li>
