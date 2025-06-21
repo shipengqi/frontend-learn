@@ -1457,8 +1457,8 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>使用 &lt;code>trackBy&lt;/code> 的好处是自定义返回跟踪结果，以比对上次的跟踪结果，如果不一样，那么就刷新变化的页面实例（减少不必要的 Dom 刷新而带来性能的提升）。&lt;/p>
-&lt;h3>自定义指令&lt;span class="hx-absolute -hx-mt-20" id="自定义指令">&lt;/span>
-&lt;a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>需求：为元素设置默认背景颜色，鼠标移入时的背景颜色以及移出时的背景颜色。&lt;/p>
+&lt;h2>自定义指令&lt;span class="hx-absolute -hx-mt-20" id="自定义指令">&lt;/span>
+&lt;a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>需求：为元素设置默认背景颜色，鼠标移入时的背景颜色以及移出时的背景颜色。&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">appHover&lt;/span>&lt;span class="err">]=&amp;#34;{&lt;/span> &lt;span class="na">bgColor:&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">skyblue&lt;/span>&lt;span class="err">&amp;#39;&lt;/span> &lt;span class="err">}&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Hello Angular&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
 &lt;button

@@ -4647,6 +4647,31 @@ title="Copy code"
 &lt;li>颜色&lt;/li>
 &lt;li>边框&lt;/li>
 &lt;/ul>
+&lt;h2>转换&lt;span class="hx-absolute -hx-mt-20" id="转换">&lt;/span>
+&lt;a href="#%e8%bd%ac%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;h3>2D 转换&lt;span class="hx-absolute -hx-mt-20" id="2d-转换">&lt;/span>
+&lt;a href="#2d-%e8%bd%ac%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>2D 转换有 2 个轴, &lt;code>x&lt;/code>，&lt;code>y&lt;/code>。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>平移&lt;/strong>：&lt;code>transform: translate(x, y)&lt;/code>，&lt;code>x&lt;/code> 和 &lt;code>y&lt;/code> 可以分开设置（&lt;code>transform: translateX(200px)&lt;/code> &lt;code>transform: translateY(100px)&lt;/code>）&lt;/li>
+&lt;li>&lt;strong>旋转&lt;/strong>：&lt;code>transform: rotate(x)&lt;/code>，&lt;code>transform: rotate(30deg)&lt;/code> 顺时针旋转 &lt;code>30&lt;/code> 度，负数就是逆时针旋转。&lt;/li>
+&lt;/ul>
+&lt;h3>3D 转换&lt;span class="hx-absolute -hx-mt-20" id="3d-转换">&lt;/span>
+&lt;a href="#3d-%e8%bd%ac%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>3D 转换实现 3D 立体效果，有 3 个轴, &lt;code>x&lt;/code>，&lt;code>y&lt;/code>，&lt;code>z&lt;/code>。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>透视点&lt;/strong>：眼睛与屏幕之间的距离。&lt;code>perspective&lt;/code> （&lt;code>perspective: 1000px&lt;/code>）意思是距离屏幕 1000 像素点的距离（一般在 &lt;code>&amp;lt;body&amp;gt;&lt;/code> 上设置透视点）。
+透视点的位置默认是屏幕的正中央。&lt;/li>
+&lt;li>&lt;strong>平移&lt;/strong>：&lt;code>transform: translate3d(x, y, z)&lt;/code>，也可以分开设置，3D 比 2D 多了一个 &lt;code>translateZ(100px)&lt;/code>。&lt;/li>
+&lt;li>&lt;strong>旋转&lt;/strong>：&lt;code>transform: rotate3d(x, y,z, 30deg)&lt;/code> 绕着 &lt;code>x&lt;/code>，&lt;code>y&lt;/code>，&lt;code>z&lt;/code> 确定的轴旋转 30 度，&lt;code>rotateX(45deg)&lt;/code> 绕着 X 轴旋转 45 度。&lt;code>rotateY()&lt;/code> 绕着 Y 轴旋转。&lt;code>rotateZ()&lt;/code> 绕着 Z 轴旋转。&lt;/li>
+&lt;li>&lt;strong>放大和缩小&lt;/strong>：
+&lt;ul>
+&lt;li>放大：&lt;code>transform: scale(3)&lt;/code> 放大 3 倍，&lt;code>transform: scale(0.5, 2)&lt;/code> 表示水平缩小到 0.5 倍、垂直放大 2 倍。也可以分别设置 &lt;code>transform: scaleX(3)&lt;/code> 水平放大 3 倍。&lt;code>scaleY&lt;/code> 垂直缩放。&lt;/li>
+&lt;li>倾斜：&lt;code>transform: skew(15deg, 0deg)&lt;/code> 基于 X 轴倾斜 15 度，Y 轴 0 度。值可以为负数。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>transform-style: preserve-3d&lt;/code>：可以渲染出一些在三维空间中的效果。&lt;/li>
+&lt;li>&lt;code>transform-origin&lt;/code>：设置元素变换的中心点。&lt;/li>
+&lt;li>&lt;code>transform-box&lt;/code>：变换中心点可设置的区域。&lt;/li>
+&lt;li>&lt;code>perspective-origin&lt;/code>：可以修改透视点的位置，例如 &lt;code>perspective-origin: left buttom&lt;/code> 将透视点的位置改为左下。&lt;/li>
+&lt;/ul>
 &lt;h2>过渡效果&lt;span class="hx-absolute -hx-mt-20" id="过渡效果">&lt;/span>
 &lt;a href="#%e8%bf%87%e6%b8%a1%e6%95%88%e6%9e%9c" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>将状态从 A 变化到 B，中间的过程就可以用过渡的效果补齐。&lt;/p>
 &lt;p>过渡属性的格式：&lt;code>transition: {过渡属性} {过渡时间} {过渡变化速度} {延迟时间}&lt;/code>。多个属性 &lt;code>,&lt;/code> 分隔。&lt;/p>
@@ -4803,32 +4828,7 @@ title="Copy code"
 &lt;li>只能定义两个状态，开始状态和结束状态，不能定义中间状态。&lt;/li>
 &lt;li>一条过渡规则，只能定义一个属性的变化，不能涉及多个属性。&lt;/li>
 &lt;/ul>
-&lt;p>动画通过控制关键帧来控制动画的每一步，实现更为复杂的动画效果，可以解决过渡的不足。&lt;/p>
-&lt;h2>转换&lt;span class="hx-absolute -hx-mt-20" id="转换">&lt;/span>
-&lt;a href="#%e8%bd%ac%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;h3>2D 转换&lt;span class="hx-absolute -hx-mt-20" id="2d-转换">&lt;/span>
-&lt;a href="#2d-%e8%bd%ac%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>2D 转换有 2 个轴, &lt;code>x&lt;/code>，&lt;code>y&lt;/code>。&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>平移&lt;/strong>：&lt;code>transform: translate(x, y)&lt;/code>，&lt;code>x&lt;/code> 和 &lt;code>y&lt;/code> 可以分开设置（&lt;code>transform: translateX(200px)&lt;/code> &lt;code>transform: translateY(100px)&lt;/code>）&lt;/li>
-&lt;li>&lt;strong>旋转&lt;/strong>：&lt;code>transform: rotate(x)&lt;/code>，&lt;code>transform: rotate(30deg)&lt;/code> 顺时针旋转 &lt;code>30&lt;/code> 度，负数就是逆时针旋转。&lt;/li>
-&lt;/ul>
-&lt;h3>3D 转换&lt;span class="hx-absolute -hx-mt-20" id="3d-转换">&lt;/span>
-&lt;a href="#3d-%e8%bd%ac%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>3D 转换实现 3D 立体效果，有 3 个轴, &lt;code>x&lt;/code>，&lt;code>y&lt;/code>，&lt;code>z&lt;/code>。&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>透视点&lt;/strong>：眼睛与屏幕之间的距离。&lt;code>perspective&lt;/code> （&lt;code>perspective: 1000px&lt;/code>）意思是距离屏幕 1000 像素点的距离（一般在 &lt;code>&amp;lt;body&amp;gt;&lt;/code> 上设置透视点）。
-透视点的位置默认是屏幕的正中央。&lt;/li>
-&lt;li>&lt;strong>平移&lt;/strong>：&lt;code>transform: translate3d(x, y, z)&lt;/code>，也可以分开设置，3D 比 2D 多了一个 &lt;code>translateZ(100px)&lt;/code>。&lt;/li>
-&lt;li>&lt;strong>旋转&lt;/strong>：&lt;code>transform: rotate3d(x, y,z, 30deg)&lt;/code> 绕着 &lt;code>x&lt;/code>，&lt;code>y&lt;/code>，&lt;code>z&lt;/code> 确定的轴旋转 30 度，&lt;code>rotateX(45deg)&lt;/code> 绕着 X 轴旋转 45 度。&lt;code>rotateY()&lt;/code> 绕着 Y 轴旋转。&lt;code>rotateZ()&lt;/code> 绕着 Z 轴旋转。&lt;/li>
-&lt;li>&lt;strong>放大和缩小&lt;/strong>：
-&lt;ul>
-&lt;li>放大：&lt;code>transform: scale(3)&lt;/code> 放大 3 倍，&lt;code>transform: scale(0.5, 2)&lt;/code> 表示水平缩小到 0.5 倍、垂直放大 2 倍。也可以分别设置 &lt;code>transform: scaleX(3)&lt;/code> 水平放大 3 倍。&lt;code>scaleY&lt;/code> 垂直缩放。&lt;/li>
-&lt;li>倾斜：&lt;code>transform: skew(15deg, 0deg)&lt;/code> 基于 X 轴倾斜 15 度，Y 轴 0 度。值可以为负数。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;code>transform-style: preserve-3d&lt;/code>：可以渲染出一些在三维空间中的效果。&lt;/li>
-&lt;li>&lt;code>transform-origin&lt;/code>：设置元素变换的中心点。&lt;/li>
-&lt;li>&lt;code>transform-box&lt;/code>：变换中心点可设置的区域。&lt;/li>
-&lt;li>&lt;code>perspective-origin&lt;/code>：可以修改透视点的位置，例如 &lt;code>perspective-origin: left buttom&lt;/code> 将透视点的位置改为左下。&lt;/li>
-&lt;/ul></description></item><item><title>实践</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/04_practice/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/04_practice/</guid><description>
+&lt;p>动画通过控制关键帧来控制动画的每一步，实现更为复杂的动画效果，可以解决过渡的不足。&lt;/p></description></item><item><title>实践</title><link>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/04_practice/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://shipengqi.github.io/frontend-learn/docs/framework/rxjs/04_practice/</guid><description>
 &lt;h2>优雅的资源释放&lt;span class="hx-absolute -hx-mt-20" id="优雅的资源释放">&lt;/span>
 &lt;a href="#%e4%bc%98%e9%9b%85%e7%9a%84%e8%b5%84%e6%ba%90%e9%87%8a%e6%94%be" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>对于无限值必须要取消订阅，反之可以不需要。例如监听 DOM 元素的事件：&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
@@ -5739,8 +5739,8 @@ title="Copy code"
 &lt;/div>
 &lt;/div>
 &lt;p>使用 &lt;code>trackBy&lt;/code> 的好处是自定义返回跟踪结果，以比对上次的跟踪结果，如果不一样，那么就刷新变化的页面实例（减少不必要的 Dom 刷新而带来性能的提升）。&lt;/p>
-&lt;h3>自定义指令&lt;span class="hx-absolute -hx-mt-20" id="自定义指令">&lt;/span>
-&lt;a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h3>&lt;p>需求：为元素设置默认背景颜色，鼠标移入时的背景颜色以及移出时的背景颜色。&lt;/p>
+&lt;h2>自定义指令&lt;span class="hx-absolute -hx-mt-20" id="自定义指令">&lt;/span>
+&lt;a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section">&lt;/a>&lt;/h2>&lt;p>需求：为元素设置默认背景颜色，鼠标移入时的背景颜色以及移出时的背景颜色。&lt;/p>
 &lt;div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
 &lt;div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="err">[&lt;/span>&lt;span class="na">appHover&lt;/span>&lt;span class="err">]=&amp;#34;{&lt;/span> &lt;span class="na">bgColor:&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="na">skyblue&lt;/span>&lt;span class="err">&amp;#39;&lt;/span> &lt;span class="err">}&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Hello Angular&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/div>&lt;div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
 &lt;button
