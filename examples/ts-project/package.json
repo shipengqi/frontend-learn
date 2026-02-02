@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@types/jquery": "^3.5.14",
-    "@typescript-eslint/eslint-plugin": "^5.23.0",
-    "@typescript-eslint/parser": "^5.23.0",
-    "eslint": "^8.15.0",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "eslint": "^9.39.2",
     "jquery": "^3.6.0",
     "moment": "^2.29.3",
     "rxjs": "^7.8.1"
